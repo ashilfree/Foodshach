@@ -1,147 +1,246 @@
 {% extends 'base.html.twig' %}
 {% block title %}Home{% endblock %}
 {% block body %}
-
-    <!-- Slider -->
-    <section class="section-slide">
-        <div class="wrap-slick1">
-            <div class="slick1">
-                {{ include('home/slides.html.twig') }}
+    <!-- start start screen -->
+    <div id="start-screen" class="start-screen start-screen--style-1" data-scroll-discover="true">
+        <div id="start-screen__bg" class="start-screen__bg">
+            <div id="vegas-slider" data-dots="true">
+                <div class="vegas-control">
+                    <span id="vegas-control__prev" class="vegas-control__btn">Prev</span>
+                    <span id="vegas-control__next" class="vegas-control__btn">Next</span>
+                </div>
             </div>
+
+
         </div>
-    </section>
 
-    <!-- Product -->
-    <section class="sec-product bg0 p-t-100 p-b-50">
-        <div class="container">
-            <div class="p-b-32">
-                <h3 class="ltext-105 cl5 txt-center respon1">
-                    Store Overview
-                </h3>
-            </div>
+        <div id="start-screen__content-container" class="start-screen__content-container  text-white">
+            <div class="start-screen__content__item start-screen__content__item--1  align-items-center">
+                <div class="container">
+                    <div class="row justify-content-center text-center">
+                        <div class="col-12 col-md-10 col-xl-8">
+                            <div class="__name">Food Shack Company</div>
 
-            <!-- Tab01 -->
-            <div class="tab01">
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs" role="tablist">
-                    {% for category in categories %}
-                    <li class="nav-item p-b-10">
-                        <a class="nav-link {% if loop.index == 1%} active {% endif %}" data-toggle="tab" href="#{{ category.name|lower }}" role="tab">{{ category.name|upper }}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
+                            <h2 class="__title text-white"> Foodstuffs</h2>
 
-                <!-- Tab panes -->
-                <div class="tab-content p-t-50">
-                    {% for category in categories %}
-                    <!-- - -->
-                        <div class="tab-pane fade show {% if loop.index == 1%} active {% endif %}" id="{{ category.name|lower }}" role="tabpanel">
-                        <!-- Slide2 -->
-                        <div class="wrap-slick2">
-                            <div class="slick2">
-                                {% for product in category.products %}
-                                    {%  set desc = product.description|raw %}
+                            <p class="text-center">
+                                The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English
+                            </p>
 
-                                    <div id="product-{{ product.id }}" class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-                                    <!-- Block2 -->
-                                    <div class="block2">
-                                        <div class="block2-pic hov-img0">
-                                            <img src="{{ vich_uploader_asset(product.images.first, 'imageFile') | imagine_filter('medium') }}"
-                                                 alt="{{ product.name }}">
+                            <p class="text-center mt-5 mt-md-10">
+                                <span class="d-none d-sm-block"><a class="custom-btn custom-btn--big custom-btn--style-3" href="#">Buy Now</a></span>
 
-                                            <a href="#"
-                                               class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1"
-                                               data-id="{{ product.id }}"
-                                               data-name="{{ product.name|upper }}"
-                                               data-description="{{ desc|raw }}"
-                                               data-price="{{ (product.price / 100) |number_format(2, '.', ',') }} KWD"
-                                               data-discount="{{ (product.discountPrice / 100) |number_format(2, '.', ',') }} KWD"
-                                                    {% for catalog in  product.catalogs %} data-catalog{{ loop.index }}="{{ catalog.id }}" {% endfor %}
-                                                    {% for catalog in  product.catalogs %} data-size{{ loop.index }}="{{ catalog.size }}" {% endfor %}
-                                                    {% for catalog in  product.catalogs %} data-quantity{{ loop.index }}="{{ catalog.quantity }}" {% endfor %}
-                                                    {% for image in  product.images %} data-image{{ loop.index }}="{{ image }}" {% endfor %}
-                                               data-href-a ="{{ path('add.cart') }}"
-                                            >
-                                                Quick View
-                                            </a>
-                                        </div>
-
-                                        <div class="block2-txt flex-w flex-t p-t-14">
-                                            <div class="block2-txt-child1 flex-col-l ">
-                                                <a href="{{ path('product', {'slug': product.slug }) }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                                    {{ product.name|upper }}
-                                                </a>
-
-                                                {% if product.discountPrice != null %}
-                                                    <div class="style-1">
-                                                        <del>
-                        <span class="stext-105 cl3">
-									{{ (product.price / 100) |number_format(2, '.', ',') }} KWD
-								</span>
-                                                        </del>
-                                                        <ins>
-                        <span class="stext-105 cl3">
-									{{ (product.discountPrice / 100) |number_format(2, '.', ',') }} KWD
-								</span>
-                                                        </ins>
-                                                    </div>
-                                                {% else %}
-                                                    <ins>
-                        <span class="stext-105 cl3">
-									{{ (product.price / 100) |number_format(2, '.', ',') }} KWD
-								</span>
-                                                    </ins>
-                                                {% endif %}
-                                            </div>
-
-                                            <div class="block2-txt-child2 flex-r p-t-3">
-                                                <a {% if wish[product.id] is defined and wish[product.id] == 1  %} href="{{ path('delete.wishlist', { id:product.id, route:page }) }}" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2 js-addedwish-b2" {% else %} href="{{ path('add.wishlist', { id:product.id }) }}" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" {% endif %}>
-
-                                                    <img class="icon-heart1 dis-block trans-04"
-                                                         src="{{ '/media/images/icons/icon-heart-01.png' }}" alt="ICON">
-
-                                                    <img class="icon-heart2 dis-block trans-04 ab-t-l"
-                                                         src="{{ '/media/images/icons/icon-heart-02.png' }}" alt="ICON">
-
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                            </div>
+                                <span class="d-block d-sm-none"><a class="custom-btn custom-btn--small custom-btn--style-3" href="#">Buy Now</a></span>
+                            </p>
                         </div>
                     </div>
-                    {% endfor %}
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    <!-- end start screen -->
+
+    <!-- start main -->
+    <main role="main">
+
+        {% for category in categories %}
+        <section class="parallax-sec" style="background-image: url({{ vich_uploader_asset(category, 'imageFile') }})">
+            <div class="container">
+                <h1>{{ category.name }} </h1>
+            </div>
+
+        </section>
+
+        <section class="products-list py-5">
+            <div class="container goods--style-1">
+
+                <div class="row">
+                    <!-- start item -->
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="__item">
+                            <figure class="__image">
+                                <img class="lazy loaded" width="180" src="{{ '/media/images/goods_img/1.jpg' }}" alt="demo" data-was-processed="true">
+                            </figure>
+
+                            <div class="__content">
+                                <h4 class="h6 __title"><a href="single_product.html">Inferno Extreme 155g</a></h4>
+
+
+
+                                <div class="product-price">
+                                    <span class="product-price__item product-price__item--new">1.450 KD</span>
+                                </div>
+
+                                <a class="custom-btn custom-btn--medium custom-btn--style-1" href="#"><i class="fontello-shopping-bag"></i>Add to cart</a>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <!-- end item -->
+
+                    <!-- start item -->
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="__item">
+                            <figure class="__image">
+                                <img class="lazy loaded" width="180" src="{{ '/media/images/goods_img/2.jpg' }}" alt="demo" data-was-processed="true">
+                            </figure>
+
+                            <div class="__content">
+                                <h4 class="h6 __title"><a href="single_product.html">Sweet Chilli Sauce 275 g</a></h4>
+
+
+                                <div class="product-price">
+                                    <span class="product-price__item product-price__item--new">1.750 KD</span>
+                                </div>
+
+                                <a class="custom-btn custom-btn--medium custom-btn--style-1" href="#"><i class="fontello-shopping-bag"></i>Add to cart</a>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <!-- end item -->
+
+                    <!-- start item -->
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="__item">
+                            <figure class="__image">
+                                <img class="lazy loaded" width="180" src="{{ '/media/images/goods_img/3.jpg' }}" alt="demo" data-was-processed="true">
+                            </figure>
+
+                            <div class="__content">
+                                <h4 class="h6 __title"><a href="single_product.html">Chilli BBQ Sauce 275g</a></h4>
+
+
+                                <div class="product-price">
+                                    <span class="product-price__item product-price__item--new">2.000 KD</span>
+                                    <span class="product-price__item product-price__item--old">1.750 KD</span>
+                                </div>
+
+                                <a class="custom-btn custom-btn--medium custom-btn--style-1" href="#"><i class="fontello-shopping-bag"></i>Add to cart</a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- end item -->
+
+                    <!-- start item -->
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="__item">
+                            <figure class="__image">
+                                <img class="lazy loaded" width="180" src="{{ '/media/images/goods_img/4.jpg' }}" alt="demo" data-was-processed="true">
+                            </figure>
+
+                            <div class="__content">
+                                <h4 class="h6 __title"><a href="single_product.html">Inferno Original 155g</a></h4>
+
+
+
+                                <div class="product-price">
+                                    <span class="product-price__item product-price__item--new">1.450 KD</span>
+                                </div>
+
+                                <a class="custom-btn custom-btn--medium custom-btn--style-1" href="#"><i class="fontello-shopping-bag"></i>Add to cart</a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- end item -->
+
+                    <!-- start item -->
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="__item">
+                            <figure class="__image">
+                                <img class="lazy loaded" width="180" src="{{ '/media/images/goods_img/5.jpg' }}" alt="demo" data-was-processed="true">
+                            </figure>
+
+                            <div class="__content">
+                                <h4 class="h6 __title"><a href="single_product.html">Mic's Chili Gift Box (the Very hot collection</a></h4>
+
+
+                                <div class="product-price">
+                                    <span class="product-price__item product-price__item--new">10.000 KD</span>
+                                </div>
+
+                                <a class="custom-btn custom-btn--medium custom-btn--style-1" href="#"><i class="fontello-shopping-bag"></i>Add to cart</a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- end item -->
+
+                    <!-- start item -->
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="__item">
+                            <figure class="__image">
+                                <img class="lazy loaded" width="180" src="{{ '/media/images/goods_img/6.jpg' }}" alt="demo" data-was-processed="true">
+                            </figure>
+
+                            <div class="__content">
+                                <h4 class="h6 __title"><a href="single_product.html">Trouble in Trinidad 155g</a></h4>
+
+
+
+                                <div class="product-price">
+                                    <span class="product-price__item product-price__item--new">2.950 KD</span>
+                                </div>
+
+                                <a class="custom-btn custom-btn--medium custom-btn--style-1" href="#"><i class="fontello-shopping-bag"></i>Add to cart</a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- end item -->
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+        </section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="load-more">
+                        <a class="custom-btn1 custom-btn--medium custom-btn--style-1" href="sauces.html">Show More..</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+        {% endfor %}
+    </main>
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript">
+
+    // custom vegas styles
 
 
-    <!-- Modal1 -->
-    {% include 'modal1.html.twig' %}
-    <style>
-        .style-1 del {
-            color: #D97591;
-            text-decoration: none;
-            position: relative;
-            display: inline-block;
-        }
-        .style-1 del:before {
-            content: " ";
-            display: block;
-            width: 100%;
-            border-top: 2px solid #D97591;
-            height: 12px;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            transform: rotate(-7deg);
-        }
-        .style-1 ins {
-            color: green;
-            text-decoration: none;
-        }
-    </style>
+    {#    console.log('ok999999999999')#}
+
+
+
+    {#var slider = document.getElementById('#vegas-slider'),#}
+    {#    slides = [#}
+    {#{% for slide in slides %}#}
+    {#        {#}
+    {#            name: "img {{ loop.index }}",#}
+    {#            src: '{{ vich_uploader_asset(slide, 'imageFile') }}'#}
+    {#        },#}
+    {#{% endfor %}#}
+    {#]#}
+    {#slider.vegas({#}
+    {#    slides: slides,#}
+    {#})#}
+</script>
 {% endblock %}

@@ -25,12 +25,6 @@ class CustomerRegisterType extends AbstractType
             ->add('email', EmailType::class, [
                 'label'=>false
             ])
-            ->add('username', TextType::class, [
-                'label'=>false
-            ])
-            ->add('phone', TextType::class, [
-                'label'=>false
-            ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'constraints' => [

@@ -24,10 +24,6 @@ class Size
      */
     private $name;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="sizes")
-     */
-    private $categories;
 
     /**
      * @ORM\OneToMany(targetEntity=Catalog::class, mappedBy="size")
@@ -36,7 +32,6 @@ class Size
 
     public function __construct()
     {
-        $this->categories = new ArrayCollection();
         $this->catalogs = new ArrayCollection();
     }
 
@@ -53,30 +48,6 @@ class Size
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Category[]
-     */
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
-
-    public function addCategory(Category $category): self
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories[] = $category;
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Category $category): self
-    {
-        $this->categories->removeElement($category);
 
         return $this;
     }

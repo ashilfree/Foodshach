@@ -20,9 +20,6 @@ class ContactType extends AbstractType
             ->add('email', TextType::class, [
                 'label'=>false
             ])
-            ->add('subject', TextType::class, [
-                'label'=>false
-            ])
             ->add('message', TextareaType::class, [
                 'label'=>false
             ])

@@ -57,12 +57,10 @@
             {{ form_row(new_form.name, {'attr': {'class': 'form-control', 'placeholder':'Name'}}) }}
         </div>
         <div class="col">
-            {{ form_row(new_form.nameAr, {'attr': {'class': 'form-control', 'placeholder':'الاسم'}}) }}
+            {{ form_widget(new_form.slug, {'attr': {'class': 'form-control', 'placeholder':'Slug'}}) }}
         </div>
-    </div>
-    <div class="row mb-4">
         <div class="col">
-            {{ form_widget(new_form.sizes, {'attr': {'placeholder':'Sizes'}}) }}
+            {{ form_row(new_form.nameAr, {'attr': {'class': 'form-control', 'placeholder':'الاسم'}}) }}
         </div>
     </div>
         {{ form_end(new_form) }}

@@ -54,6 +54,11 @@ class Product
     private $discountPrice;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $quantity;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -86,15 +91,6 @@ class Product
     private $catalogs;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="products", cascade={"persist"})
-     */
-    private $tags;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Tog::class, mappedBy="products", cascade={"persist"})
-     */
-    private $togs;
-    /**
      * @ORM\Column(type="text")
      */
     private $longDescription;
@@ -104,31 +100,12 @@ class Product
      */
     private $longDescriptionAr;
 
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $weight;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $materials;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $materialsAr;
-
-
-
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
         $this->images = new ArrayCollection();
         $this->catalogs = new ArrayCollection();
-        $this->tags = new ArrayCollection();
-        $this->togs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -328,68 +305,14 @@ class Product
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getQuantity(): int
+    public function getQuantity(): ?int
     {
-        $quantity = 0;
-        foreach ($this->catalogs as $catalog) {
-            $quantity += $catalog->getQuantity();
-        }
-        return $quantity;
+        return $this->quantity;
     }
 
-    /**
-     * @return Collection|Tag[]
-     */
-    public function getTags(): Collection
+    public function setQuantity(int $quantity): self
     {
-        return $this->tags;
-    }
-
-    public function addTag(Tag $tag): self
-    {
-        if (!$this->tags->contains($tag)) {
-            $this->tags[] = $tag;
-            $tag->addProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTag(Tag $tag): self
-    {
-        if ($this->tags->removeElement($tag)) {
-            $tag->removeProduct($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Tog[]
-     */
-    public function getTogs(): Collection
-    {
-        return $this->togs;
-    }
-
-    public function addTog(Tog $tog): self
-    {
-        if (!$this->togs->contains($tog)) {
-            $this->togs[] = $tog;
-            $tog->addProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTog(Tog $tog): self
-    {
-        if ($this->togs->removeElement($tog)) {
-            $tog->removeProduct($this);
-        }
+        $this->quantity = $quantity;
 
         return $this;
     }
@@ -417,41 +340,4 @@ class Product
 
         return $this;
     }
-
-    public function getWeight(): ?float
-    {
-        return $this->weight;
-    }
-
-    public function setWeight(?float $weight): self
-    {
-        $this->weight = $weight;
-
-        return $this;
-    }
-
-    public function getMaterials(): ?string
-    {
-        return $this->materials;
-    }
-
-    public function setMaterials(?string $materials): self
-    {
-        $this->materials = $materials;
-
-        return $this;
-    }
-
-    public function getMaterialsAr(): ?string
-    {
-        return $this->materials;
-    }
-
-    public function setMaterialsAr(?string $materials): self
-    {
-        $this->materials = $materials;
-
-        return $this;
-    }
-
 }

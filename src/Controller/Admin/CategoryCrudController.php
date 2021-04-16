@@ -8,7 +8,10 @@ use App\Form\SizeType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class CategoryCrudController extends AbstractCrudController
 {
@@ -21,6 +24,7 @@ class CategoryCrudController extends AbstractCrudController
         return $crud
             ->overrideTemplate('crud/new', 'admin/category/new.html.twig')
             ->overrideTemplate('crud/edit', 'admin/category/edit.html.twig')
+            ->setFormThemes(['@EasyAdmin/crud/form_theme.html.twig','admin/about/form.html.twig'])
             ;
     }
 
@@ -30,7 +34,11 @@ class CategoryCrudController extends AbstractCrudController
             IdField::new('id')->onlyOnIndex(),
             TextField::new('name'),
             TextField::new('nameAr', 'الاسم'),
-            TagField::new('sizes', SizeType::class)->onlyOnForms(),
+            SlugField::new('slug')->setTargetFieldName('name'),
+            ImageField::new('imageFile', 'Home image')->setFormType(VichImageType::class)->onlyOnForms(),
+            ImageField::new('fileName', 'Home image')->setCustomOption('basePath', 'media/images/category/')->onlyOnIndex(),
+            ImageField::new('imageFile2', 'Intro image')->setFormType(VichImageType::class)->onlyOnForms(),
+            ImageField::new('fileName2', 'Intro image')->setCustomOption('basePath', 'media/images/category/')->onlyOnIndex(),
         ];
     }
 

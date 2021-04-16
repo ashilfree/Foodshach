@@ -64,22 +64,17 @@ class About
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $word;
+    private $description4;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $wordAr;
+    private $descriptionAr4;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $word_honor;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $word_honor_ar;
+    private $btnUrl;
 
     /**
      * @var string|null
@@ -151,26 +146,14 @@ class About
         return $this;
     }
 
-    public function getWord(): ?string
+    public function getDescription4(): ?string
     {
-        return $this->word;
+        return $this->description4;
     }
 
-    public function setWord(?string $word): self
+    public function setDescription4(?string $description4): self
     {
-        $this->word = $word;
-
-        return $this;
-    }
-
-    public function getWordHonor(): ?string
-    {
-        return $this->word_honor;
-    }
-
-    public function setWordHonor(?string $word_honor): self
-    {
-        $this->word_honor = $word_honor;
+        $this->description4 = $description4;
 
         return $this;
     }
@@ -223,26 +206,26 @@ class About
         return $this;
     }
 
-    public function getWordAr(): ?string
+    public function getDescriptionAr4(): ?string
     {
-        return $this->wordAr;
+        return $this->descriptionAr4;
     }
 
-    public function setWordAr(?string $wordAr): self
+    public function setDescriptionAr4(?string $descriptionAr4): self
     {
-        $this->wordAr = $wordAr;
+        $this->descriptionAr4 = $descriptionAr4;
 
         return $this;
     }
 
-    public function getWordHonorAr(): ?string
+    public function getBtnUrl(): ?string
     {
-        return $this->word_honor_ar;
+        return $this->btnUrl;
     }
 
-    public function setWordHonorAr(?string $word_honor_ar): self
+    public function setBtnUrl(string $btnUrl): self
     {
-        $this->word_honor_ar = $word_honor_ar;
+        $this->btnUrl = $btnUrl;
 
         return $this;
     }

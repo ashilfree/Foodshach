@@ -4,10 +4,10 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
     app.path.product.images: /media/images/product
     app.path.slide.images: /media/images/slide
     app.path.about.images: /media/images/about
+    app.path.category.images: /media/images/category
     maintenanceFilePath: '%kernel.project_dir%/public/.maintenance'
 
 services:
@@ -51,3 +51,6 @@ services:
     App\Listener\ListenerForAnyRequest:
         tags:
             - { name: kernel.event_listener, event: kernel.request }
+
+    App\Listener\LocaleSubscriber:
+        arguments: [ '%kernel.default_locale%' ]

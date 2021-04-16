@@ -13,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
@@ -50,11 +51,10 @@ class ProductCrudController extends AbstractCrudController
             TextField::new('nameAr'),
             SlugField::new('slug')->setTargetFieldName('name'),
             MoneyField::new('price')->setCurrency('KWD'),
+            IntegerField::new('quantity'),
             MoneyField::new('discountPrice')->setCurrency('KWD'),
             TextareaField::new('description'),
             TextareaField::new('descriptionAr'),
-            TagField::new('tags', TagType::class)->onlyOnForms(),
-            TagField::new('togs', TogType::class)->onlyOnForms(),
             AssociationField::new('category'),
             CollectionField::new('images')
                 ->setEntryType(ImageFileType::class)->onlyOnForms(),
@@ -63,9 +63,6 @@ class ProductCrudController extends AbstractCrudController
                 ->onlyOnForms(),
             TextEditorField::new('longDescription')->onlyOnForms(),
             TextEditorField::new('longDescriptionAr')->onlyOnForms(),
-            NumberField::new('weight')->onlyOnForms(),
-            TextField::new('materials')->onlyOnForms(),
-            TextField::new('materialsAr')->onlyOnForms(),
         ];
     }
 

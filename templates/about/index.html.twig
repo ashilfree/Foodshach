@@ -2,113 +2,239 @@
 
 {% block body %}
 
-    <!--================Categories Banner Area =================-->
-    <section class="solid_banner_area">
+    <!-- start hero -->
+    <div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 100%" style="background-image: url({{ '/media/images/intro_img/10.jpg' }});color: #333;">
         <div class="container">
-            <div class="solid_banner_inner">
-                <h3>About</h3>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="track.html">About</a></li>
-                </ul>
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <h2 class="__title"><span>About</span>Food Shack Company</h2>
+
+
+                </div>
             </div>
         </div>
-    </section>
-    <!--================End Categories Banner Area =================-->
+    </div>
+    <!-- end hero -->
 
-    <!-- Content page -->
-    <section class="bg0 p-t-75 p-b-120">
-        <div class="container">
-            {% for about in abouts %}
-                {% if loop.index is not divisible by(2) %}
-                <div class="row {% if not loop.last %} p-b-148 {% endif %}">
-                    <div class="col-md-7 col-lg-8">
-                        <div class="p-t-7 p-r-85 p-r-15-lg p-r-0-md">
-                            <h3 class="mtext-111 cl2 p-b-16">
-                                {{ about.title }}
-                            </h3>
+    <!-- start main -->
+    <main role="main">
 
-                            <p class="stext-113 cl6 p-b-26">
-                                {% autoescape "html" %}
-                               {{ about.description1|raw }}
-                                {% endautoescape %}
-                            </p>
-                {% if about.description2 is defined and about.description2 is not null %}
-                            <p class="stext-113 cl6 p-b-26">
-                                {{ about.description2|raw }}
-                            </p>
-                {% endif %}
-                            {% if about.description3 is defined and about.description3 is not null %}
-                            <p class="stext-113 cl6 p-b-26">
-                                {{ about.description3|raw }}
-                            </p>
-                            {% endif %}
-                            {% if about.word is defined and about.word is not null %}
-                            <div class="bor16 p-l-29 p-b-9 m-t-22">
-                                <p class="stext-114 cl6 p-r-40 p-b-11">
-                                    {{ about.word|raw }}
-                                </p>
 
-                                <span class="stext-111 cl8">
-                                    - {{ about.wordHonor }}
-                                </span>
-                            </div>
-                            {% endif %}
-                        </div>
+        <!-- start section -->
+        <section class="section section--no-pb section--custom-01" style="background-image: url({{ vich_uploader_asset(about, 'imageFile') }});color: #333;">
+            <div class="container">
+                <div class="section-heading">
+                    <h2 class="__title">We are <span>{{ about.title }}</span></h2>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-lg-6 col-xl-8">
+                        <p>
+                            {{ about.description1 }}
+                        </p>
+
+                        <p>
+                            {{ about.description2 }}
+                        </p>
+
+                        <p>
+                            {{ about.description3 }}
+                        </p>
+
+                        <p>
+                            {{ about.description4 }}
+                        </p>
+
+                        <p>
+                            <a class="custom-btn custom-btn--medium custom-btn--style-1" href="{{ about.btnUrl }}">Get in Touch</a>
+                        </p>
                     </div>
+                </div>
+            </div>
+        </section>
+        <!-- end section -->
 
-                    <div class="col-11 col-md-5 col-lg-4 m-lr-auto">
-                        <div class="how-bor1 ">
-                            <div class="hov-img0">
-                                <img src="{{ vich_uploader_asset(about, 'imageFile') }}" alt="IMG">
+
+        <!-- start section -->
+        <section class="section section--gutter section--base-bg section--custom-02 mt-60">
+            <div class="container">
+                <div class="section-heading" data-aos="fade">
+                    <h2 class="__title">The Openfield <span>Timeline</span></h2>
+                </div>
+
+                <!-- start timeline -->
+                <div class="timeline">
+                    <div class="__inner">
+                        <div class="row">
+                            <!-- start item -->
+                            <div class="col-12 col-md-3">
+                                <div class="__item">
+                                    <i class="__ico"></i>
+
+                                    <div class="row">
+                                        <div class="col-lg-11 col-xl-9">
+                                            <p class="__year">1907</p>
+
+                                            <h5 class="__title">Smells Racy Free Announcing</h5>
+
+                                            <p>
+                                                Vast a real proven works discount secure care. Market invigorate a awesome handcrafted bigger comes
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            <!-- end item -->
+
+                            <!-- start item -->
+                            <div class="col-12 col-md-3">
+                                <div class="__item">
+                                    <i class="__ico"></i>
+
+                                    <div class="row">
+                                        <div class="col-lg-11 col-xl-9">
+                                            <p class="__year">1996</p>
+
+                                            <h5 class="__title">Grainfarmers <br> Formed</h5>
+
+                                            <p>
+                                                Vast a real proven works discount secure care. Market invigorate a awesome handcrafted bigger comes
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end item -->
+
+                            <!-- start item -->
+                            <div class="col-12 col-md-3">
+                                <div class="__item">
+                                    <i class="__ico"></i>
+
+                                    <div class="row">
+                                        <div class="col-lg-11 col-xl-9">
+                                            <p class="__year">2000</p>
+
+                                            <h5 class="__title">Group Cereals and Lingrain Merge</h5>
+
+                                            <p>
+                                                Vast a real proven works discount secure care. Market invigorate a awesome handcrafted bigger comes
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end item -->
+
+                            <!-- start item -->
+                            <div class="col-12 col-md-3">
+                                <div class="__item">
+                                    <i class="__ico"></i>
+
+                                    <div class="row">
+                                        <div class="col-lg-11 col-xl-9">
+                                            <p class="__year">2017</p>
+
+                                            <h5 class="__title">Aquired Countrywide Farmers</h5>
+
+                                            <p>
+                                                Vast a real proven works discount secure care. Market invigorate a awesome handcrafted bigger comes
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end item -->
                         </div>
                     </div>
                 </div>
-                {% else %}
-                <div class="row {% if not loop.last %} p-b-148 {% endif %}">
-                    <div class="order-md-2 col-md-7 col-lg-8 p-b-30">
-                        <div class="p-t-7 p-l-85 p-l-15-lg p-l-0-md">
-                            <h3 class="mtext-111 cl2 p-b-16">
-                                {{ about.title }}
-                            </h3>
+                <!-- end timeline -->
+            </div>
+        </section>
+        <!-- end section -->
 
-                            <p class="stext-113 cl6 p-b-26">
-                                {{ about.description1|raw }}
-                            </p>
 
-                            <p class="stext-113 cl6 p-b-26">
-                                {{ about.description2|raw }}
-                            </p>
 
-                            <p class="stext-113 cl6 p-b-26">
-                                {{ about.description3|raw }}
-                            </p>
+        <!-- start section -->
+        <section class="py-50">
+            <div class="container">
+                <div class="section-heading section-heading--center" data-aos="fade">
+                    <h2 class="__title">Partners</h2>
 
-                            <div class="bor16 p-l-29 p-b-9 m-t-22">
-                                <p class="stext-114 cl6 p-r-40 p-b-11">
-                                    {{ about.word|raw }}
-                                </p>
+                    <p>Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable.</p>
+                </div>
 
-                                <span class="stext-111 cl8">
-                                    - {{ about.wordHonor }}
-                                </span>
-                            </div>
+                <div class="partners-list">
+                    <div class="js-slick"
+                         data-slick='{
+								 "autoplay": true,
+								 "arrows": false,
+								 "dots": true,
+								 "speed": 1000,
+								 "responsive": [
+									{
+										"breakpoint":576,
+										"settings":{
+											"slidesToShow": 2
+										}
+									},
+									{
+										"breakpoint":767,
+										"settings":{
+											"slidesToShow": 3
+										}
+									},
+									{
+										"breakpoint":991,
+										"settings":{
+											"slidesToShow": 4
+										}
+									},
+									{
+										"breakpoint":1199,
+										"settings":{
+											"autoplay": false,
+											"dots": false,
+											"slidesToShow": 5
+										}
+									}
+								]}'>
+                        <div class="__item">
+                            <img class="img-fluid m-auto" src="{{ '/media/images/partners_img/1.jpg' }}" alt="demo" />
                         </div>
-                    </div>
 
-                    <div class="order-md-1 col-11 col-md-5 col-lg-4 m-lr-auto p-b-30">
-                        <div class="how-bor2">
-                            <div class="hov-img0">
-                                <img src="{{ vich_uploader_asset(about, 'imageFile') }}" alt="IMG">
-                            </div>
+                        <div class="__item">
+                            <img class="img-fluid m-auto" src="{{ '/media/images/partners_img/2.jpg' }}" alt="demo" />
+                        </div>
+
+                        <div class="__item">
+                            <img class="img-fluid m-auto" src="{{ '/media/images/partners_img/3.jpg' }}" alt="demo" />
+                        </div>
+
+                        <div class="__item">
+                            <img class="img-fluid m-auto" src="{{ '/media/images/partners_img/4.jpg' }}" alt="demo" />
+                        </div>
+
+                        <div class="__item">
+                            <img class="img-fluid m-auto" src="{{ '/media/images/partners_img/5.jpg' }}" alt="demo" />
+                        </div>
+                        <div class="__item">
+                            <img class="img-fluid m-auto" src="{{ '/media/images/partners_img/5.jpg' }}" alt="demo" />
+                        </div>
+                        <div class="__item">
+                            <img class="img-fluid m-auto" src="{{ '/media/images/partners_img/5.jpg' }}" alt="demo" />
+                        </div>
+                        <div class="__item">
+                            <img class="img-fluid m-auto" src="{{ '/media/images/partners_img/5.jpg' }}" alt="demo" />
                         </div>
                     </div>
                 </div>
-                {% endif %}
-            {% endfor %}
-        </div>
-    </section>
+            </div>
+        </section>
+
+
+    </main>
+    <!-- end main -->
 
 {% endblock %}
 

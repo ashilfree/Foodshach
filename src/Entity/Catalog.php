@@ -18,36 +18,34 @@ class Catalog
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $quantity;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="catalogs")
      * @ORM\JoinColumn(nullable=false)
      */
     private $product;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Size::class, inversedBy="catalogs")
+     * @ORM\Column(type="string", length=255)
      */
-    private $size;
+    private $propertyName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $propertyValue;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $propertyNameAr;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $propertyValueAr;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(int $quantity): self
-    {
-        $this->quantity = $quantity;
-
-        return $this;
     }
 
     public function getProduct(): ?Product
@@ -62,14 +60,50 @@ class Catalog
         return $this;
     }
 
-    public function getSize(): ?Size
+    public function getPropertyName(): ?string
     {
-        return $this->size;
+        return $this->propertyName;
     }
 
-    public function setSize(Size $size): self
+    public function setPropertyName(string $propertyName): self
     {
-        $this->size = $size;
+        $this->propertyName = $propertyName;
+
+        return $this;
+    }
+
+    public function getPropertyValue(): ?string
+    {
+        return $this->propertyValue;
+    }
+
+    public function setPropertyValue(string $propertyValue): self
+    {
+        $this->propertyValue = $propertyValue;
+
+        return $this;
+    }
+
+    public function getPropertyNameAr(): ?string
+    {
+        return $this->propertyNameAr;
+    }
+
+    public function setPropertyNameAr(string $propertyNameAr): self
+    {
+        $this->propertyNameAr = $propertyNameAr;
+
+        return $this;
+    }
+
+    public function getPropertyValueAr(): ?string
+    {
+        return $this->propertyValueAr;
+    }
+
+    public function setPropertyValueAr(string $propertyValueAr): self
+    {
+        $this->propertyValueAr = $propertyValueAr;
 
         return $this;
     }

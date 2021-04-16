@@ -3,10 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Catalog;
-use App\Entity\Size;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,14 +14,10 @@ class CatalogType extends AbstractType
     {
         $builder
 //            ->add('color', ColorType::class)
-            ->add('size', EntityType::class, [
-                "label" => false,
-                "required" => false,
-                "class" => Size::class,
-                "expanded" => false,
-                "multiple" => false
-            ])
-            ->add('quantity', IntegerType::class)
+            ->add('propertyName', TextType::class)
+            ->add('propertyNameAr', TextType::class)
+            ->add('propertyValue', TextType::class)
+            ->add('propertyValueAr', TextType::class)
         ;
     }
 

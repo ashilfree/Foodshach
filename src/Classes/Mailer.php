@@ -31,11 +31,13 @@ class Mailer{
         $this->twig = $twig;
     }
 
-    public function sendConfirmationEmail(Customer $customer)
+    public function sendConfirmationEmail(Customer $customer, string $locale)
     {
-        $body = $this->twig->render('emails/register-confirmation.html.twig',
+        $path = ($locale == "en") ? 'emails/register-confirmation.html.twig' : 'emails/register-confirmationAr.html.twig';
+        $body = $this->twig->render($path,
             [
-                'customer' => $customer
+                'customer' => $customer,
+                'locale' => $locale
             ]
         );
         $message = (new \Swift_Message('Please confirm your account'))
@@ -63,11 +65,11 @@ class Mailer{
 
     public function sendContactEmail(Contact $contact)
     {
-        $body = $this->twig->render('contact/contact.html.twig', [
+        $body = $this->twig->render('emails/contact.html.twig', [
                 'contact' => $contact
             ]
         );
-        $message = (new \Swift_Message('Agency : ' . $contact->getSubject()))
+        $message = (new \Swift_Message('FoodShack : '))
             ->setFrom('noreply@agence.fr')
             ->setTo($contact->getEmail())
             ->setReplyTo($contact->getEmail())

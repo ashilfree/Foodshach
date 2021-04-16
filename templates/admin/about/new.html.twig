@@ -86,18 +86,15 @@
     </div>
     <div class="row mb-4">
         <div class="col">
-            {{ form_row(new_form.word, {'attr': {'class': 'form-control', 'placeholder':'Word'}}) }}
+            {{ form_row(new_form.description4, {'attr': {'class': 'form-control', 'placeholder':'Description 4'}}) }}
         </div>
         <div class="col">
-            {{ form_row(new_form.wordAr, {'attr': {'class': 'form-control', 'placeholder':'الكلمة'}}) }}
+            {{ form_row(new_form.descriptionAr4, {'attr': {'class': 'form-control', 'placeholder':'الوصف 4'}}) }}
         </div>
     </div>
     <div class="row mb-4">
         <div class="col">
-            {{ form_row(new_form.word_honor, {'attr': {'class': 'form-control', 'placeholder':'Word Owner'}}) }}
-        </div>
-        <div class="col">
-            {{ form_row(new_form.word_honor_ar, {'attr': {'class': 'form-control', 'placeholder':' صاحب الكلمة'}}) }}
+            {{ form_widget(new_form.btnUrl, {'attr': {'placeholder':'Button Url'}}) }}
         </div>
     </div>
         {{ form_end(new_form) }}

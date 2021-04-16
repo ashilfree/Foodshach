@@ -2,67 +2,73 @@
 
 {% block body %}
 
-    <!--================Categories Banner Area =================-->
-    <section class="solid_banner_area">
+    <!-- start hero -->
+    <div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 100%" style="background-image: url({{ '/media/images/intro_img/11.jpg' }});color: #333;">
         <div class="container">
-            <div class="solid_banner_inner">
-                <h3>Register</h3>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="track.html">Register</a></li>
-                </ul>
-            </div>
-        </div>
-    </section>
-    <!--================End Categories Banner Area =================-->
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <h2 class="__title"><span>Food Shack Company</span>Sign UP</h2>
 
-    <!--================login Area =================-->
-    <section class="login_area p-t-100 p-b-100">
-        <div class="container">
-            <div class="login_inner">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <div class="login_title">
-                            <h2>create account</h2>
-                            <p>Follow the steps below to create email account enjoy the great mail.com emailing experience. Vivamus tempus risus vel felis condimentum, non vehicula est iaculis.</p>
-                        </div>
-                        {% for message in app.flashes('success')  %}
-                            <div class="alert alert-success">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
 
-                        {{ form_start(form, {'attr': {'class': 'login_form row justify-content-center'}}) }}
-                        <form class="login_form row justify-content-center">
-                            <div class="col-lg-6 form-group">
-                                {{ form_row(form.fullName, {'attr': {'class': 'form-control', 'placeholder':'Full Name'}}) }}
-                            </div>
-                            <div class="col-lg-6 form-group">
-                                {{ form_row(form.email, {'attr': {'class': 'form-control', 'placeholder':'Email'}}) }}
-                            </div>
-                            <div class="col-lg-6 form-group">
-                                {{ form_row(form.username, {'attr': {'class': 'form-control', 'placeholder':'User Name'}}) }}
-                            </div>
-                            <div class="col-lg-6 form-group">
-                                {{ form_row(form.phone, {'attr': {'class': 'form-control', 'placeholder':'Phone'}}) }}
-                            </div>
-                            <div class="col-lg-6 form-group">
-                                {{ form_row(form.password.first, {'attr': {'class': 'form-control', 'placeholder':'Password'}}) }}
-                            </div>
-                            <div class="col-lg-6 form-group">
-                                {{ form_row(form.password.second, {'attr': {'class': 'form-control', 'placeholder':'Re-Password'}}) }}
-                            </div>
-                            <div class="col-lg-6 form-group">
-                                <button type="submit" value="submit" class="btn subs_btn w-full">register now</button>
-                            </div>
-                            {{ form_end(form) }}
-                    </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!--================End login Area =================-->
+    </div>
+    <!-- end hero -->
 
+    <!-- start main -->
+    <main role="main">
+        <!-- Common styles
+        ================================================== -->
+
+
+        <div class="container py-50">
+            <div class="row">
+
+                <div class="col-12 col-md-12 col-lg-6 col-xl-6 offset-xl-3 offset-lg-3 text-center sign-wrapper">
+                    <h2>Sign <span>Up</span></h2>
+
+                    <!-- start form -->
+                    {% for message in app.flashes('success')  %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                        {{ form_start(form, {'attr': {'class': 'auth-form'}}) }}
+                        <div class="input-wrp">
+                            {{ form_widget(form.fullName, {'attr': {'class': 'textfield', 'placeholder':'Full name *'}}) }}
+                        </div>
+
+                        <div class="input-wrp">
+                            {{ form_widget(form.email, {'attr': {'class': 'textfield', 'placeholder':'Email *'}}) }}
+                        </div>
+
+                        <div class="input-wrp">
+                            {{ form_widget(form.password.first, {'attr': {'class': 'textfield', 'placeholder':'Password'}}) }}
+                        </div>
+
+                        <div class="input-wrp">
+                            {{ form_widget(form.password.second, {'attr': {'class': 'textfield', 'placeholder':'Confirm password'}}) }}
+                        </div>
+
+                        <div class="d-table mt-8">
+                            <div class="d-table-cell align-middle">
+                                <button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">Sign up</button>
+                            </div>
+
+                            <div class="d-table-cell align-middle">
+                                <a class="link-to" href="{{ path('login', { locale: 'en'}) }}">Sign in</a>
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                    <!-- end form -->
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+    <!-- end main -->
 {% endblock %}
 
 

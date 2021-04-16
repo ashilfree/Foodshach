@@ -43,17 +43,7 @@ class Customer implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $username;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $fullName;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $phone;
 
     /**
      * @ORM\Column(type="boolean")
@@ -145,18 +135,6 @@ class Customer implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
     public function getFullName(): ?string
     {
         return $this->fullName;
@@ -165,18 +143,6 @@ class Customer implements UserInterface
     public function setFullName(string $fullName): self
     {
         $this->fullName = $fullName;
-
-        return $this;
-    }
-
-    public function getPhone(): ?string
-    {
-        return $this->phone;
-    }
-
-    public function setPhone(string $phone): self
-    {
-        $this->phone = $phone;
 
         return $this;
     }
@@ -234,5 +200,10 @@ class Customer implements UserInterface
     public function __toString()
     {
         return $this->fullName;
+    }
+
+    public function getUsername()
+    {
+        return $this->email;
     }
 }

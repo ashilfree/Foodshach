@@ -36,7 +36,7 @@ security:
                     - App\Security\LoginFormAuthenticator
             logout:
                 path: /logout
-                target: /login
+#                target: /en/login
             form_login:
                 login_path:     /login
                 check_path:     login

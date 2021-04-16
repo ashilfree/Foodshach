@@ -7,8 +7,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class AboutCrudController extends AbstractCrudController
@@ -35,16 +37,15 @@ class AboutCrudController extends AbstractCrudController
             IdField::new('id')->onlyOnIndex(),
             TextField::new('title'),
             TextField::new('titleAr'),
-            TextEditorField::new('description1')->onlyOnForms(),
-            TextEditorField::new('descriptionAr1')->onlyOnForms(),
-            TextEditorField::new('description2')->onlyOnForms(),
-            TextEditorField::new('descriptionAr2')->onlyOnForms(),
-            TextEditorField::new('description3')->onlyOnForms(),
-            TextEditorField::new('descriptionAr3')->onlyOnForms(),
-            TextEditorField::new('word')->onlyOnForms(),
-            TextEditorField::new('wordAr')->onlyOnForms(),
-            TextField::new('word_honor')->onlyOnForms(),
-            TextField::new('word_honor_ar')->onlyOnForms(),
+            TextareaField::new('description1')->onlyOnForms(),
+            TextareaField::new('descriptionAr1')->onlyOnForms(),
+            TextareaField::new('description2')->onlyOnForms(),
+            TextareaField::new('descriptionAr2')->onlyOnForms(),
+            TextareaField::new('description3')->onlyOnForms(),
+            TextareaField::new('descriptionAr3')->onlyOnForms(),
+            TextareaField::new('description4')->onlyOnForms(),
+            TextareaField::new('descriptionAr4')->onlyOnForms(),
+            UrlField::new('btnUrl')->onlyOnForms(),
             ImageField::new('imageFile')->setFormType(VichImageType::class)->onlyOnForms(),
             ImageField::new('fileName')->setCustomOption('basePath', 'media/images/about/')->onlyOnIndex(),
         ];

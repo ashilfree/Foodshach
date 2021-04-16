@@ -30,7 +30,7 @@
 		<p style="text-align: center;"><strong>Shoppinga email confirmation<br />Thank you Mr <span style="color: deepskyblue">{{ customer.fullName }}</span> for your inscription, we hope you find what you need</strong></p>
 		<p style="text-align: center;">&nbsp;</p>
 		<p style="text-align: center;">&nbsp;</p>
-		<p style="text-align: center;"><a style="background: orange; color: #ffffff; padding: 10px 50px; border-radius: 3px;" href="{{ url('default.confirm.token', {'token': customer.confirmationToken}) }}">confirm</a></p>
+		<p style="text-align: center;"><a style="background: orange; color: #ffffff; padding: 10px 50px; border-radius: 3px;" href="{{ url('default.confirm.token', {locale: locale,'token': customer.confirmationToken}) }}">confirm</a></p>
 		<p style="text-align: center;">&nbsp;</p>
 	</section>
 	<!-- Footer -->

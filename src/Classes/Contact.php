@@ -25,12 +25,6 @@ class Contact{
     /**
      * @var string|null
      * @Assert\NotBlank()
-     * @Assert\Length(min=2, max=100)
-     */
-    private $subject;
-    /**
-     * @var string|null
-     * @Assert\NotBlank()
      * @Assert\Length(min=10)
      */
     private $message;
@@ -68,24 +62,6 @@ class Contact{
     public function setEmail(?string $email): Contact
     {
         $this->email = $email;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getSubject(): ?string
-    {
-        return $this->subject;
-    }
-
-    /**
-     * @param string|null $subject
-     * @return Contact
-     */
-    public function setSubject(?string $subject): Contact
-    {
-        $this->subject = $subject;
         return $this;
     }
 
