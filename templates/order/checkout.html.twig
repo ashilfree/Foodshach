@@ -1,137 +1,236 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
-    <!--================Categories Banner Area =================-->
-    <section class="solid_banner_area">
+    <!-- start hero -->
+    <div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 100%" style="background-image: url({{ '/media/images/intro_img/13.jpg' }});color: #333;">
         <div class="container">
-            <div class="solid_banner_inner">
-                <h3>Cart</h3>
-                <ul>
-                    <li><a href="{{ path('home', { locale: 'en' }) }}">Home</a></li>
-                    <li><a>CheckOut</a></li>
-                </ul>
-            </div>
-        </div>
-    </section>
-    <!--================End Categories Banner Area =================-->
-<div class="container">
-    <div class="row row-pb-md  justify-content-center p-t-75">
-        <div class="col-md-10">
-            <div class="process-wrap">
-                <div class="process text-center active">
-                    <p><span>01</span></p>
-                    <h3>Shopping Cart</h3>
-                </div>
-                <div class="process text-center active">
-                    <p><span>02</span></p>
-                    <h3>Checkout<br>Step One</h3>
-                </div>
-                <div class="process text-center">
-                    <p><span>03</span></p>
-                    <h3>Order Complete</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Check Out -->
-    {{ form_start(form, {action: path('order.recap', { locale: 'en' }), 'attr': {'class': 'row p-t-75 p-b-85', 'onsubmit': 'setFormSubmitting()'}}) }}
-        <div class="col-md-7">
-            <div class="colorlib-form">
-                <h2>Billing Details</h2>
-                <div class="row">
-                    <div class="form-group">
-                        <div class="col-md-6">
-                            <label for="fname">First Name</label>
-                            {{ form_widget(form.shippingFirstName, {'attr': {'class': 'form-control', 'placeholder':'Your firstname'}}) }}
-                        </div>
-                        <div class="col-md-6">
-                            <label for="lname">Last Name</label>
-                            {{ form_widget(form.shippingLastName, {'attr': {'class': 'form-control', 'placeholder':'Your lastname'}}) }}
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="fname">Address</label>
-                            {{ form_widget(form.shippingAddress, {'id': 'address', 'attr': {'class': 'form-control text-left', 'placeholder':'Enter Your Address'}}) }}
-                            {{ form_widget(form.shippingLat,{'id': 'lat'}) }}
-                            {{ form_widget(form.shippingLng, {'id': 'lng'}) }}
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="companyname">Town/City</label>
-                            {{ form_widget(form.shippingCity, {'id': 'city', 'attr': {'class': 'form-control', 'placeholder':'Town or City'}}) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-6">
-                            <label for="stateprovince">State/Province</label>
-                            {{ form_widget(form.shippingProvince, {'id': 'province', 'attr': {'class': 'form-control', 'placeholder':'State Province'}}) }}
-                        </div>
-                        <div class="col-md-6">
-                            <label for="lname">Zip/Postal Code</label>
-                            {{ form_widget(form.shippingPostalCode, {'id': 'postalCode', 'attr': {'class': 'form-control', 'placeholder':'Zip / Postal'}}) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-6">
-                            <label for="email">E-mail Address</label>
-                            {{ form_widget(form.shippingEmail, {'attr': {'class': 'form-control', 'placeholder':'Your Email'}}) }}
-                        </div>
-                        <div class="col-md-6">
-                            <label for="Phone">Phone Number</label>
-                            {{ form_widget(form.shippingPhone, {'attr': {'class': 'form-control', 'placeholder':'Your Phone'}}) }}
-                        </div>
-                        {{ form_rest(form) }}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-5">
-            <div class="cart-detail">
-                <h2>Cart Total</h2>
-                <ul>
-                    {% set total = null %}
-                    <li>
-                        <ul>
-                            {% for productCart in cart2order %}
-                                <li>
-                                    <span>{{' ¤ ' ~ productCart.quantity }} x {{ productCart.catalog.product.name }}</span>
-                                    <span>
-                                         {% if productCart.catalog.product.discountPrice != null %}
-                                        {{ (productCart.quantity * productCart.catalog.product.discountPrice/100) |number_format(2, '.', ',')~ currency}}
-                            {% else %}
-                                {{ (productCart.quantity * productCart.catalog.product.price/100) |number_format(2, '.', ',')~ currency}}
-                                {% endif %}
-                                    </span>
-                                </li>
-                                {% if productCart.catalog.product.discountPrice != null %}
-                                {% set total = total + ((productCart.quantity * productCart.catalog.product.discountPrice)/100) %}
-                                {% else %}
-                                {% set total = total + ((productCart.quantity * productCart.catalog.product.price)/100) %}
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    <li> <span>Subtotal</span> <span>{{ total ~currency }}</span></li>
-                    <li><span>Shipping</span> <span>{{ (delivery2order/100) |number_format(2, '.', ',') ~ currency}}</span></li>
-                    <li><span>Order Total</span> <span>{{ (total + (delivery2order/100)) |number_format(2, '.', ',') ~ currency }}</span></li>
-                </ul>
-            </div>
             <div class="row">
-                <div class="col-md-12">
-                    <button type="submit" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-                        Next
-                    </button>
-                    <a href="{{ path('back.to.cart', { locale: 'en' }) }}" class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
-                        Back To Cart
-                    </a>
+                <div class="col-12 col-md-12">
+                    <h2 class="__title"><span>Food Shack Company</span>Billing Details</h2>
+
+
                 </div>
             </div>
         </div>
     </div>
-    {{ form_end(form) }}
+    <!-- end hero -->
 
+    <!-- start main -->
+    <main role="main">
+        <div class="container mt-60 py-30 mb-60">
+            <div class="row">
+                <div class="col-12">
+
+                    <!-- start checkout -->
+                    <div class="checkout">
+                        <h2>BILLING <span>DETAILS</span></h2>
+
+                        <div class="spacer py-3"></div>
+                        {{ form_start(form, {action: path('order.recap', { locale: 'en' }), 'attr': {'class': 'checkout__form', 'onsubmit': 'setFormSubmitting()'}}) }}
+                        <form class="checkout__form" action="#">
+                            <div class="row justify-content-xl-between">
+                                <div class="col-12 col-md-5 col-lg-6">
+                                    <div><h6>Personal Information</h6></div>
+
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.shippingFirstName, {'attr': {'class': 'textfield', 'placeholder':'First name *'}}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.shippingLastName, {'attr': {'class': 'textfield', 'placeholder':'Last name *'}}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.shippingCompanyName, {'attr': {'class': 'textfield', 'placeholder':'Company name (optional)'}}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.shippingPhone, {'attr': {'class': 'textfield', 'placeholder':'Phone *'}}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.shippingEmail, {'attr': {'class': 'textfield', 'placeholder':'Email address *'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="spacer py-6"></div>
+
+                                    <div><h6>Address</h6></div>
+
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.shippingCountry, {'id': 'country', 'attr': {'class': 'textfield wide js-select'}}) }}
+{#                                                <select class="textfield wide js-select">#}
+{#                                                    <option>Country * 1</option>#}
+{#                                                    <option>Country * 2</option>#}
+{#                                                    <option>Country * 3</option>#}
+{#                                                    <option>Country * 4</option>#}
+{#                                                    <option>Country * 5</option>#}
+{#                                                </select>#}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.shippingCity, {'id': 'city', 'attr': {'class': 'textfield', 'placeholder':'Town / City *'}}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.shippingProvince, {'id': 'province', 'attr': {'class': 'textfield', 'placeholder':'State / Province *'}}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.shippingPostalCode, {'id': 'postalCode', 'attr': {'class': 'textfield', 'placeholder':'ZIP *'}}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.shippingAddress, {'id': 'address', 'attr': {'class': 'textfield text-left', 'placeholder':'Street address *'}}) }}
+                                                {{ form_widget(form.shippingLat,{'id': 'lat'}) }}
+                                                {{ form_widget(form.shippingLng, {'id': 'lng'}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.notes, {'id': 'notes', 'attr': {'class': 'textfield', 'placeholder':'Order notes (optional)'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <a href="{{ path('back.to.cart', { locale: 'en' }) }}" class="custom-btn custom-btn--medium custom-btn--style-1" style="margin-top: 55px" role="button">Back to Cart</a>
+
+                                    <div class="spacer py-6 d-md-none"></div>
+                                </div>
+
+                                <div class="col-12 col-md-7 col-lg-6 col-xl-5">
+                                    <div><h6>Your products</h6></div>
+
+                                    <div class="checkout__table">
+                                        <table>
+                                            <tbody>
+                                            {% set total = null %}
+                                            {% for productCart in cart2order %}
+                                                <tr>
+                                                    <td width="65%">
+                                                        <div class="d-table">
+                                                            <div class="d-table-cell align-middle">
+                                                                <figure class="__image">
+                                                                    <a href="#">
+                                                                        <img class="lazy" src="{{ vich_uploader_asset(productCart.product.images.first, 'imageFile') | imagine_filter('small') }}" data-src="{{ vich_uploader_asset(productCart.product.images.first, 'imageFile') | imagine_filter('small') }}" alt="demo" />
+                                                                    </a>
+                                                                </figure>
+                                                            </div>
+
+                                                            <div class="d-table-cell align-middle">
+                                                                <a href="#" class="__name">{{ productCart.product.name }}</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                    <td>
+                                                        <span class="__amount">x{{ productCart.quantity }}</span>
+                                                    </td>
+
+                                                    <td width="1%">
+                                                        <span class="__total">
+                                                            {% if productCart.product.discountPrice != null %}
+                                                                <span> {{ (productCart.product.discountPrice * productCart.quantity  / 100) |number_format(3, '.', ',') }}</span> {{ currency }}
+                                                            {% else %}
+                                                                <span>{{ (productCart.product.price * productCart.quantity  / 100) |number_format(3, '.', ',') }}</span> {{ currency }}
+                                                            {% endif %}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                {% if productCart.product.discountPrice != null %}
+                                                    {% set total = total + (productCart.quantity * productCart.product.discountPrice)/100 %}
+                                                {% else %}
+                                                    {% set total = total + (productCart.quantity * productCart.product.price)/100 %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="checkout__total">
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <td colspan="2"><h3>YOUR <span>ORDER</span></h3></td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>Subtotal:</td>
+                                                <td>{{ total|number_format(3, '.', ',') }} {{ currency }}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Shipping</td>
+                                                <td>{{ (delivery2order/100)|number_format(3, '.', ',') }} {{ currency }}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Total</td>
+                                                <td>{{ (total+ delivery2order/100)|number_format(3, '.', ',') }} {{ currency }}</td>
+                                            </tr>
+                                            </tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <td colspan="2" class="__note">
+                                                    <p class="__ttl">Payment Method</p>
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                                                            <div class="input-wrp">
+                                                                {{ form_widget(form.paymentMethod, {'id': 'paymentMethod', 'attr': {'class': 'textfield wide js-select'}}) }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td colspan="2">
+                                                    <p>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.</p>
+
+                                                    <button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">Place Order</button>
+                                                </td>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                    </div>
+                    <!-- end checkout -->
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </main>
+    <!-- end main -->
 
 {% endblock %}
 

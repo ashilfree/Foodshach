@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Routing\Router;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
@@ -58,7 +57,7 @@ class LoginListener
         if($user instanceof Customer) {
             $order = $this->em->getRepository(Order::class)->findOneBy([
                 'customer' => $user,
-                'stripeSessionId' => null
+                'invoiceId' => null
             ]);
             if($order) {
                 $this->cart->createCart2Order($order);

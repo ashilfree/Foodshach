@@ -8,6 +8,7 @@ use App\Classes\WishList;
 use App\Entity\Customer;
 use App\Form\ChangePasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
+use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,12 +33,17 @@ class ResetPasswordController extends AbstractController
      * @var WishList
      */
     private $wishlist;
+    /**
+     * @var CategoryRepository
+     */
+    private $categoryRepository;
 
-    public function __construct(ResetPasswordHelperInterface $resetPasswordHelper, Cart $cart, WishList $wishlist)
+    public function __construct(ResetPasswordHelperInterface $resetPasswordHelper, Cart $cart, WishList $wishlist, CategoryRepository $categoryRepository)
     {
         $this->resetPasswordHelper = $resetPasswordHelper;
         $this->cart = $cart;
         $this->wishlist = $wishlist;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -64,7 +70,9 @@ class ResetPasswordController extends AbstractController
         $path = ($locale == "en") ? 'authentication/reset_password.html.twig' : 'authentication/reset_passwordAr.html.twig';
         return $this->render($path, [
             'requestForm' => $form->createView(),
+            'categories' => $this->categoryRepository->findAll(),
             'cart' => $this->cart->getFull($this->cart->get()),
+            'total' => $this->cart->getTotal(),
             'wishlist' => $this->wishlist->getFull(),
             'page' => 'reset_password'
         ]);
@@ -86,7 +94,9 @@ class ResetPasswordController extends AbstractController
         $path = ($locale == "en") ? 'authentication/check_email.html.twig' : 'authentication/check_emailAr.html.twig';
         return $this->render($path, [
             'tokenLifetime' => $this->resetPasswordHelper->getTokenLifetime(),
+            'categories' => $this->categoryRepository->findAll(),
             'cart' => $this->cart->getFull($this->cart->get()),
+            'total' => $this->cart->getTotal(),
             'wishlist' => $this->wishlist->getFull(),
             'page' => 'check_email'
         ]);
@@ -155,7 +165,9 @@ class ResetPasswordController extends AbstractController
         $path = ($locale == "en") ? 'authentication/reset.html.twig' : 'authentication/resetAr.html.twig';
         return $this->render($path, [
             'resetForm' => $form->createView(),
+            'categories' => $this->categoryRepository->findAll(),
             'cart' => $this->cart->getFull($this->cart->get()),
+            'total' => $this->cart->getTotal(),
             'wishlist' => $this->wishlist->getFull(),
             'page'=> 'reset'
         ]);

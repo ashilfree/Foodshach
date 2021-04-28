@@ -33,6 +33,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/admin/assets/css/scrollspyNav.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/admin/plugins/select2/select2.min.css') }}">
         <link href="{{ asset('assets/admin/plugins/file-upload/file-upload-with-preview.min.css') }}" rel="stylesheet" type="text/css" />
+        <script src="{{ asset('assets/admin/plugins/file-upload/file-upload-with-preview.min.js') }}"></script>
         <!-- END PAGE LEVEL STYLES -->
     {% endblock head_javascript %}
 {% block content_title %}
@@ -57,10 +58,10 @@
             {{ form_row(new_form.name, {'attr': {'class': 'form-control', 'placeholder':'Name'}}) }}
         </div>
         <div class="col">
-            {{ form_widget(new_form.slug, {'attr': {'class': 'form-control', 'placeholder':'Slug'}}) }}
+            {{ form_row(new_form.slug, {'attr': {'class': 'form-control', 'placeholder':'Slug'}}) }}
         </div>
-        <div class="col">
-            {{ form_row(new_form.nameAr, {'attr': {'class': 'form-control', 'placeholder':'الاسم'}}) }}
+        <div class="col text-right">
+            {{ form_row(new_form.nameAr, {'attr': {'class': 'form-control text-right', 'placeholder':'الاسم'}}) }}
         </div>
     </div>
         {{ form_end(new_form) }}
@@ -179,8 +180,6 @@
     <script src="{{ asset('assets/admin/assets/js/scrollspyNav.js') }}"></script>
     <script src="{{ asset('assets/admin/plugins/select2/select2.min.js') }}"></script>
     <script src="{{ asset('assets/admin/plugins/select2/custom-select2.js') }}"></script>
-    <script src="{{ asset('assets/admin/plugins/file-upload/file-upload-with-preview.min.js') }}"></script>
-    <script type="text/javascript">
-      var firstUpload = new FileUploadWithPreview('myFirstImage')
-    </script>
+
+
 {% endblock %}

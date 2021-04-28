@@ -23,9 +23,6 @@ class EditProfileType extends AbstractType
                 'disabled' => true,
                 'label' => false
             ])
-            ->add('username', TextType::class, [
-                'label' => false
-            ])
             ->add('phone', TelType::class, [
                 'label' => false
             ])

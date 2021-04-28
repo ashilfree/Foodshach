@@ -4,7 +4,9 @@
 namespace App\Classes;
 
 use App\Entity\Order;
+use App\Entity\Product;
 use App\Repository\CatalogRepository;
+use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class Cart
@@ -16,21 +18,23 @@ class Cart
     private $session;
 
     /**
-     * @var CatalogRepository
+     * @var ProductRepository
      */
-    private $catalogRepository;
+    private $productRepository;
 
-    public function __construct(SessionInterface $session, CatalogRepository $catalogRepository)
+    public function __construct(SessionInterface $session, ProductRepository $productRepository)
     {
         $this->session = $session;
-        $this->catalogRepository = $catalogRepository;
+        $this->productRepository = $productRepository;
     }
 
-    public function add($id)
+    public function add($id, $quantity)
     {
         $cart = $this->session->get('cart', []);
         if (empty($cart[$id])) {
-            $cart[$id] = 1;
+            $cart[$id] = $quantity;
+        }else{
+            $cart[$id] += $quantity;
         }
         $this->session->set('cart', $cart);
     }
@@ -55,24 +59,41 @@ class Cart
         return $this->session->get('delivery2order');
     }
 
-    public function getFull($cart)
+    public function getFull($cart): array
     {
         $cartComplete = [];
         if (!empty($cart)) {
             foreach ($cart as $id => $quantity) {
-                $cartCatalog = $this->catalogRepository->find($id);
-                if (!$cartCatalog) {
+                $cartProduct = $this->productRepository->find($id);
+                if (!$cartProduct) {
                     $this->delete($id);
                     continue;
                 }
                 $cartComplete[] = [
-                    'catalog' => $cartCatalog,
+                    'product' => $cartProduct,
                     'quantity' => $quantity
                 ];
 
             }
         }
         return $cartComplete;
+    }
+
+    public function getTotal()
+    {
+        $total = 0;
+        if (!empty($this->get())) {
+            foreach ($this->get() as $id => $quantity) {
+                $cartProduct = $this->productRepository->find($id);
+                if (!$cartProduct) {
+                    $this->delete($id);
+                    continue;
+                }
+                $total += ($cartProduct->getDiscountPrice() ?? $cartProduct->getPrice()) * $quantity;
+
+            }
+        }
+        return number_format($total/100, 2, '.', ' ');
     }
 
     public function remove()
@@ -104,9 +125,9 @@ class Cart
     {
         $cart = $this->session->get('cart');
         foreach ($all as $key => $value) {
-            if (str_contains($key, "catalog-")) {
+            if (str_contains($key, "product-")) {
                 $i = substr($key, -1);
-                $cart[$all["catalog-" . $i]] = $all["quantity-" . $i];
+                $cart[$all["product-" . $i]] = $all["quantity-" . $i];
             }
         }
         $this->session->set('cart', $cart);
@@ -137,7 +158,7 @@ class Cart
         $cart = $this->getCart2Order();
         if (!empty($cart)) {
             foreach ($cart as $id => $quantity) {
-                $cartCatalog = $this->catalogRepository->find($id);
+                $cartCatalog = $this->productRepository->find($id);
                 if ($quantity > $cartCatalog->getQuantity()) {
                     $return = false;
                     break;
@@ -152,7 +173,7 @@ class Cart
         $cart = $this->getCart2Order();
         if (!empty($cart)) {
             foreach ($cart as $id => $quantity) {
-                $cartCatalog = $this->catalogRepository->find($id);
+                $cartCatalog = $this->productRepository->find($id);
                 $newQuantity = $cartCatalog->getQuantity() - $quantity;
                 $cartCatalog->setQuantity($newQuantity);
             }
@@ -164,7 +185,7 @@ class Cart
         $cart = $this->getCart2Order();
         if (!empty($cart)) {
             foreach ($cart as $id => $quantity) {
-                $cartCatalog = $this->catalogRepository->find($id);
+                $cartCatalog = $this->productRepository->find($id);
                 $newQuantity = $cartCatalog->getQuantity() + $quantity;
                 $cartCatalog->setQuantity($newQuantity);
             }
@@ -175,8 +196,11 @@ class Cart
     {
         $cart = [];
         foreach ($order->getOrderDetails() as $orderDetail){
-            $catalog = $this->catalogRepository->findByProductName($orderDetail->getProduct(), $orderDetail->getSize());
-            $cart[$catalog->getId()] = $orderDetail->getQuantity();
+            /**
+             * @var Product $product
+             */
+            $product = $this->productRepository->findOneBy(['name' => $orderDetail->getProduct()]);
+            $cart[$product->getId()] = $orderDetail->getQuantity();
         }
         $this->session->set('cart2order', $cart);
         $this->session->set('delivery2order', $order->getDeliveryPrice());

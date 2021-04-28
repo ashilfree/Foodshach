@@ -46,6 +46,11 @@ class Customer implements UserInterface
     private $fullName;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $phone;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $enabled;
@@ -205,5 +210,17 @@ class Customer implements UserInterface
     public function getUsername()
     {
         return $this->email;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
     }
 }

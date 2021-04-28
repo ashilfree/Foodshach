@@ -81,6 +81,12 @@ class Product
     private $category;
 
     /**
+     * @ORM\ManyToOne(targetEntity=SubCategory::class, inversedBy="products")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $subCategory;
+
+    /**
      * @ORM\OneToMany(targetEntity=Image::class, mappedBy="product", cascade={"persist"})
      */
     private $images;
@@ -245,6 +251,18 @@ class Product
         return $this;
     }
 
+    public function getSubCategory(): ?SubCategory
+    {
+        return $this->subCategory;
+    }
+
+    public function setSubCategory(?SubCategory $subCategory): self
+    {
+        $this->subCategory = $subCategory;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Image[]
      */
@@ -340,4 +358,5 @@ class Product
 
         return $this;
     }
+
 }

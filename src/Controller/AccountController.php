@@ -9,6 +9,7 @@ use App\Entity\Order;
 use App\Entity\OrderDetails;
 use App\Form\EditPasswordType;
 use App\Form\EditProfileType;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,12 +36,17 @@ class AccountController extends AbstractController
      * @var WishList
      */
     private $wishlist;
+    /**
+     * @var CategoryRepository
+     */
+    private $categoryRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, Cart $cart, WishList $wishlist)
+    public function __construct(EntityManagerInterface $entityManager, CategoryRepository $categoryRepository, Cart $cart, WishList $wishlist)
 	{
 		$this->entityManager = $entityManager;
         $this->cart = $cart;
         $this->wishlist = $wishlist;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -61,6 +67,8 @@ class AccountController extends AbstractController
 		return $this->render($path, [
             'page' => 'account',
             'cart' => $this->cart->getFull($this->cart->get()),
+            'categories' => $this->categoryRepository->findAll(),
+            'total' => $this->cart->getTotal(),
             'wishlist' => $this->wishlist->getFull(),
             'customer' => $customer,
             'pendingOrders' => $pendingOrders,
@@ -92,6 +100,8 @@ class AccountController extends AbstractController
             'page' => 'edit.account',
             'form' => $form->createView(),
             'cart' => $this->cart->getFull($this->cart->get()),
+            'categories' => $this->categoryRepository->findAll(),
+            'total' => $this->cart->getTotal(),
             'wishlist' => $this->wishlist->getFull(),
             'customer' => $customer,
             'pendingOrders' => $pendingOrders,
@@ -119,6 +129,8 @@ class AccountController extends AbstractController
         return $this->render($path, [
             'page' => 'my.orders',
             'cart' => $this->cart->getFull($this->cart->get()),
+            'categories' => $this->categoryRepository->findAll(),
+            'total' => $this->cart->getTotal(),
             'wishlist' => $this->wishlist->getFull(),
             'customer' => $customer,
             'orders' => $orders,
@@ -148,6 +160,8 @@ class AccountController extends AbstractController
         return $this->render($path, [
             'page' => 'my.order.detail',
             'cart' => $this->cart->getFull($this->cart->get()),
+            'categories' => $this->categoryRepository->findAll(),
+            'total' => $this->cart->getTotal(),
             'wishlist' => $this->wishlist->getFull(),
             'order' => $order,
             'orderDetails' => $orderDetails,
@@ -198,6 +212,8 @@ class AccountController extends AbstractController
             'page' => 'edit.password',
             'form' => $form->createView(),
             'cart' => $this->cart->getFull($this->cart->get()),
+            'categories' => $this->categoryRepository->findAll(),
+            'total' => $this->cart->getTotal(),
             'wishlist' => $this->wishlist->getFull(),
             'customer' => $this->getUser(),
             'pendingOrders' => $pendingOrders,

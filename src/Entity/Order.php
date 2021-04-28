@@ -47,7 +47,12 @@ class Order
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $stripeSessionId;
+    private $invoiceId;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $invoiceKey;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -67,6 +72,11 @@ class Order
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $shippingCompanyName;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $shippingAddress;
 
     /**
@@ -78,6 +88,11 @@ class Order
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $shippingProvince;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $shippingCountry;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -105,6 +120,11 @@ class Order
     private $shippingPhone;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $notes;
+
+    /**
      * @ORM\Column(type="float")
      */
     private $total;
@@ -129,6 +149,10 @@ class Order
      */
     private $cancelled_at;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $paymentMethod;
 
     public function __construct()
     {
@@ -239,14 +263,26 @@ class Order
         return $total;
     }
 
-    public function getStripeSessionId(): ?string
+    public function getInvoiceId(): ?string
     {
-        return $this->stripeSessionId;
+        return $this->invoiceId;
     }
 
-    public function setStripeSessionId(?string $stripeSessionId): self
+    public function setInvoiceId(?string $invoiceId): self
     {
-        $this->stripeSessionId = $stripeSessionId;
+        $this->invoiceId = $invoiceId;
+
+        return $this;
+    }
+
+    public function getInvoiceKey(): ?string
+    {
+        return $this->invoiceKey;
+    }
+
+    public function setInvoiceKey(?string $invoiceKey): self
+    {
+        $this->invoiceKey = $invoiceKey;
 
         return $this;
     }
@@ -287,6 +323,18 @@ class Order
         return $this;
     }
 
+    public function getShippingCompanyName(): ?string
+    {
+        return $this->shippingCompanyName;
+    }
+
+    public function setShippingCompanyName(string $shippingCompanyName): self
+    {
+        $this->shippingCompanyName = $shippingCompanyName;
+
+        return $this;
+    }
+
     public function getShippingAddress(): ?string
     {
         return $this->shippingAddress;
@@ -319,6 +367,18 @@ class Order
     public function setShippingProvince(string $shippingProvince): self
     {
         $this->shippingProvince = $shippingProvince;
+
+        return $this;
+    }
+
+    public function getShippingCountry(): ?string
+    {
+        return $this->shippingCountry;
+    }
+
+    public function setShippingCountry(string $shippingCountry): self
+    {
+        $this->shippingCountry = $shippingCountry;
 
         return $this;
     }
@@ -379,6 +439,18 @@ class Order
     public function setShippingPhone(string $shippingPhone): self
     {
         $this->shippingPhone = $shippingPhone;
+
+        return $this;
+    }
+
+    public function getNotes(): ?string
+    {
+        return $this->notes;
+    }
+
+    public function setNotes(?string $notes): self
+    {
+        $this->notes = $notes;
 
         return $this;
     }
@@ -467,5 +539,19 @@ class Order
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPaymentMethod()
+    {
+        return $this->paymentMethod;
+    }
 
+    /**
+     * @param mixed $paymentMethod
+     */
+    public function setPaymentMethod($paymentMethod): void
+    {
+        $this->paymentMethod = $paymentMethod;
+    }
 }

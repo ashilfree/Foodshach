@@ -74,13 +74,10 @@
                 {{ form_widget(edit_form.price, {'attr': {'placeholder':'Price'}}) }}
             </div>
             <div class="col">
-                {{ form_widget(edit_form.tags, {'attr': {'placeholder':'Tags'}}) }}
+                {{ form_widget(edit_form.category, {'attr': {'placeholder':'basic'}}) }}
             </div>
             <div class="col">
-                {{ form_widget(edit_form.togs, {'attr': {'placeholder':'Tags'}}) }}
-            </div>
-            <div class="col">
-                {{ form_widget(edit_form.category, {'attr': {'class': 'basic'}}) }}
+                {{ form_widget(edit_form.subCategory, {'attr': {'placeholder':'basic'}}) }}
             </div>
         </div>
         <div class="row mb-4">
@@ -88,13 +85,7 @@
                 {{ form_widget(edit_form.discountPrice, {'attr': {'placeholder':'Discount'}}) }}
             </div>
             <div class="col">
-                {{ form_widget(edit_form.weight, {'attr': {'class': 'form-control', 'placeholder':'Weight'}}) }}
-            </div>
-            <div class="col">
-                {{ form_widget(edit_form.materials, {'attr': {'class': 'form-control', 'placeholder':'Materials'}}) }}
-            </div>
-            <div class="col">
-                {{ form_widget(edit_form.materialsAr, {'attr': {'class': 'form-control', 'placeholder':'المواد'}}) }}
+                {{ form_widget(edit_form.quantity, {'attr': {'class': 'form-control', 'placeholder':'Quantity'}}) }}
             </div>
         </div>
         <div class="statbox widget box box-shadow m-b-5">
@@ -266,6 +257,10 @@
             width: 100%;
             padding: .4rem;
         }
+        .custom-file-input{
+            opacity: 1;
+            width: 284px;
+        }
         trix-editor{
             color: black;
         }
@@ -282,4 +277,69 @@
     <script src="{{ asset('assets/admin/plugins/select2/select2.min.js') }}"></script>
     <script src="{{ asset('assets/admin/plugins/select2/custom-select2.js') }}"></script>
     <script src="{{ asset('assets/admin/plugins/file-upload/file-upload-with-preview.min.js') }}"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function($){
+            $("#Product_category")
+                .select2({
+                    placeholder: "Select a Category",
+                    allowClear: true,
+                })
+                .on('select2:select', function (e) {
+                    console.log(e.params.data.id);
+                    $('#Product_subCategory').val(null);
+                    $("#Product_subCategory").select2({
+                        placeholder: "Select a SubCategory",
+                        allowClear: true,
+                        initSelection: null,
+                        disabled: false,
+                        data:[],
+                        ajax: {
+                            url: 'get-sub-category/' + e.params.data.id,
+                            dataType: 'json',
+                            data: function (term) {
+                                console.log(term);
+                                return {
+                                    term: term
+                                };
+                            },
+                            processResults: function(data, page) {
+                                let dx =[];
+                                data.forEach(function(d){
+                                    dx.push(d)
+                                })
+                                return { results: dx };
+                            },
+                            // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+                        },
+
+                    });
+                });
+
+
+
+            $("#Product_subCategory").select2({
+                placeholder: "Select a SubCategory",
+                allowClear: true,
+                ajax: {
+                    url: 'get-sub-category/' + {{ edit_form.vars.value.category.id }},
+                    dataType: 'json',
+                    data: function (term) {
+                        console.log(term);
+                        return {
+                            term: term
+                        };
+                    },
+                    processResults: function(data, page) {
+                        let dx =[];
+                        data.forEach(function(d){
+                            dx.push(d)
+                        })
+                        return { results: dx };
+                    },
+                    // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+                }
+            });
+        });
+        // $('#Product_category').select2('destroy');
+    </script>
 {% endblock %}

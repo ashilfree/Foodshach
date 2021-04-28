@@ -7,6 +7,7 @@ use App\Classes\Mailer;
 use App\Classes\WishList;
 use App\Entity\Customer;
 use App\Form\CustomerRegisterType;
+use App\Repository\CategoryRepository;
 use App\Security\CustomerConfirmationService;
 use App\Security\TokenGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,6 +36,10 @@ class MainSecurityController extends AbstractController
      * @var WishList
      */
     private $wishlist;
+    /**
+     * @var CategoryRepository
+     */
+    private $categoryRepository;
 
     /**
      * MainSecurityController constructor.
@@ -42,12 +47,14 @@ class MainSecurityController extends AbstractController
      * @param Cart $cart
      * @param WishList $wishlist
      * @param Mailer $mailer
+     * @param CategoryRepository $categoryRepository
      */
     public function __construct(
         AuthenticationUtils $authenticationUtils,
         Cart $cart,
         WishList $wishlist,
-        Mailer $mailer
+        Mailer $mailer,
+        CategoryRepository $categoryRepository
     )
     {
         $this->authenticationUtils = $authenticationUtils;
@@ -56,6 +63,7 @@ class MainSecurityController extends AbstractController
 
         $this->cart = $cart;
         $this->wishlist = $wishlist;
+        $this->categoryRepository = $categoryRepository;
     }
 
 
@@ -74,7 +82,9 @@ class MainSecurityController extends AbstractController
                 'page' => 'login',
                 'last_username' => $lastUsername,
                 'error' => $error,
+                'categories' => $this->categoryRepository->findAll(),
                 'cart' => $this->cart->getFull($this->cart->get()),
+                'total' => $this->cart->getTotal(),
                 'wishlist' => $this->wishlist->getFull()
             ]);
     }
@@ -109,7 +119,9 @@ class MainSecurityController extends AbstractController
             //return $this->redirectToRoute('login');
             $path = ($locale == "en") ? 'authentication/check-email-register.html.twig' : 'authentication/check-email-registerAr.html.twig';
             return $this->render($path, [
+                'categories' => $this->categoryRepository->findAll(),
                 'cart' => $this->cart->getFull($this->cart->get()),
+                'total' => $this->cart->getTotal(),
                 'wishlist' => $this->wishlist->getFull(),
                 'page'=> 'register',
             ]);
@@ -118,7 +130,9 @@ class MainSecurityController extends AbstractController
         return $this->render($path, [
             'page'=> 'register',
             'form'=>$form->createView(),
+            'categories' => $this->categoryRepository->findAll(),
             'cart' => $this->cart->getFull($this->cart->get()),
+            'total' => $this->cart->getTotal(),
             'wishlist' => $this->wishlist->getFull(),
         ]);
     }
@@ -150,7 +164,9 @@ class MainSecurityController extends AbstractController
         $path = ($locale == "en") ? 'authentication/confirmation.html.twig' : 'authentication/confirmationAr.html.twig';
         return $this->render($path, [
             'page' => 'confirmation',
+            'categories' => $this->categoryRepository->findAll(),
             'cart' => $this->cart->getFull($this->cart->get()),
+            'total' => $this->cart->getTotal(),
             'wishlist' => $this->wishlist->getFull(),
         ]);
     }

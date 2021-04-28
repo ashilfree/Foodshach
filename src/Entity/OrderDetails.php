@@ -29,11 +29,6 @@ class OrderDetails
     private $product;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $size;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $quantity;
@@ -73,18 +68,6 @@ class OrderDetails
     public function setProduct(string $product): self
     {
         $this->product = $product;
-
-        return $this;
-    }
-
-    public function getSize(): ?string
-    {
-        return $this->size;
-    }
-
-    public function setSize(string $size): self
-    {
-        $this->size = $size;
 
         return $this;
     }

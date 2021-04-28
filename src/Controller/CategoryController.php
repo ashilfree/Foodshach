@@ -56,14 +56,16 @@ class CategoryController extends AbstractController
         $category = $this->categoryRepository->findOneBy(['slug'=>$slug]);
         if(!$category)
             return $this->redirectToRoute('home', ['locale' => $locale]);
-//        $products = $this->productRepository->findBy(['category'=>$product->getCategory()]);
+        $products = $this->productRepository->findBy(['category'=>$category]);
         $path = ($locale == "en") ? 'page/index.html.twig' : 'page/index.html.twig';
         return $this->render($path, [
             'page' => 'category',
             'category' => $category,
             'categories' => $this->categoryRepository->findAll(),
-//            'products' => $products,
+            'products' => $products,
             'cart' => $this->cart->getFull($this->cart->get()),
+            'total' => $this->cart->getTotal(),
+            'showCart' => true,
             'wishlist' => $this->wishlist->getFull(),
         ]);
     }

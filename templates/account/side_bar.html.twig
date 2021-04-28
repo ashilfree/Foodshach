@@ -1,54 +1,23 @@
-<div class="col-lg-3 col-md-12">
+<div class="col-12 col-sm-12 col-md-4 col-lg-3">
 
-    <!--====== Dashboard Features ======-->
-    <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
-        <div class="dash__pad-1">
-
-            <span class="dash__text u-s-m-b-16">Hello, {{ customer.username }}</span>
-            <ul class="dash__f-list">
-                <li>
-
-                    <a class="dash-active" href="{{ path('account') }}">My Profile</a></li>
-
-                <li>
-
-                    <a href="{{ path('my.orders') }}">My Orders</a></li>
-
-            </ul>
-        </div>
+    <div class="cardProfile">
+        <span></span>
+        <img src="img/avatar-01.jpg" alt="">
+        <h5>{{ customer.fullName }}</h5>
     </div>
-    <div class="dash__box dash__box--bg-white dash__box--shadow dash__box--w">
-        <div class="dash__pad-1">
-            <ul class="dash__w-list">
-                <li>
-                    <div class="dash__w-wrap">
 
-                        <span class="dash__w-icon dash__w-icon-style-2"><i class="fa fa-cart-arrow-down"></i></span>
-
-                        <span class="dash__w-text">{{ pendingOrders|length }}</span>
-
-                        <span class="dash__w-name">Pending Orders</span></div>
-                </li>
-                <li>
-                    <div class="dash__w-wrap">
-
-                        <span class="dash__w-icon dash__w-icon-style-1"><i class="fa fa-cart-arrow-down"></i></span>
-
-                        <span class="dash__w-text">{{ successOrders|length }}</span>
-
-                        <span class="dash__w-name">Orders Placed</span></div>
-                </li>
-                <li>
-                    <div class="dash__w-wrap">
-
-                        <span class="dash__w-icon dash__w-icon-style-3"><i class="fa fa-times"></i></span>
-
-                        <span class="dash__w-text">{{ canceledOrders|length }}</span>
-
-                        <span class="dash__w-name">Cancel Orders</span></div>
-                </li>
-            </ul>
-        </div>
+    <div class="listPro">
+        <a href="{{ path('account', { locale: 'en' }) }}" {% if page is defined and page == 'account' %}class="active-btn"{% endif %}>
+            My profile </a>
+        <a href="{{ path('edit.account', { locale: 'en' }) }}" {% if page is defined and page == 'edit.account' %}class="active-btn"{% endif %}>
+            Edit profile </a>
+        <a href="{{ path('my.orders', { locale: 'en' }) }}" {% if page is defined and page == 'my.orders' %}class="active-btn"{% endif %}>
+            My orders </a>
+        <a href="{{ path('edit.password', { locale: 'en' }) }}" {% if page is defined and page == 'edit.password' %}class="active-btn"{% endif %}>
+            Change password </a>
+        <a href="{{ path('register', { locale: 'en' }) }}"> Logout </a>
     </div>
-    <!--====== End - Dashboard Features ======-->
+
+    <!-- Modal -->
+
 </div>

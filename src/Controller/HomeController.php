@@ -59,12 +59,14 @@ class HomeController extends AbstractController
      */
     public function index($locale): Response
     {
-        $path = ($locale == "en") ? 'home/index.html.twig' : 'home/indexAr.html.twig';
+        $path = ($locale == "ar") ? 'home/indexAr.html.twig' : 'home/index.html.twig';
             return $this->render($path, [
                 'page' => 'home',
                 'categories' => $this->categoryRepository->findAll(),
                 'slides' => $this->slideRepository->findAll(),
                 'cart' => $this->cart->getFull($this->cart->get()),
+                'total' => $this->cart->getTotal(),
+                'showCart' => true,
                 'wishlist' => $this->wishlist->getFull(),
             ]);
 

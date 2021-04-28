@@ -7,6 +7,7 @@ use App\Classes\Mailer;
 use App\Classes\Transaction;
 use App\Classes\WishList;
 use App\Entity\Order;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,25 +37,31 @@ class OrderValidateController extends AbstractController
      * @var WishList
      */
     private $wishlist;
+    /**
+     * @var CategoryRepository
+     */
+    private $categoryRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, Transaction $transaction, Cart $cart, WishList $wishlist, Mailer $mailer)
+    public function __construct(EntityManagerInterface $entityManager, Transaction $transaction, Cart $cart, WishList $wishlist, Mailer $mailer, CategoryRepository $categoryRepository)
 	{
 		$this->entityManager = $entityManager;
 		$this->transaction = $transaction;
         $this->cart = $cart;
         $this->mailer = $mailer;
         $this->wishlist = $wishlist;
+        $this->categoryRepository = $categoryRepository;
     }
 
-	/**
-	 * @Route("/order/thank/{stripeSessionId}", name="order.validate.thank")
-	 * @param $stripeSessionId
-	 * @return Response
-	 */
-    public function success($stripeSessionId): Response
+    /**
+     * @Route("/order/thank/{reference}", name="order.validate.thank")
+     * @param $reference
+     * @param Request $request
+     * @return Response
+     */
+    public function success($reference, Request $request): Response
     {
-	    $order = $this->entityManager->getRepository(Order::class)->findOneBy(['stripeSessionId' => $stripeSessionId]);
-		if(!$order || $order->getUser() != $this->getUser()){
+	    $order = $this->entityManager->getRepository(Order::class)->findOneBy(['reference' => $reference]);
+		if(!$order || $order->getCustomer() != $this->getUser()){
 			return $this->redirectToRoute('home');
 		}
 
@@ -69,20 +76,21 @@ class OrderValidateController extends AbstractController
         return $this->render('order/order-complete.html.twig', [
         	'order' => $order,
             'cart' => $this->cart->getFull($this->cart->get()),
+            'total' => $this->cart->getTotal(),
+            'categories' => $this->categoryRepository->findAll(),
             'wishlist' => $this->wishlist->getFull(),
             'page' => 'order-complete'
         ]);
     }
 
     /**
-     * @Route("/order/error/{stripeSessionId}", name="order.validate.error")
-     * @param $stripeSessionId
-     * @param Request $request
+     * @Route("/order/error/{reference}", name="order.validate.error")
+     * @param $reference
      * @return Response
      */
-	public function cancel($stripeSessionId, Request $request): Response
+	public function cancel($reference): Response
 	{
-		$order = $this->entityManager->getRepository(Order::class)->findOneBy(['stripeSessionId' => $stripeSessionId]);
+		$order = $this->entityManager->getRepository(Order::class)->findOneBy(['reference' => $reference]);
 		if(!$order || $order->getCustomer() != $this->getUser()){
 			return $this->redirectToRoute('home');
 		}
@@ -96,6 +104,8 @@ class OrderValidateController extends AbstractController
 		return $this->render('order/order-canceled.html.twig', [
 			'order' => $order,
             'cart' => $this->cart->getFull($this->cart->get()),
+            'total' => $this->cart->getTotal(),
+            'categories' => $this->categoryRepository->findAll(),
             'wishlist' => $this->wishlist->getFull(),
             'page' => 'order-canceled'
 		]);

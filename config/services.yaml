@@ -37,20 +37,16 @@ services:
     App\Listener\CreatedByUserSubscriber:
         tags:
             name: doctrine.event_subscriber
-
-    App\Listener\LoginListener:
-        tags:
-            - { name: 'kernel.event_listener', event: 'security.interactive_login' }
-
     App\Listener\MaintenanceListener:
         arguments:
             - '%maintenanceFilePath%'
         tags:
             - { name: kernel.event_listener, event: kernel.request }
-
     App\Listener\ListenerForAnyRequest:
         tags:
             - { name: kernel.event_listener, event: kernel.request }
-
+#    App\Listener\LoginListener:
+#        tags:
+#            - { name: 'kernel.event_listener', event: 'security.interactive_login' }
     App\Listener\LocaleSubscriber:
         arguments: [ '%kernel.default_locale%' ]

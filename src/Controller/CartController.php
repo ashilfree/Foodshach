@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Classes\Cart;
 use App\Classes\WishList;
+use App\Repository\CategoryRepository;
 use App\Repository\GovernorateRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,13 +26,18 @@ class CartController extends AbstractController
      * @var WishList
      */
     private $wishlist;
+    /**
+     * @var CategoryRepository
+     */
+    private $categoryRepository;
 
 
-    public function __construct(Cart $cart, WishList $wishlist, GovernorateRepository $governorateRepository)
+    public function __construct(Cart $cart, WishList $wishlist, GovernorateRepository $governorateRepository, CategoryRepository $categoryRepository)
     {
         $this->cart = $cart;
         $this->governorateRepository = $governorateRepository;
         $this->wishlist = $wishlist;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -45,16 +52,21 @@ class CartController extends AbstractController
             $path = ($locale == "en") ? 'cart/empty-cart.html.twig' : 'cart/empty-cartAr.html.twig';
             return $this->render($path, [
                 'cart' => $cart,
+                'page' => 'cart',
                 'wishlist' => $this->wishlist->getFull(),
+                'total' => $this->cart->getTotal(),
+                'categories' => $this->categoryRepository->findAll()
             ]);
         }else {
             $path = ($locale == "en") ? 'cart/index.html.twig' : 'cart/indexAr.html.twig';
             return $this->render($path, [
                 'cart' => $cart,
+                'total' => $this->cart->getTotal(),
                 'wishlist' => $this->wishlist->getFull(),
                 'page' => 'cart',
                 'delivery' => $this->cart->getDelivery(),
-                'governorates' => $this->governorateRepository->findAll()
+                'governorates' => $this->governorateRepository->findAll(),
+                'categories' => $this->categoryRepository->findAll()
             ]);
         }
     }
@@ -68,8 +80,14 @@ class CartController extends AbstractController
      */
     public function add($locale, $id, Request $request): Response
     {
-        $this->cart->add($id);
-        return $this->redirectToRoute('products', ["locale" => $locale]);
+        $data = json_decode($request->getContent(), true);
+        $quantity = $data ? $data["quantity"] : 1;
+        $this->cart->add($id, $quantity);
+//        return $this->redirectToRoute('home', ["locale" => $locale]);
+        return new JsonResponse([
+            'cartLength' => count($this->cart->get()),
+            'cartTotal' => $this->cart->getTotal()
+        ]);
     }
 
     /**

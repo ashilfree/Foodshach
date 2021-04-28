@@ -2,202 +2,283 @@
 
 {% block body %}
 
-    <!--================Categories Banner Area =================-->
-    <section class="solid_banner_area">
+    <!-- start hero -->
+    <div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 100%" style="background-image: url(img/intro_img/11.jpg);color: #333;">
         <div class="container">
-            <div class="solid_banner_inner">
-                <h3>My Account</h3>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="track.html">My Account</a></li>
-                </ul>
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <h2 class="__title"><span>Food Shack Company</span>My Orders</h2>
+
+
+                </div>
             </div>
         </div>
-    </section>
-    <!--================End Categories Banner Area =================-->
+    </div>
+    <!-- end hero -->
 
-    <!--================login Area =================-->
-    <div class="p-all-40">
-        <!--====== Section Content ======-->
-        <div class="section__content">
-            <div class="dash">
-                <div class="container">
-                    <div class="row">
-                        {% include 'account/side_bar.html.twig' %}
-                        <div class="col-lg-9 col-md-12">
-                            <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
-                                <div class="dash__pad-2">
-                                    <h1 class="dash__h1 u-s-m-b-14">My Orders</h1>
+    <!-- start main -->
+    <main role="main">
+        <!-- Common styles
+        ================================================== -->
 
-                                    <span class="dash__text u-s-m-b-30">Here you can see all products that have been delivered.</span>
-                                    <div class="m-order__list">
-                                        {% for order in orders %}
-                                            <div class="m-order__get">
-                                                <div class="manage-o__header u-s-m-b-30">
-                                                    <div class="dash-l-r">
-                                                        <div>
-                                                            <div class="manage-o__text-2 u-c-secondary">Order
-                                                                #{{ order.reference }}
-                                                            </div>
-                                                            <div class="manage-o__text u-c-silver">Placed
-                                                                on {{ order.createdAt|date("F jS \\a\\t g:ia") }}
+        <section class="container-top container">
 
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <div class="dash__link dash__link--brand">
+            <div class="row m-b-30">
+                {% include 'account/side_bar.html.twig' %}
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
+                    <div class="edit_prof_bg1 py-2">
+                        <div class="row"><div class="col-md-12"><h4>My order history</h4></div></div>
 
-                                                                <a href="{{ path('my.order.detail', {id:order.id}) }}">MORE DETAILS</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="text-right">
+                    </div>
+                    <div class="box">
 
-                                                    <span class="manage-o__badge badge--{{ order.status }}">{{ order.status|capitalize }}</span>
-                                                </div>
-                                                {% for orderDetail in order.orderDetails %}
-                                                    <div class="manage-o__description">
+                        <div class="row">
+                            <div class="col-md-12">
 
-                                                        <div class="description__container">
-                                                            <div>
-                                                                <span>{{ loop.index }}</span>
-                                                            </div>
-                                                            <div class="description-title">{{ orderDetail.product|upper }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="description__info-wrap">
+                                <div class='table-responsive'>
+                                    <div class="table-wrapper-profile">
 
-                                                            <div>
 
-                                                                <span class="manage-o__text-2 u-c-silver">Quantity:
+                                        <table class="table table-striped table-hover table-responsive-n">
+                                            <thead>
+                                            <tr>
+                                                <th>Order #</th>
 
-                                                                    <span class="manage-o__text-2 u-c-secondary">{{ orderDetail.quantity }}</span></span>
-                                                            </div>
-                                                            <div>
+                                                <th>Order Date</th>
+                                                <th>Status</th>
+                                                <th>Net Amount</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for order in orders %}
+                                                <tr>
+                                                <td>{{ order.reference }}</td>
 
-                                                                <span class="manage-o__text-2 u-c-silver">Total Item:
-
-                                                                    <span class="manage-o__text-2 u-c-secondary">{{ (orderDetail.total/100)|number_format(2, '.', ',') }} {{ currency }}</span> </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                {% endfor %}
-                                                <div class="text-right m-t-20">
-
-                                                                <span class="manage-o__text-2 u-c-silver">Delivery:
-
-                                                                    <span class="manage-o__text-2 u-c-secondary">{{ ((order.deliveryPrice)/100)|number_format(2, '.', ',') }} {{ currency }}</span> </span>
-                                                </div>
-                                                <div class="text-right">
-
-                                                                <span class="manage-o__text-2 u-c-silver">Total:
-
-                                                                    <span class="manage-o__text-2 u-c-secondary">{{ ((order.total+order.deliveryPrice)/100)|number_format(2, '.', ',') }} {{ currency }}</span> </span>
-                                                </div>
-                                            </div>
-                                        {% endfor %}
-                                        {# <div class="m-order__get"> #}
-                                        {# <div class="manage-o__header u-s-m-b-30"> #}
-                                        {# <div class="dash-l-r"> #}
-                                        {# <div> #}
-                                        {# <div class="manage-o__text-2 u-c-secondary">Order #305423126 #}
-                                        {# </div> #}
-                                        {# <div class="manage-o__text u-c-silver">Placed on 26 Oct 2016 #}
-                                        {# 09:08:37 #}
-                                        {# </div> #}
-                                        {# </div> #}
-                                        {# <div> #}
-                                        {# <div class="dash__link dash__link--brand"> #}
-
-                                        {# <a href="{{ path('my.order.detail', {id:order.id}) }}">MANAGE</a></div> #}
-                                        {# </div> #}
-                                        {# </div> #}
-                                        {# </div> #}
-                                        {# <div class="manage-o__description"> #}
-                                        {# <div class="description__container"> #}
-                                        {# <div class="description__img-wrap"> #}
-
-                                        {# <img class="u-img-fluid" src="images/product/women/product8.jpg" #}
-                                        {# alt=""></div> #}
-                                        {# <div class="description-title">New Dress D Nice Elegant</div> #}
-                                        {# </div> #}
-                                        {# <div class="description__info-wrap"> #}
-                                        {# <div> #}
-
-                                        {# <span class="manage-o__badge badge--shipped">Shipped</span> #}
-                                        {# </div> #}
-                                        {# <div> #}
-
-                                        {# <span class="manage-o__text-2 u-c-silver">Quantity: #}
-
-                                        {# <span class="manage-o__text-2 u-c-secondary">1</span></span> #}
-                                        {# </div> #}
-                                        {# <div> #}
-
-                                        {# <span class="manage-o__text-2 u-c-silver">Total: #}
-
-                                        {# <span class="manage-o__text-2 u-c-secondary">$16.00</span></span> #}
-                                        {# </div> #}
-                                        {# </div> #}
-                                        {# </div> #}
-                                        {# </div> #}
-                                        {# <div class="m-order__get"> #}
-                                        {# <div class="manage-o__header u-s-m-b-30"> #}
-                                        {# <div class="dash-l-r"> #}
-                                        {# <div> #}
-                                        {# <div class="manage-o__text-2 u-c-secondary">Order #305423126 #}
-                                        {# </div> #}
-                                        {# <div class="manage-o__text u-c-silver">Placed on 26 Oct 2016 #}
-                                        {# 09:08:37 #}
-                                        {# </div> #}
-                                        {# </div> #}
-                                        {# <div> #}
-                                        {# <div class="dash__link dash__link--brand"> #}
-
-                                        {# <a href="{{ path('my.order.detail', {id:order.id}) }}">MANAGE</a></div> #}
-                                        {# </div> #}
-                                        {# </div> #}
-                                        {# </div> #}
-                                        {# <div class="manage-o__description"> #}
-                                        {# <div class="description__container"> #}
-                                        {# <div class="description__img-wrap"> #}
-
-                                        {# <img class="u-img-fluid" src="images/product/men/product8.jpg" #}
-                                        {# alt=""></div> #}
-                                        {# <div class="description-title">New Fashion D Nice Elegant</div> #}
-                                        {# </div> #}
-                                        {# <div class="description__info-wrap"> #}
-                                        {# <div> #}
-
-                                        {# <span class="manage-o__badge badge--delivered">Delivered</span> #}
-                                        {# </div> #}
-                                        {# <div> #}
-
-                                        {# <span class="manage-o__text-2 u-c-silver">Quantity: #}
-
-                                        {# <span class="manage-o__text-2 u-c-secondary">1</span></span> #}
-                                        {# </div> #}
-                                        {# <div> #}
-
-                                        {# <span class="manage-o__text-2 u-c-silver">Total: #}
-
-                                        {# <span class="manage-o__text-2 u-c-secondary">$16.00</span></span> #}
-                                        {# </div> #}
-                                        {# </div> #}
-                                        {# </div> #}
-                                        {# </div> #}
+                                                <td>{{ order.createdAt|date("F jS \\a\\t g:ia") }}</td>
+                                                <td><span class="status text-{{ order.status }}">•</span> {{ order.status|capitalize }}</td>
+                                                <td>{{ ((order.total+order.deliveryPrice)/100)|number_format(2, '.', ',') }} {{ currency }}</td>
+                                                <td><a href="{{ path('my.order.detail', {id:order.id}) }}" class="view" title="" data-toggle="tooltip" data-original-title="View Details"><i class="__ico fontello-right-1"></i></a></td>
+                                            </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        <div class="clearfix">
+                                            <div class="hint-text p-b-10">Showing <b>5</b> out of <b>25</b> entries</div>
+                                            <ul class="pagination">
+                                                <li class="page-item disabled"><a href="#">Previous</a></li>
+                                                <li class="page-item"><a href="#" class="page-link">1</a></li>
+                                                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                                <li class="page-item"><a href="#" class="page-link">3</a></li>
+                                                <li class="page-item active"><a href="#" class="page-link">4</a></li>
+                                                <li class="page-item"><a href="#" class="page-link">5</a></li>
+                                                <li class="page-item"><a href="#" class="page-link">6</a></li>
+                                                <li class="page-item"><a href="#" class="page-link">7</a></li>
+                                                <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
+
+
+
                 </div>
             </div>
-        </div>
-        <!--====== End - Section Content ======-->
-    </div>
-    <!--================End login Area =================-->
+
+
+
+
+        </section>
+
+    </main>
+    <!-- end main -->
+
+{#    <!--================login Area =================-->#}
+{#    <div class="p-all-40">#}
+{#        <!--====== Section Content ======-->#}
+{#        <div class="section__content">#}
+{#            <div class="dash">#}
+{#                <div class="container">#}
+{#                    <div class="row">#}
+{#                        {% include 'account/side_bar.html.twig' %}#}
+{#                        <div class="col-lg-9 col-md-12">#}
+{#                            <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">#}
+{#                                <div class="dash__pad-2">#}
+{#                                    <h1 class="dash__h1 u-s-m-b-14">My Orders</h1>#}
+
+{#                                    <span class="dash__text u-s-m-b-30">Here you can see all products that have been delivered.</span>#}
+{#                                    <div class="m-order__list">#}
+{#                                        {% for order in orders %}#}
+{#                                            <div class="m-order__get">#}
+{#                                                <div class="manage-o__header u-s-m-b-30">#}
+{#                                                    <div class="dash-l-r">#}
+{#                                                        <div>#}
+{#                                                            <div class="manage-o__text-2 u-c-secondary">Order#}
+{#                                                                #{{ order.reference }}#}
+{#                                                            </div>#}
+{#                                                            <div class="manage-o__text u-c-silver">Placed#}
+{#                                                                on {{ order.createdAt|date("F jS \\a\\t g:ia") }}#}
+
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                        <div>#}
+{#                                                            <div class="dash__link dash__link--brand">#}
+
+{#                                                                <a href="{{ path('my.order.detail', {id:order.id}) }}">MORE DETAILS</a>#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                                <div class="text-right">#}
+
+{#                                                    <span class="manage-o__badge badge--{{ order.status }}">{{ order.status|capitalize }}</span>#}
+{#                                                </div>#}
+{#                                                {% for orderDetail in order.orderDetails %}#}
+{#                                                    <div class="manage-o__description">#}
+
+{#                                                        <div class="description__container">#}
+{#                                                            <div>#}
+{#                                                                <span>{{ loop.index }}</span>#}
+{#                                                            </div>#}
+{#                                                            <div class="description-title">{{ orderDetail.product|upper }}#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                        <div class="description__info-wrap">#}
+
+{#                                                            <div>#}
+
+{#                                                                <span class="manage-o__text-2 u-c-silver">Quantity:#}
+
+{#                                                                    <span class="manage-o__text-2 u-c-secondary">{{ orderDetail.quantity }}</span></span>#}
+{#                                                            </div>#}
+{#                                                            <div>#}
+
+{#                                                                <span class="manage-o__text-2 u-c-silver">Total Item:#}
+
+{#                                                                    <span class="manage-o__text-2 u-c-secondary">{{ (orderDetail.total/100)|number_format(2, '.', ',') }} {{ currency }}</span> </span>#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{#                                                {% endfor %}#}
+{#                                                <div class="text-right m-t-20">#}
+
+{#                                                                <span class="manage-o__text-2 u-c-silver">Delivery:#}
+
+{#                                                                    <span class="manage-o__text-2 u-c-secondary">{{ ((order.deliveryPrice)/100)|number_format(2, '.', ',') }} {{ currency }}</span> </span>#}
+{#                                                </div>#}
+{#                                                <div class="text-right">#}
+
+{#                                                                <span class="manage-o__text-2 u-c-silver">Total:#}
+
+{#                                                                    <span class="manage-o__text-2 u-c-secondary">{{ ((order.total+order.deliveryPrice)/100)|number_format(2, '.', ',') }} {{ currency }}</span> </span>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        {% endfor %}#}
+{#                                        #}{# <div class="m-order__get"> #}
+{#                                        #}{# <div class="manage-o__header u-s-m-b-30"> #}
+{#                                        #}{# <div class="dash-l-r"> #}
+{#                                        #}{# <div> #}
+{#                                        #}{# <div class="manage-o__text-2 u-c-secondary">Order #305423126 #}
+{#                                        #}{# </div> #}
+{#                                        #}{# <div class="manage-o__text u-c-silver">Placed on 26 Oct 2016 #}
+{#                                        #}{# 09:08:37 #}
+{#                                        #}{# </div> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# <div> #}
+{#                                        #}{# <div class="dash__link dash__link--brand"> #}
+
+{#                                        #}{# <a href="{{ path('my.order.detail', {id:order.id}) }}">MANAGE</a></div> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# <div class="manage-o__description"> #}
+{#                                        #}{# <div class="description__container"> #}
+{#                                        #}{# <div class="description__img-wrap"> #}
+
+{#                                        #}{# <img class="u-img-fluid" src="images/product/women/product8.jpg" #}
+{#                                        #}{# alt=""></div> #}
+{#                                        #}{# <div class="description-title">New Dress D Nice Elegant</div> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# <div class="description__info-wrap"> #}
+{#                                        #}{# <div> #}
+
+{#                                        #}{# <span class="manage-o__badge badge--shipped">Shipped</span> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# <div> #}
+
+{#                                        #}{# <span class="manage-o__text-2 u-c-silver">Quantity: #}
+
+{#                                        #}{# <span class="manage-o__text-2 u-c-secondary">1</span></span> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# <div> #}
+
+{#                                        #}{# <span class="manage-o__text-2 u-c-silver">Total: #}
+
+{#                                        #}{# <span class="manage-o__text-2 u-c-secondary">$16.00</span></span> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# <div class="m-order__get"> #}
+{#                                        #}{# <div class="manage-o__header u-s-m-b-30"> #}
+{#                                        #}{# <div class="dash-l-r"> #}
+{#                                        #}{# <div> #}
+{#                                        #}{# <div class="manage-o__text-2 u-c-secondary">Order #305423126 #}
+{#                                        #}{# </div> #}
+{#                                        #}{# <div class="manage-o__text u-c-silver">Placed on 26 Oct 2016 #}
+{#                                        #}{# 09:08:37 #}
+{#                                        #}{# </div> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# <div> #}
+{#                                        #}{# <div class="dash__link dash__link--brand"> #}
+
+{#                                        #}{# <a href="{{ path('my.order.detail', {id:order.id}) }}">MANAGE</a></div> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# <div class="manage-o__description"> #}
+{#                                        #}{# <div class="description__container"> #}
+{#                                        #}{# <div class="description__img-wrap"> #}
+
+{#                                        #}{# <img class="u-img-fluid" src="images/product/men/product8.jpg" #}
+{#                                        #}{# alt=""></div> #}
+{#                                        #}{# <div class="description-title">New Fashion D Nice Elegant</div> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# <div class="description__info-wrap"> #}
+{#                                        #}{# <div> #}
+
+{#                                        #}{# <span class="manage-o__badge badge--delivered">Delivered</span> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# <div> #}
+
+{#                                        #}{# <span class="manage-o__text-2 u-c-silver">Quantity: #}
+
+{#                                        #}{# <span class="manage-o__text-2 u-c-secondary">1</span></span> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# <div> #}
+
+{#                                        #}{# <span class="manage-o__text-2 u-c-silver">Total: #}
+
+{#                                        #}{# <span class="manage-o__text-2 u-c-secondary">$16.00</span></span> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# </div> #}
+{#                                        #}{# </div> #}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <!--====== End - Section Content ======-->#}
+{#    </div>#}
+{#    <!--================End login Area =================-->#}
 
 {% endblock %}
 

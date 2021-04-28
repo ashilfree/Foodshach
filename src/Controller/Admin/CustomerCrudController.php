@@ -20,12 +20,13 @@ class CustomerCrudController extends AbstractCrudController
         return Customer::class;
     }
 
-//    public function configureCrud(Crud $crud): Crud
-//    {
-//        return $crud
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
 //            ->overrideTemplate('crud/index', 'admin/customer/index.html.twig')
-//            ;
-//    }
+            ->setPaginatorPageSize(10000)
+            ;
+    }
     public function configureActions(Actions $actions): Actions
     {
         return $actions
@@ -45,7 +46,6 @@ class CustomerCrudController extends AbstractCrudController
             EmailField::new('email'),
             TextField::new('username'),
             TextField::new('fullName'),
-            TelephoneField::new('phone'),
             BooleanField::new('enabled')
         ];
     }

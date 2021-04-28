@@ -7,7 +7,7 @@ liip_imagine:
       quality: 75
       filters:
         thumbnail:
-          size: [ 1920,930 ]
+          size: [ 1920,1280 ]
           mode: outbound
     very_large:
       quality: 75
@@ -19,7 +19,7 @@ liip_imagine:
       quality: 75
       filters:
         thumbnail:
-          size: [ 513, 635 ]
+          size: [ 840, 480 ]
           mode: outbound
     medium:
       quality: 75
@@ -31,11 +31,11 @@ liip_imagine:
       quality: 75
       filters:
         thumbnail:
-          size: [ 68, 85 ]
+          size: [ 68, 96 ]
           mode: outbound
     very_small:
       quality: 75
       filters:
         thumbnail:
-          size: [ 50, 50 ]
+          size: [ 72, 50 ]
           mode: outbound

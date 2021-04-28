@@ -1407,8 +1407,7 @@
     position: absolute;
     -o-object-fit: cover;
     object-fit: cover;
-    font-family: 'object-fit: cover;
-    ';
+    font-family: 'object-fit: cover';
     top: 0;
     left: 0;
     width: 100%;
@@ -1551,6 +1550,10 @@
 .nice-select .list:hover .option:not(:hover) {
     background-color: transparent!important;
 }
+.__note .nice-select .option {
+    color:#3a5d56;
+}
+
 .nice-select .option {
     cursor: pointer;
     font-weight: 400;
@@ -4325,6 +4328,7 @@ img {
 .quantity-counter {
     position: relative;
     width: 95px;
+    margin-bottom: 20px;
 }
 .quantity-counter .__q-input {
     display: block;
@@ -4589,8 +4593,7 @@ img {
     object-fit: cover;
     -o-object-position: 50% 50%;
     object-position: 50% 50%;
-    font-family: "object-fit: cover;
-     object-position:  50% 50%";
+     object-position:  50% 50%;
     -webkit-transition: opacity .2s, -webkit-transform .7s cubic-bezier(.25, .46, .45, .94);
     transition: opacity .2s, -webkit-transform .7s cubic-bezier(.25, .46, .45, .94);
     -o-transition: transform .7s cubic-bezier(.25, .46, .45, .94), opacity .2s;
@@ -4672,8 +4675,7 @@ img {
     object-fit: cover;
     -o-object-position: 50% 50%;
     object-position: 50% 50%;
-    font-family: "object-fit: cover;
-     object-position:  50% 50%";
+     object-position:  50% 50%;
     -webkit-transition: opacity .2s, -webkit-transform .7s cubic-bezier(.25, .46, .45, .94);
     transition: opacity .2s, -webkit-transform .7s cubic-bezier(.25, .46, .45, .94);
     -o-transition: transform .7s cubic-bezier(.25, .46, .45, .94), opacity .2s;
@@ -4924,8 +4926,7 @@ img {
     object-fit: cover;
     -o-object-position: 50% 50%;
     object-position: 50% 50%;
-    font-family: "object-fit: cover;
-     object-position:  50% 50%";
+     object-position:  50% 50%;
     -webkit-transition: opacity .2s, -webkit-transform .7s cubic-bezier(.25, .46, .45, .94);
     transition: opacity .2s, -webkit-transform .7s cubic-bezier(.25, .46, .45, .94);
     -o-transition: transform .7s cubic-bezier(.25, .46, .45, .94), opacity .2s;
@@ -5039,8 +5040,7 @@ img {
     object-fit: cover;
     -o-object-position: 50% 50%;
     object-position: 50% 50%;
-    font-family: "object-fit: cover;
-     object-position:  50% 50%";
+     object-position:  50% 50%;
     -webkit-transition: opacity .2s, -webkit-transform .7s cubic-bezier(.25, .46, .45, .94);
     transition: opacity .2s, -webkit-transform .7s cubic-bezier(.25, .46, .45, .94);
     -o-transition: transform .7s cubic-bezier(.25, .46, .45, .94), opacity .2s;
@@ -5650,8 +5650,7 @@ img {
     object-fit: cover;
     -o-object-position: 50% 50%;
     object-position: 50% 50%;
-    font-family: "object-fit: cover;
-     object-position:  50% 50%";
+     object-position:  50% 50%;
     -webkit-transition: opacity .2s, -webkit-transform .7s cubic-bezier(.25, .46, .45, .94);
     transition: opacity .2s, -webkit-transform .7s cubic-bezier(.25, .46, .45, .94);
     -o-transition: transform .7s cubic-bezier(.25, .46, .45, .94), opacity .2s;
@@ -5749,8 +5748,7 @@ img {
     object-fit: cover;
     -o-object-position: 50% 50%;
     object-position: 50% 50%;
-    font-family: "object-fit: cover;
-     object-position:  50% 50%";
+     object-position:  50% 50%;
     -webkit-transition: opacity .2s, -webkit-transform .7s cubic-bezier(.25, .46, .45, .94);
     transition: opacity .2s, -webkit-transform .7s cubic-bezier(.25, .46, .45, .94);
     -o-transition: transform .7s cubic-bezier(.25, .46, .45, .94), opacity .2s;
@@ -6133,8 +6131,7 @@ img {
     object-fit: cover;
     -o-object-position: 50% 50%;
     object-position: 50% 50%;
-    font-family: "object-fit: cover;
-     object-position:  50% 50%";
+     object-position:  50% 50%;
     -webkit-transition: opacity .2s, -webkit-transform .7s cubic-bezier(.25, .46, .45, .94);
     transition: opacity .2s, -webkit-transform .7s cubic-bezier(.25, .46, .45, .94);
     -o-transition: transform .7s cubic-bezier(.25, .46, .45, .94), opacity .2s;
@@ -6260,6 +6257,7 @@ img {
 .product-single .__add-to-cart button[type=submit] {
     margin-top: 20px;
     white-space: nowrap;
+
 }
 .product-single .__add-to-cart button[type=submit] i {
     display: inline-block;
@@ -9077,6 +9075,10 @@ img {
         position: absolute  !important;
         bottom: 20px;
         right: 25%;}
+.products-list .custom-btn--style-1.size{
+    position: absolute  !important;
+    bottom: 20px;
+    right: 41%;}
 
         .load-more{display:flex; justify-content: center; align-items: center; margin:0px 0 30px 0;}
 
@@ -9235,10 +9237,175 @@ img {
 
   .sub-category ul li{list-style-type:none; display:inline-block; padding:5px 15px; margin:5px; background-color:#5e8350;  border-radius:5px; box-shadow:0 0 2px #000; }
 
-   .sub-category ul li a{color:#fff !important; font-size:16px; font-weight:bold;}
+   .sub-category ul li button{color:#fff !important; font-size:16px; font-weight:bold;background-color: transparent;border: none}
    .sub-category ul li a:hover{color:#ccc; text-decoration:underline;}
 
    .sign-wrapper{border: 1px solid #ccc;
     border-radius: 10px;
     padding: 40px 20px;
     box-shadow: 2px 2px 2px 0px #ddd;}
+
+/* edit profile css */
+
+.cardProfile {
+    border: 1px solid #ddd;
+    text-align: center;
+    background-color: #7daa5a;
+}
+
+.cardProfile span {
+    height: 80px;
+    background-color:#20790c;
+    display: block;
+}
+
+.cardProfile img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-top: -60px;
+    border: 2px solid #222222;
+}
+
+.cardProfile h5 {
+    font-size: 20px;
+    padding: 20px 5px;
+    color:#fff;
+}
+
+.listPro a {
+    display: block;
+    border: 1px solid #ddd;
+    margin-top: -1px;
+    padding: 5px 15px;
+    color: #333;
+    font-weight: 600;
+    background-color: #fff;
+}
+
+.edit_prof_bg1 {
+    padding: 0px 20px;
+    background-color: #20790c;
+    color: #fff;
+}
+
+.fa-camera:before {
+    content: "\f030";
+}
+
+.camera-color {
+    color: #0d68c3;
+}
+
+
+
+.table-min {
+    min-height: 345px;
+}
+.table-pad {
+    padding: 10px 35px !important;
+}
+table.table tr td {
+    border-color: #b6b4b4;
+    padding: 12px 15px;
+    vertical-align: middle;
+}
+.table-bordered td, .table-bordered th {
+    border: 1px solid #e9ecef;
+}
+.container-top {
+    padding-top: 30px;
+    padding-bottom:50px;
+}
+
+.edit_prof_bg1 h4{color:#fff;}
+
+.profile-wrapper {
+    padding-top: 20px;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    margin: 10px 0;
+    font-size:14px;
+    line-height: 1.25;
+    color: #495057;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.box{
+    background-color: #eff2f0;
+    padding: 10px 20px;
+}
+
+.hint-text {
+    float: left;
+    margin-top: 32px;
+    font-size: 13px;
+}
+
+.pagination {
+    float: right;
+    margin: 0 0 5px;
+}
+
+.pagination {
+    display: -ms-flexbox;
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: .25rem;
+    margin-top:16px;
+}
+
+th, .table-striped tr td{text-align:left;}
+
+table.table-striped tr td {
+
+    padding: 12px 0px  !important;}
+
+.table-wrapper-profile{ padding-bottom:10px; border-bottom:1px solid #ccc;}
+
+.order-details_top {
+    background-color: #20790c;
+    color: #fff;
+    margin-top: 23px;
+    padding: 12px;
+    margin-bottom: 28px;
+}
+.media {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+.pull-left {
+    float: left;
+}
+.media-body {
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.media-body h6{font-size:14px; font-weight:normal; margin-top:36px !important;}
+
+.panel-heading h5{color:#fff;}
+
+.bg10 {
+    background-color: #fff;
+}
+.p-b-20, .p-tb-20, .p-all-20 {
+    padding-bottom: 20px;
+}
+
+.active-btn{color:#18891d !important;}

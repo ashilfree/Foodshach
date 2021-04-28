@@ -38,6 +38,7 @@
     {% block head_javascript %}
         <!-- BEGIN PAGE LEVEL STYLES -->
         <link href="{{ asset('assets/admin/plugins/file-upload/file-upload-with-preview.min.css') }}" rel="stylesheet" type="text/css" />
+        <script src="{{ asset('assets/admin/plugins/file-upload/file-upload-with-preview.min.js') }}"></script>
         <!-- END PAGE LEVEL STYLES -->
     {% endblock head_javascript %}
 {% block content_title %}
@@ -91,18 +92,15 @@
             </div>
             <div class="row mb-4">
                 <div class="col">
-                    {{ form_row(edit_form.word, {'attr': {'class': 'form-control', 'placeholder':'Word'}}) }}
+                    {{ form_row(edit_form.description4, {'attr': {'class': 'form-control', 'placeholder':'Description 4'}}) }}
                 </div>
                 <div class="col">
-                    {{ form_row(edit_form.wordAr, {'attr': {'class': 'form-control', 'placeholder':'الكلمة'}}) }}
+                    {{ form_row(edit_form.descriptionAr4, {'attr': {'class': 'form-control', 'placeholder':'الوصف 4'}}) }}
                 </div>
             </div>
             <div class="row mb-4">
                 <div class="col">
-                    {{ form_row(edit_form.word_honor, {'attr': {'class': 'form-control', 'placeholder':'Word Owner'}}) }}
-                </div>
-                <div class="col">
-                    {{ form_row(edit_form.word_honor_ar, {'attr': {'class': 'form-control', 'placeholder':' صاحب الكلمة'}}) }}
+                    {{ form_widget(edit_form.btnUrl, {'attr': {'placeholder':'Button Url'}}) }}
                 </div>
             </div>
             {{ form_end(edit_form) }}
@@ -213,8 +211,4 @@
     </script>
 
     {{ include('@EasyAdmin/crud/includes/_select2_widget.html.twig') }}
-    <script src="{{ asset('assets/admin/plugins/file-upload/file-upload-with-preview.min.js') }}"></script>
-    <script type="text/javascript">
-        var firstUpload = new FileUploadWithPreview('myFirstImage')
-    </script>
 {% endblock %}

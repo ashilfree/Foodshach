@@ -38,6 +38,7 @@
     {% block head_javascript %}
         <!-- BEGIN PAGE LEVEL STYLES -->
         <link href="{{ asset('assets/admin/plugins/file-upload/file-upload-with-preview.min.css') }}" rel="stylesheet" type="text/css" />
+        <script src="{{ asset('assets/admin/plugins/file-upload/file-upload-with-preview.min.js') }}"></script>
         <!-- END PAGE LEVEL STYLES -->
     {% endblock head_javascript %}
 {% block content_title %}
@@ -194,8 +195,4 @@
     </script>
 
     {{ include('@EasyAdmin/crud/includes/_select2_widget.html.twig') }}
-    <script src="{{ asset('assets/admin/plugins/file-upload/file-upload-with-preview.min.js') }}"></script>
-    <script type="text/javascript">
-        var firstUpload = new FileUploadWithPreview('myFirstImage')
-    </script>
 {% endblock %}

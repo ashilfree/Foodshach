@@ -7,6 +7,7 @@ use App\Classes\Contact;
 use App\Classes\Mailer;
 use App\Classes\WishList;
 use App\Form\ContactType;
+use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,9 +50,10 @@ class ContactController extends AbstractController
      * @Route("/{locale}/contact-us", name="contact.us", defaults={"locale"="en"})
      * @param $locale
      * @param Request $request
+     * @param CategoryRepository $categoryRepository
      * @return Response
      */
-    public function index($locale, Request $request): Response
+    public function index($locale, Request $request, CategoryRepository $categoryRepository): Response
     {
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
@@ -68,7 +70,9 @@ class ContactController extends AbstractController
             'form' => $form->createView(),
             'page' => 'contact.us',
             'cart' => $this->cart->getFull($this->cart->get()),
+            'total' => $this->cart->getTotal(),
             'wishlist' => $this->wishlist->getFull(),
+            'categories' => $categoryRepository->findAll(),
         ]);
     }
 }

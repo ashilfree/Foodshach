@@ -234,7 +234,7 @@ try {
               opacity: 0.7,
           }
       },
-      colors: ['#D97591', '#ffbb44'],
+      colors: ['#5e8350', '#ffbb44'],
       plotOptions: {
           bar: {
               horizontal: false,

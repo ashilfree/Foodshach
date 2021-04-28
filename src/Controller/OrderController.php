@@ -9,6 +9,7 @@ use App\Entity\Customer;
 use App\Entity\Order;
 use App\Entity\OrderDetails;
 use App\Form\OrderType;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,57 +40,54 @@ class OrderController extends AbstractController
      * @var WishList
      */
     private $wishlist;
+    /**
+     * @var CategoryRepository
+     */
+    private $categoryRepository;
 
     public function __construct
     (
         EntityManagerInterface $entityManager,
         Security $security,
         Cart $cart,
-        WishList $wishlist
+        WishList $wishlist,
+        CategoryRepository $categoryRepository
     )
     {
         $this->entityManager = $entityManager;
         $this->cart = $cart;
         $this->security = $security;
         $this->wishlist = $wishlist;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
      * @Route("/{locale}/order", name="order", defaults={"locale"="en"})
      * @param $locale
-     * @param Request $request
      * @return Response
      */
-    public function index($locale, Request $request): Response
+    public function index($locale): Response
     {
 
         if (!empty($this->cart->get())) {
             $this->cart->switch();
+        }else{
+            if(empty($this->cart->getCart2Order()))
+            return $this->redirectToRoute('cart', ['locale' => $locale]);
         }
-        if ($request->get('from') != null) {
-            $user = $this->security->getUser();
-            $order = $this->entityManager->getRepository(Order::class)->findOneBy([
-                'customer' => $user,
-                'stripeSessionId' => null
-            ]);
-        }else {
-            if (empty($request->request->all())) {
-                $order = new Order();
-            } else {
-                $id = $request->request->get('order')["id"];
-                $order = $this->entityManager->getRepository(Order::class)->find($id);
-            }
-        }
+        $order = new Order();
         $form = $this->createForm(OrderType::class, $order);
         $path = ($locale == "en") ? 'order/checkout.html.twig' : 'order/checkoutAr.html.twig';
         return $this->render($path, [
             'form' => $form->createView(),
             'cart' => $this->cart->getFull($this->cart->get()),
+            'total' => $this->cart->getTotal(),
             'wishlist' => $this->wishlist->getFull(),
             'cart2order' => $this->cart->getFull($this->cart->getCart2Order()),
             'delivery' => $this->cart->getDelivery(),
             'delivery2order' => $this->cart->getDelivery2Order(),
-            'page' => 'checkout'
+            'page' => 'checkout',
+            'categories' => $this->categoryRepository->findAll()
         ]);
     }
 
@@ -102,20 +100,13 @@ class OrderController extends AbstractController
      */
     public function add($locale, Request $request, Transaction $transaction): Response
     {
-            $id = $request->request->get('order')["id"];
-            if ($id == "") {
-                $order = new Order();
-                if ($this->cart->checkStock()) {
-                    $this->cart->decreaseStock();
-                } else {
-                    return $this->redirectToRoute('back.to.cart', ['locale' => $locale]);
-                }
-
-            } else {
-                $order = $this->entityManager->getRepository(Order::class)->find($id);
-            }
+        $order = new Order();
+        if ($this->cart->checkStock()) {
+            $this->cart->decreaseStock();
+        } else {
+            return $this->redirectToRoute('back.to.cart', ['locale' => $locale]);
+        }
         $form = $this->createForm(OrderType::class, $order);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -132,14 +123,13 @@ class OrderController extends AbstractController
                 $this->entityManager->persist($order);
                 $total = 0.0;
                 foreach ($this->cart->getFull($this->cart->getCart2Order()) as $product) {
-                    $subTotal = $product['quantity'] * $product['catalog']->getProduct()->getPrice();
+                    $subTotal = $product['quantity'] * $product['product']->getPrice();
                     $orderDetail = new OrderDetails();
                     $orderDetail->setMyOrder($order);
-                    $orderDetail->setProduct($product['catalog']->getProduct()->getName());
-                    $orderDetail->setSize($product['catalog']->getSize());
+                    $orderDetail->setProduct($product['product']->getName());
                     $orderDetail->setQuantity($product['quantity']);
-                    $discount = $product['catalog']->getProduct()->getDiscountPrice();
-                    $price = ($discount != null || $discount != 0) ? $discount : $product['catalog']->getProduct()->getPrice();
+                    $discount = $product['product']->getDiscountPrice();
+                    $price = ($discount != null || $discount != 0) ? $discount : $product['product']->getPrice();
                     $orderDetail->setPrice($price);
                     $orderDetail->setTotal($subTotal);
                     $this->entityManager->persist($orderDetail);
@@ -149,14 +139,8 @@ class OrderController extends AbstractController
             }
 
             $this->entityManager->flush();
-            $path = ($locale == "en") ? 'order/checkout-two.html.twig' : 'order/checkout-twoAr.html.twig';
-            return $this->render($path, [
-                    'cart' => $this->cart->getFull($this->cart->get()),
-                    'wishlist' => $this->wishlist->getFull(),
-                    'cart2order' => $this->cart->getFull($this->cart->getCart2Order()),
-                    'order' => $order,
-                    'page' => 'order.recap',
-                    'form' => $this->createForm(OrderType::class, $order)->createView()
+            return $this->redirectToRoute('my.fatoorah.create.session', [
+                    'id' => $order->getId(),
                 ]
             );
 

@@ -57,6 +57,7 @@ class OrderCrudController extends AbstractCrudController
         return $crud
             ->overrideTemplate('crud/index', 'admin/order/index.html.twig')
             ->overrideTemplate('crud/action', 'admin/order/action.html.twig')
+            ->setPaginatorPageSize(10000)
             ;
     }
     public function configureActions(Actions $actions): Actions

@@ -2,12 +2,9 @@
 
 namespace App\Controller\Admin;
 
-use App\Admin\Field\TagField;
 use App\Entity\Product;
 use App\Form\CatalogType;
 use App\Form\ImageFileType;
-use App\Form\TogType;
-use App\Form\TagType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -15,7 +12,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -36,11 +32,14 @@ class ProductCrudController extends AbstractCrudController
             ->overrideTemplate('crud/edit', 'admin/product/edit.html.twig')
 //            ->setFormThemes(['@EasyAdmin/crud/form_theme.html.twig','admin/product/form.html.twig'])
             ->setFormThemes(['@EasyAdmin/crud/form_theme.html.twig','admin/product/form_theme.html.twig'])
+            ->setPaginatorPageSize(1000)
 //            ->overrideTemplates([
 //                'crud/field/collection' => 'admin/product/collection.html.twig'
 //            ])
             ;
     }
+
+
 
 
     public function configureFields(string $pageName): iterable
@@ -51,11 +50,12 @@ class ProductCrudController extends AbstractCrudController
             TextField::new('nameAr'),
             SlugField::new('slug')->setTargetFieldName('name'),
             MoneyField::new('price')->setCurrency('KWD'),
+            MoneyField::new('discountPrice', 'Discount')->setCurrency('KWD'),
             IntegerField::new('quantity'),
-            MoneyField::new('discountPrice')->setCurrency('KWD'),
-            TextareaField::new('description'),
-            TextareaField::new('descriptionAr'),
+            TextareaField::new('description')->onlyOnForms(),
+            TextareaField::new('descriptionAr')->onlyOnForms(),
             AssociationField::new('category'),
+            AssociationField::new('subCategory'),
             CollectionField::new('images')
                 ->setEntryType(ImageFileType::class)->onlyOnForms(),
             CollectionField::new('catalogs')

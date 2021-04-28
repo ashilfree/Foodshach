@@ -2,28 +2,61 @@
 
 {% block body %}
 
-    <!--================Categories Banner Area =================-->
-    <section class="solid_banner_area">
+    <!-- start hero -->
+    <div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 100%"
+         style="background-image: url({{ '/media/images/intro_img/13.jpg' }});color: #333;">
         <div class="container">
-            <div class="solid_banner_inner">
-                <h3>Cart</h3>
-                <ul>
-                    <li><a href="{{ path('home', { locale: 'en' }) }}">Home</a></li>
-                    <li><a href="">Empty Cart</a></li>
-                </ul>
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <h2 class="__title"><span>Food Shack Company</span>cart totals</h2>
+
+
+                </div>
             </div>
         </div>
-    </section>
-    <!--================End Categories Banner Area =================-->
+    </div>
+    <!-- end hero -->
 
-    <section class="emty_cart_area p-tb-100">
-        <div class="container">
-            <div class="emty_cart_inner">
-                <i class="zmdi zmdi-shopping-basket"></i>
-                <h3>Your Cart is Empty</h3>
-                <h4>back to <a href="{{ path('products', { locale: 'en' }) }}">shopping</a></h4>
-            </div>
+    <!-- start main -->
+    <main role="main">
+        <!-- Common styles
+        ================================================== -->
+
+        <div class="container py-5">
+            <section class="products-list py-5">
+                <div class="container goods--style-1">
+
+
+                    <div class="row">
+
+                        <div class="col-lg-8 offset-lg-2 text-center">
+
+                            <div class="placeorder-container site-logo">
+
+                                <img src="{{ '/media/images/site_logo.png' }}" />
+
+                                <h3 class="green-success"> Your Cart is Empty</h3><br />
+
+
+                                <a class="custom-btn custom-btn--medium" href="{{ path('home', { locale: 'en' }) }}">back to shopping</a>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+                </div>
+
+            </section>
+
         </div>
-    </section>
 
+    </main>
+    <!-- end main -->
 {% endblock %}
