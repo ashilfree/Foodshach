@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -47,7 +48,8 @@ class OrderType extends AbstractType
                     'Kuwait' => 0,
                 ]
             ])
-            ->add('shippingPostalCode', TextType::class, [
+            ->add('shippingPostalCode', null, [
+                'help' => 'The ZIP/Postal code for your credit card\'s billing address.',
                 'label'=>false
             ])
             ->add('shippingLat', HiddenType::class)
@@ -55,8 +57,8 @@ class OrderType extends AbstractType
             ->add('shippingEmail', EmailType::class, [
                 'label'=>false
             ])
-            ->add('shippingPhone', TextType::class, [
-                'label'=>false
+            ->add('shippingPhone', TelType::class, [
+                'label'=>false,
             ])
             ->add('notes', TextareaType::class, [
                 'label'=>false,

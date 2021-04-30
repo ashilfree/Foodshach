@@ -18,9 +18,11 @@ import './js/main.min';
 import './js/custom';
 import Global from './modules/Global'
 import Cart from './modules/Cart';
+// import Checkout from './modules/Checkout';
 
 new Global(document.querySelector('.js-cart'));
 new Cart(document.querySelector('.js-cart-form'));
+// new Checkout(document.querySelector('.js-checkout-form'));
 var _html = document.documentElement,
     isTouch = (('ontouchstart' in _html) || (navigator.msMaxTouchPoints > 0) || (navigator.maxTouchPoints));
 

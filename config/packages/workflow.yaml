@@ -20,14 +20,11 @@ framework:
                 create_order:
                     from: created
                     to: waiting
-                proceed_checkout:
-                    from: waiting
-                    to: in_payment
                 checkout:
-                    from: in_payment
+                    from: waiting
                     to: paid
                 checkout_canceled:
-                    from: in_payment
+                    from: waiting
                     to: checkout_canceled
                 in_delivering:
                     from: paid
@@ -38,6 +35,5 @@ framework:
                 order_canceled:
                     from: waiting
                     to: canceled
-                order_canceled2:
-                    from: in_payment
-                    to: canceled
+
+

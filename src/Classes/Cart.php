@@ -61,6 +61,7 @@ class Cart
 
     public function getFull($cart): array
     {
+//        dd($this->session->getId());
         $cartComplete = [];
         if (!empty($cart)) {
             foreach ($cart as $id => $quantity) {

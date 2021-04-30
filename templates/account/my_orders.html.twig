@@ -3,7 +3,7 @@
 {% block body %}
 
     <!-- start hero -->
-    <div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 100%" style="background-image: url(img/intro_img/11.jpg);color: #333;">
+    <div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 100%" style="background-image: url({{ '/media/images/intro_img/11.jpg' }});color: #333;">
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-12">
@@ -56,7 +56,7 @@
                                                 <td>{{ order.reference }}</td>
 
                                                 <td>{{ order.createdAt|date("F jS \\a\\t g:ia") }}</td>
-                                                <td><span class="status text-{{ order.status }}">•</span> {{ order.status|capitalize }}</td>
+                                                <td><span class="status text-{{ order.badge }}">•</span> {{ order.status|capitalize }}</td>
                                                 <td>{{ ((order.total+order.deliveryPrice)/100)|number_format(2, '.', ',') }} {{ currency }}</td>
                                                 <td><a href="{{ path('my.order.detail', {id:order.id}) }}" class="view" title="" data-toggle="tooltip" data-original-title="View Details"><i class="__ico fontello-right-1"></i></a></td>
                                             </tr>

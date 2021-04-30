@@ -21,7 +21,7 @@ class MyFatoorahController extends AbstractController
     //private $apiKey = ''; //Live token value to be placed here: https://myfatoorah.readme.io/docs/live-token
 
     /**
-     * @Route("/order/create-session/{id}", name="my.fatoorah.create.session")
+     * @Route("/{locale}/order/create-session/{id}", name="my.fatoorah.create.session", defaults={"locale"="en"})
      * @param $id
      * @param EntityManagerInterface $entityManager
      * @param Transaction $transaction
@@ -30,7 +30,7 @@ class MyFatoorahController extends AbstractController
     public function index($id, EntityManagerInterface $entityManager, Transaction $transaction): Response
     {
         $order = $entityManager->getRepository(Order::class)->find($id);
-        if (!$order || !$transaction->check($order, 'proceed_checkout'))
+        if (!$order || !$transaction->check($order, 'checkout'))
             return new JsonResponse(["error" => 'order']);
         $YOUR_DOMAIN = 'https://foodshack.genesistech-dz.com';
         //Fill POST fields array
@@ -102,7 +102,6 @@ class MyFatoorahController extends AbstractController
         $invoiceKey = $this->get_string_between($data->PaymentURL, '=', '&');
         $order->setInvoiceId($invoiceId);
         $order->setInvoiceKey($invoiceKey);
-        $transaction->applyWorkFlow($order, 'proceed_checkout');
         $entityManager->flush();
         return $this->redirect($paymentLink, 308);
         //Display the payment link to your customer

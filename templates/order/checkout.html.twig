@@ -26,7 +26,7 @@
                         <h2>BILLING <span>DETAILS</span></h2>
 
                         <div class="spacer py-3"></div>
-                        {{ form_start(form, {action: path('order.recap', { locale: 'en' }), 'attr': {'class': 'checkout__form', 'onsubmit': 'setFormSubmitting()'}}) }}
+                        {{ form_start(form, {action: path('order.recap', { locale: 'en' }), 'attr': {'class': 'checkout__form js-checkout-form', 'onsubmit': 'setFormSubmitting()'}}) }}
                         <form class="checkout__form" action="#">
                             <div class="row justify-content-xl-between">
                                 <div class="col-12 col-md-5 col-lg-6">
@@ -115,7 +115,7 @@
                                         </div>
                                     </div>
 
-                                    <a href="{{ path('back.to.cart', { locale: 'en' }) }}" class="custom-btn custom-btn--medium custom-btn--style-1" style="margin-top: 55px" role="button">Back to Cart</a>
+                                    <a href="{{ path('back.to.cart', { locale: 'en' }) }}" class="custom-btn custom-btn--medium custom-btn--style-1" style="margin-top: 55px" role="button" id="back">Back to Cart</a>
 
                                     <div class="spacer py-6 d-md-none"></div>
                                 </div>
@@ -239,18 +239,24 @@
         var formSubmitting = false;
         var setFormSubmitting = function() { formSubmitting = true; };
 
-        window.onload = function() {
-            window.addEventListener("beforeunload", function (e) {
-                if (formSubmitting) {
-                    return undefined;
-                }
-
-                var confirmationMessage = 'It looks like you have been editing something. '
-                    + 'If you leave before saving, your changes will be lost.';
-
-                (e || window.event).returnValue = confirmationMessage; //Gecko + IE
-                return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
-            });
+        window.onbeforeunload = function(){
+            if (formSubmitting) {
+                return undefined;
+            }
+            return 'Are you sure you want to leave this page?';
         };
+        // window.onload = function() {
+        //    window.addEventListener("beforeunload", function (e) {
+        //         if (formSubmitting) {
+        //             return undefined;
+        //         }
+        //
+        //         var confirmationMessage = 'It looks like you have been editing something. '
+        //             + 'If you leave before saving, your changes will be lost.';
+        //
+        //         (e || window.event).returnValue = confirmationMessage;
+        //         return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+        //     });
+        // };
     </script>
 {% endblock %}

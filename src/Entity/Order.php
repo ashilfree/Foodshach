@@ -484,6 +484,27 @@ class Order
         return $status;
     }
 
+    public function getBadge(): ?string
+    {
+        $badge = '';
+        switch ($this->marking) {
+            case 'in_payment':
+            case 'waiting':
+                $badge = 'info';
+                break;
+            case 'in_delivering':
+            case 'delivered':
+            case 'paid':
+                $badge = 'success';
+                break;
+            case 'checkout_canceled':
+            case 'canceled':
+                $badge = 'danger';
+                break;
+        }
+        return $badge;
+    }
+
     public function setTotal(float $total): self
     {
         $this->total = $total;

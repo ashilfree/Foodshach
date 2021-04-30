@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
@@ -44,6 +45,10 @@ class OrderController extends AbstractController
      * @var CategoryRepository
      */
     private $categoryRepository;
+    /**
+     * @var SessionInterface
+     */
+    private $session;
 
     public function __construct
     (
@@ -51,7 +56,8 @@ class OrderController extends AbstractController
         Security $security,
         Cart $cart,
         WishList $wishlist,
-        CategoryRepository $categoryRepository
+        CategoryRepository $categoryRepository,
+        SessionInterface $session
     )
     {
         $this->entityManager = $entityManager;
@@ -59,6 +65,7 @@ class OrderController extends AbstractController
         $this->security = $security;
         $this->wishlist = $wishlist;
         $this->categoryRepository = $categoryRepository;
+        $this->session = $session;
     }
 
     /**
@@ -100,16 +107,24 @@ class OrderController extends AbstractController
      */
     public function add($locale, Request $request, Transaction $transaction): Response
     {
-        $order = new Order();
-        if ($this->cart->checkStock()) {
-            $this->cart->decreaseStock();
-        } else {
-            return $this->redirectToRoute('back.to.cart', ['locale' => $locale]);
+        $oldOrder = new Order();
+        if($this->session->get('orderId')){
+            $oldOrder = $this->entityManager->getRepository(Order::class)->find($this->session->get('orderId'));
+            $transaction->applyWorkFlow($oldOrder, 'order_canceled');
         }
+
+        $order = new Order();
+        if(!$oldOrder->getId()) {
+            if ($this->cart->checkStock()) {
+                $this->cart->decreaseStock();
+            } else {
+                return $this->redirectToRoute('back.to.cart', ['locale' => $locale]);
+            }
+        }
+
         $form = $this->createForm(OrderType::class, $order);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
+        if ($form->isSubmitted()) {
             if ($order->getId() == null) {
                 $date = new \DateTime();
                 /** @var Customer $user */
@@ -137,8 +152,8 @@ class OrderController extends AbstractController
                 }
                 $order->setTotal($total);
             }
-
             $this->entityManager->flush();
+            $this->session->set('orderId', $order->getId());
             return $this->redirectToRoute('my.fatoorah.create.session', [
                     'id' => $order->getId(),
                 ]
@@ -146,6 +161,7 @@ class OrderController extends AbstractController
 
         }
 
+        $this->session->clear();
         return $this->redirectToRoute('cart', ['locale' => $locale]);
 
     }
@@ -159,6 +175,22 @@ class OrderController extends AbstractController
     {
         $this->cart->reverseSwitch();
         return $this->redirectToRoute('cart', ['locale' => $locale]);
+    }
+
+    /**
+     * @Route("/order/leaving", name="order.leaving")
+     * @param Transaction $transaction
+     * @return Response
+     */
+    public function leaving(Transaction $transaction): Response
+    {
+        if($this->session->get('orderId')){
+            $oldOrder = $this->entityManager->getRepository(Order::class)->find($this->session->get('orderId'));
+            $transaction->applyWorkFlow($oldOrder, 'order_canceled');
+        }
+        $this->cart->increaseStock();
+        $this->session->clear();
+//        return $this->redirectToRoute('cart', ['locale' => $locale]);
     }
 
 }
