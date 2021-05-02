@@ -1,0 +1,48 @@
+
+Running 'app:order:cleanup' command:
+ * Description: 
+ * Arguments: []
+ * Parameters: []
+
+
+ [OK] cleaned "0"  orders.                                                                                              
+
+
+
+Ignoring 'app:order:cleanup' command with arguments [] and parameters []. Next running at 2021-04-30 19:30
+
+Ignoring 'app:order:cleanup' command with arguments [] and parameters []. Next running at 2021-04-30 19:30
+
+Running 'app:order:cleanup' command:
+ * Description: 
+ * Arguments: []
+ * Parameters: []
+
+
+ [OK] cleaned "1"  orders.                                                                                              
+
+
+
+Ignoring 'app:order:cleanup' command with arguments [] and parameters []. Next running at 2021-05-01 17:00
+
+Running 'app:order:cleanup' command:
+ * Description: 
+ * Arguments: []
+ * Parameters: []
+
+
+ [OK] cleaned "1"  orders.                                                                                              
+
+
+
+Running 'app:order:cleanup' command:
+ * Description: 
+ * Arguments: []
+ * Parameters: []
+
+
+ [OK] cleaned "0"  orders.                                                                                              
+
+
+
+Ignoring 'app:order:cleanup' command with arguments [] and parameters []. Next running at 2021-05-01 17:05

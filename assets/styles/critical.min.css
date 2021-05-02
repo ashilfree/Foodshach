@@ -3963,7 +3963,7 @@ form .textfield:-ms-input-placeholder {
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    content: "";
+    content: attr(data-content);
     position: absolute;
     top: 50%;
     transform: translateY(-50%) scale(0);

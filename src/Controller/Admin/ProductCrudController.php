@@ -56,6 +56,7 @@ class ProductCrudController extends AbstractCrudController
             TextareaField::new('descriptionAr')->onlyOnForms(),
             AssociationField::new('category'),
             AssociationField::new('subCategory'),
+            AssociationField::new('hotDegree')->onlyOnForms(),
             CollectionField::new('images')
                 ->setEntryType(ImageFileType::class)->onlyOnForms(),
             CollectionField::new('catalogs')

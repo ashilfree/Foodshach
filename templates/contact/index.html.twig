@@ -24,6 +24,56 @@
 
 
         <div class="py-5">
+
+            <section class="section section--dark-bg  section--contacts mt-60">
+                <div class="container">
+                    <div class="row justify-content-end">
+                        <div class="col-12 col-md-6">
+
+                            <div class="row justify-content-end">
+                                <div class="col-md-11">
+                                    <div class="section-heading section-heading--white">
+                                        <h2 class="__title">Get <span>in touch</span></h2>
+
+                                        <p>Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable.</p>
+                                    </div>
+                                    {{ form_start(form, {'attr': {'class': 'contact-form js-contact-form'}}) }}
+                                    <div class="form__note">
+                                        {% for message in app.flashes('success')  %}
+                                            <div class="alert alert-success">
+                                                {{ message }}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="input-wrp">
+                                        {{ form_widget(form.name, {'attr': {'class': 'textfield', 'placeholder':'Name'}}) }}
+                                    </div>
+
+                                    <div class="input-wrp">
+                                        {{ form_widget(form.email, {'attr': {'class': 'textfield', 'placeholder':'E-mail'}}) }}
+                                    </div>
+
+                                    <div class="input-wrp">
+                                        {{ form_widget(form.message, {'attr': {'class': 'textfield', 'placeholder':'Comments'}}) }}
+                                    </div>
+
+                                    <button class="custom-btn custom-btn--medium custom-btn--style-3 wide" type="submit" role="button">Send</button>
+                                    {{ form_end(form) }}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row no-gutters">
+                    <div class="col-md-6  map-container map-container--left">
+                        <!-- this is demo key "AIzaSyBXQROV5YMCERGIIuwxrmaZbBl_Wm4Dy5U" -->
+                        <div class="g_map" data-api-key="AIzaSyBXQROV5YMCERGIIuwxrmaZbBl_Wm4Dy5U" data-longitude="44.958309" data-latitude="34.109925" data-marker="img/marker.png" style="min-height: 255px"></div>
+                    </div>
+                </div>
+            </section>
+
             <section class="py-5">
                 <div class="container">
                     <!-- start company contacts -->
@@ -75,57 +125,7 @@
                     <!-- end company contacts -->
                 </div>
             </section>
-            <!-- end section -->
 
-            <!-- start section -->
-            <section class="section section--dark-bg  section--contacts mt-60">
-                <div class="container">
-                    <div class="row justify-content-end">
-                        <div class="col-12 col-md-6">
-
-                            <div class="row justify-content-end">
-                                <div class="col-md-11">
-                                    <div class="section-heading section-heading--white">
-                                        <h2 class="__title">Get <span>in touch</span></h2>
-
-                                        <p>Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable.</p>
-                                    </div>
-                                    {{ form_start(form, {'attr': {'class': 'contact-form js-contact-form'}}) }}
-                                    <div class="form__note">
-                                        {% for message in app.flashes('success')  %}
-                                            <div class="alert alert-success">
-                                                {{ message }}
-                                            </div>
-                                        {% endfor %}
-                                    </div>
-                                        <div class="input-wrp">
-                                            {{ form_widget(form.name, {'attr': {'class': 'textfield', 'placeholder':'Name'}}) }}
-                                        </div>
-
-                                        <div class="input-wrp">
-                                            {{ form_widget(form.email, {'attr': {'class': 'textfield', 'placeholder':'E-mail'}}) }}
-                                        </div>
-
-                                        <div class="input-wrp">
-                                            {{ form_widget(form.message, {'attr': {'class': 'textfield', 'placeholder':'Comments'}}) }}
-                                        </div>
-
-                                        <button class="custom-btn custom-btn--medium custom-btn--style-3 wide" type="submit" role="button">Send</button>
-                                    {{ form_end(form) }}
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row no-gutters">
-                    <div class="col-md-6  map-container map-container--left">
-                        <!-- this is demo key "AIzaSyBXQROV5YMCERGIIuwxrmaZbBl_Wm4Dy5U" -->
-                        <div class="g_map" data-api-key="AIzaSyBXQROV5YMCERGIIuwxrmaZbBl_Wm4Dy5U" data-longitude="44.958309" data-latitude="34.109925" data-marker="img/marker.png" style="min-height: 255px"></div>
-                    </div>
-                </div>
-            </section>
         </div>
 
 

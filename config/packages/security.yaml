@@ -14,18 +14,18 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-#        admin:
-#            pattern: /admin
-#            provider: admin_users
-#            anonymous: true
-#            logout:
-#                path: /admin/logout
-#                target: /admin
-#            form_login:
-#                login_path: /admin/login
-#                check_path: admin.login
-#                use_referer: true
-#            user_checker: App\Security\UserEnableChecker
+        admin:
+            pattern: /admin
+            provider: admin_users
+            anonymous: true
+            logout:
+                path: /admin/logout
+                target: /admin
+            form_login:
+                login_path: /admin/login
+                check_path: admin.login
+                use_referer: true
+            user_checker: App\Security\UserEnableChecker
 
         main:
             pattern:            /

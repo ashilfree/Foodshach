@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\SubCategoryRepository;
+use App\Repository\HotDegreeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=SubCategoryRepository::class)
+ * @ORM\Entity(repositoryClass=HotDegreeRepository::class)
  */
-class SubCategory
+class HotDegree
 {
     /**
      * @ORM\Id
@@ -22,21 +22,10 @@ class SubCategory
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $label;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $nameAr;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="subCategories")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $category;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="subCategory")
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="hotDegree")
      */
     private $products;
 
@@ -50,38 +39,14 @@ class SubCategory
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getLabel(): ?string
     {
-        return $this->name;
+        return $this->label;
     }
 
-    public function setName(string $name): self
+    public function setLabel(string $label): self
     {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getNameAr(): ?string
-    {
-        return $this->nameAr;
-    }
-
-    public function setNameAr(string $nameAr): self
-    {
-        $this->nameAr = $nameAr;
-
-        return $this;
-    }
-
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): self
-    {
-        $this->category = $category;
+        $this->label = $label;
 
         return $this;
     }
@@ -98,7 +63,7 @@ class SubCategory
     {
         if (!$this->products->contains($product)) {
             $this->products[] = $product;
-            $product->setSubCategory($this);
+            $product->setHotDegree($this);
         }
 
         return $this;
@@ -108,8 +73,8 @@ class SubCategory
     {
         if ($this->products->removeElement($product)) {
             // set the owning side to null (unless already changed)
-            if ($product->getSubCategory() === $this) {
-                $product->setSubCategory(null);
+            if ($product->getHotDegree() === $this) {
+                $product->setHotDegree(null);
             }
         }
 
@@ -118,6 +83,6 @@ class SubCategory
 
     public function __toString()
     {
-        return $this->name;
+        return $this->label;
     }
 }

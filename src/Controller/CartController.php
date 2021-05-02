@@ -82,11 +82,12 @@ class CartController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
         $quantity = $data ? $data["quantity"] : 1;
-        $this->cart->add($id, $quantity);
+        $quantity = $this->cart->add($id, $quantity);
 //        return $this->redirectToRoute('home', ["locale" => $locale]);
         return new JsonResponse([
             'cartLength' => count($this->cart->get()),
-            'cartTotal' => $this->cart->getTotal()
+            'cartTotal' => $this->cart->getTotal(),
+            'productQuantity' => $quantity
         ]);
     }
 

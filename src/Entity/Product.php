@@ -106,6 +106,12 @@ class Product
      */
     private $longDescriptionAr;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=HotDegree::class, inversedBy="products")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $hotDegree;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -263,6 +269,18 @@ class Product
         return $this;
     }
 
+    public function getHotDegree(): ?HotDegree
+    {
+        return $this->hotDegree;
+    }
+
+    public function setHotDegree(?HotDegree $hotDegree): self
+    {
+        $this->hotDegree = $hotDegree;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Image[]
      */
@@ -358,5 +376,4 @@ class Product
 
         return $this;
     }
-
 }

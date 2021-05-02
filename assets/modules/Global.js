@@ -91,6 +91,7 @@ export default class Global {
             iconCart.textContent = data.cartLength;
             iconCart2.textContent = data.cartLength;
             totalCart.textContent = data.cartTotal;
+            a.querySelector('.btn').setAttribute("data-content", "x " + data.productQuantity)
             this.iconCart3.style.display = 'block';
         }else {
             console.error(response);

@@ -79,6 +79,9 @@
             <div class="col">
                 {{ form_widget(edit_form.subCategory, {'attr': {'placeholder':'basic'}}) }}
             </div>
+            <div class="col">
+                {{ form_widget(edit_form.hotDegree, {'attr': {'class': 'basic'}}) }}
+            </div>
         </div>
         <div class="row mb-4">
             <div class="col">
@@ -279,6 +282,7 @@
     <script src="{{ asset('assets/admin/plugins/file-upload/file-upload-with-preview.min.js') }}"></script>
     <script type="text/javascript">
         jQuery(document).ready(function($){
+            console.log($("#Product_category").val());
             $("#Product_category")
                 .select2({
                     placeholder: "Select a Category",
@@ -287,6 +291,21 @@
                 .on('select2:select', function (e) {
                     console.log(e.params.data.id);
                     $('#Product_subCategory').val(null);
+                    $('#Product_hotDegree').val(null);
+                    if(e.params.data.id == 1){
+                        console.log(e.params.data.id);
+                        $("#Product_hotDegree").select2({
+                            placeholder: "Select a Hot Degree",
+                            allowClear: true,
+                            disabled: false
+                        });
+                    }else{
+                        $("#Product_hotDegree").select2({
+                            placeholder: "Select a Hot Degree",
+                            allowClear: true,
+                            disabled: true
+                        });
+                    }
                     $("#Product_subCategory").select2({
                         placeholder: "Select a SubCategory",
                         allowClear: true,
@@ -339,6 +358,19 @@
                     // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
                 }
             });
+            if($("#Product_category").val() == 1){
+                $("#Product_hotDegree").select2({
+                    placeholder: "Select a Hot Degree",
+                    allowClear: true,
+                    disabled: false
+                });
+            }else{
+                $("#Product_hotDegree").select2({
+                    placeholder: "Select a Hot Degree",
+                    allowClear: true,
+                    disabled: true
+                });
+            }
         });
         // $('#Product_category').select2('destroy');
     </script>

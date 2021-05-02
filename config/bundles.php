@@ -21,4 +21,6 @@ return [
     Knp\Bundle\PaginatorBundle\KnpPaginatorBundle::class => ['all' => true],
     SymfonyCasts\Bundle\ResetPassword\SymfonyCastsResetPasswordBundle::class => ['all' => true],
     NotFloran\MjmlBundle\MjmlBundle::class => ['all' => true],
+    Adamski\Symfony\ScheduleBundle\ScheduleBundle::class => ['all' => true],
+    Rewieer\TaskSchedulerBundle\RewieerTaskSchedulerBundle::class => ['all' => true],
 ];

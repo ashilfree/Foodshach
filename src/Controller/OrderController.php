@@ -103,9 +103,8 @@ class OrderController extends AbstractController
      * @param $locale
      * @param Request $request
      * @param Transaction $transaction
-     * @return Response
      */
-    public function add($locale, Request $request, Transaction $transaction): Response
+    public function add($locale, Request $request, Transaction $transaction): \Symfony\Component\HttpFoundation\RedirectResponse
     {
         $oldOrder = new Order();
         if($this->session->get('orderId')){
@@ -124,7 +123,7 @@ class OrderController extends AbstractController
 
         $form = $this->createForm(OrderType::class, $order);
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             if ($order->getId() == null) {
                 $date = new \DateTime();
                 /** @var Customer $user */
@@ -161,8 +160,8 @@ class OrderController extends AbstractController
 
         }
 
-        $this->session->clear();
-        return $this->redirectToRoute('cart', ['locale' => $locale]);
+//        $this->session->clear();
+//        return $this->redirectToRoute('cart', ['locale' => $locale]);
 
     }
 

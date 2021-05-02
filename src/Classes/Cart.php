@@ -37,6 +37,7 @@ class Cart
             $cart[$id] += $quantity;
         }
         $this->session->set('cart', $cart);
+        return $cart[$id];
     }
 
     public function get()

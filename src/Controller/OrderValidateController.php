@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class OrderValidateController extends AbstractController
@@ -41,8 +42,12 @@ class OrderValidateController extends AbstractController
      * @var CategoryRepository
      */
     private $categoryRepository;
+    /**
+     * @var SessionInterface
+     */
+    private $session;
 
-    public function __construct(EntityManagerInterface $entityManager, Transaction $transaction, Cart $cart, WishList $wishlist, Mailer $mailer, CategoryRepository $categoryRepository)
+    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session, Transaction $transaction, Cart $cart, WishList $wishlist, Mailer $mailer, CategoryRepository $categoryRepository)
 	{
 		$this->entityManager = $entityManager;
 		$this->transaction = $transaction;
@@ -50,30 +55,31 @@ class OrderValidateController extends AbstractController
         $this->mailer = $mailer;
         $this->wishlist = $wishlist;
         $this->categoryRepository = $categoryRepository;
+        $this->session = $session;
     }
 
     /**
      * @Route("/order/thank/{reference}", name="order.validate.thank")
      * @param $reference
-     * @param Request $request
      * @return Response
      */
-    public function success($reference, Request $request): Response
+    public function success($reference): Response
     {
+        $locale = $this->session->get("locale");
 	    $order = $this->entityManager->getRepository(Order::class)->findOneBy(['reference' => $reference]);
 		if(!$order || $order->getCustomer() != $this->getUser()){
 			return $this->redirectToRoute('home');
 		}
 
 		if ($this->transaction->check($order, 'checkout')){
-			$this->cart->remove2Order();
+			$this->session->clear();
 			$this->transaction->applyWorkFlow($order, 'checkout');
             $order->setPaidAt(new \DateTime());
 			$this->entityManager->flush();
             $this->mailer->sendSuccessOrderEmail($order);
 		}
-
-        return $this->render('order/order-complete.html.twig', [
+        $path = ($locale == "ar") ? 'order/order-complete.html.twig' : 'order/order-completeAr.html.twig';
+        return $this->render($path, [
         	'order' => $order,
             'cart' => $this->cart->getFull($this->cart->get()),
             'total' => $this->cart->getTotal(),
@@ -90,6 +96,7 @@ class OrderValidateController extends AbstractController
      */
 	public function cancel($reference): Response
 	{
+        $locale = $this->session->get("locale");
 		$order = $this->entityManager->getRepository(Order::class)->findOneBy(['reference' => $reference]);
 		if(!$order || $order->getCustomer() != $this->getUser()){
 			return $this->redirectToRoute('home');
@@ -101,7 +108,9 @@ class OrderValidateController extends AbstractController
         $order->setCancelledAt(new \DateTime());
 		$this->entityManager->flush();
         $this->mailer->sendFailureOrderEmail($order);
-		return $this->render('order/order-canceled.html.twig', [
+
+        $path = ($locale == "ar") ? 'order/order-canceled.html.twig' : 'order/order-canceledAr.html.twig';
+		return $this->render($path, [
 			'order' => $order,
             'cart' => $this->cart->getFull($this->cart->get()),
             'total' => $this->cart->getTotal(),
