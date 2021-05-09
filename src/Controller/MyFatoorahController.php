@@ -32,7 +32,8 @@ class MyFatoorahController extends AbstractController
         $order = $entityManager->getRepository(Order::class)->find($id);
         if (!$order || !$transaction->check($order, 'checkout'))
             return new JsonResponse(["error" => 'order']);
-        $YOUR_DOMAIN = 'https://foodshack.genesistech-dz.com';
+//        $YOUR_DOMAIN = 'https://foodshack.genesistech-dz.com';
+        $YOUR_DOMAIN = 'https://127.0.0.1:8000';
         //Fill POST fields array
         $ipPostFields = ['InvoiceAmount' => ($order->getTotal() + $order->getDeliveryPrice()) / 100, 'CurrencyIso' => 'KWD'];
 
@@ -53,7 +54,7 @@ class MyFatoorahController extends AbstractController
             'Block' => '', //optional
             'Street' => '', //optional
             'HouseBuildingNo' => '', //optional
-            'Address' => $order->getShippingAddress(), //optional
+            'Address' => $order->getShippingHouseNumber() .'-'.$order->getShippingStreetNumber(), //optional
             'AddressInstructions' => $order->getShippingCity() . '-' . $order->getShippingProvince() . '-' . $order->getShippingCountry(), //optional
         );
 

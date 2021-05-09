@@ -78,7 +78,7 @@ class OrderValidateController extends AbstractController
 			$this->entityManager->flush();
             $this->mailer->sendSuccessOrderEmail($order);
 		}
-        $path = ($locale == "ar") ? 'order/order-complete.html.twig' : 'order/order-completeAr.html.twig';
+        $path = ($locale == "en") ? 'order/order-complete.html.twig' : 'order/order-completeAr.html.twig';
         return $this->render($path, [
         	'order' => $order,
             'cart' => $this->cart->getFull($this->cart->get()),
@@ -104,12 +104,12 @@ class OrderValidateController extends AbstractController
 		if ($this->transaction->check($order, 'checkout_canceled'))
 			$this->transaction->applyWorkFlow($order, 'checkout_canceled');
         $this->cart->increaseStock();
-        $this->cart->remove2Order();
+        $this->session->clear();
         $order->setCancelledAt(new \DateTime());
 		$this->entityManager->flush();
         $this->mailer->sendFailureOrderEmail($order);
 
-        $path = ($locale == "ar") ? 'order/order-canceled.html.twig' : 'order/order-canceledAr.html.twig';
+        $path = ($locale == "en") ? 'order/order-canceled.html.twig' : 'order/order-canceledAr.html.twig';
 		return $this->render($path, [
 			'order' => $order,
             'cart' => $this->cart->getFull($this->cart->get()),

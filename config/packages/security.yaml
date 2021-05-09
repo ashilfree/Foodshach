@@ -40,6 +40,7 @@ security:
             form_login:
                 login_path:     /login
                 check_path:     login
+                failure_path:   login
             remember_me:
                 secret: '%env(APP_SECRET)%'
                 lifetime: 1209600 # 2 weeks in seconds

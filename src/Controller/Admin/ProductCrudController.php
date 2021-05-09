@@ -47,13 +47,13 @@ class ProductCrudController extends AbstractCrudController
         return [
             IdField::new('id')->onlyOnIndex(),
             TextField::new('name'),
-            TextField::new('nameAr'),
+            TextField::new('nameAr', 'الاسم')->addCssClass('text-right'),
             SlugField::new('slug')->setTargetFieldName('name'),
             MoneyField::new('price')->setCurrency('KWD'),
             MoneyField::new('discountPrice', 'Discount')->setCurrency('KWD'),
             IntegerField::new('quantity'),
             TextareaField::new('description')->onlyOnForms(),
-            TextareaField::new('descriptionAr')->onlyOnForms(),
+            TextareaField::new('descriptionAr', 'الوصف')->onlyOnForms()->addCssClass('text-right'),
             AssociationField::new('category'),
             AssociationField::new('subCategory'),
             AssociationField::new('hotDegree')->onlyOnForms(),
@@ -63,7 +63,7 @@ class ProductCrudController extends AbstractCrudController
                 ->setEntryType(CatalogType::class)
                 ->onlyOnForms(),
             TextEditorField::new('longDescription')->onlyOnForms(),
-            TextEditorField::new('longDescriptionAr')->onlyOnForms(),
+            TextEditorField::new('longDescriptionAr', 'الوصف الطويل')->onlyOnForms()->addCssClass('text-right'),
         ];
     }
 

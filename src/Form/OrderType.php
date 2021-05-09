@@ -27,15 +27,16 @@ class OrderType extends AbstractType
             ->add('shippingLastName', TextType::class, [
                 'label'=>false
             ])
-            ->add('shippingCompanyName', TextType::class, [
+            ->add('shippingStreetNumber', TextType::class, [
+                'label'=>false
+            ])
+            ->add('shippingHouseNumber', TextType::class, [
                 'label'=>false,
                 'required' => false
             ])
-            ->add('shippingAddress', TextType::class, [
+            ->add('shippingApartment', TextType::class, [
                 'label'=>false,
-                'attr' => [
-                    'id' => 'address'
-                ]
+                'required' => false
             ])
             ->add('shippingCity', TextType::class, [
                 'label'=>false
@@ -59,6 +60,7 @@ class OrderType extends AbstractType
             ])
             ->add('shippingPhone', TelType::class, [
                 'label'=>false,
+                'invalid_message' => 'Invalid Phone Number'
             ])
             ->add('notes', TextareaType::class, [
                 'label'=>false,

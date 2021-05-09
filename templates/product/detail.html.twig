@@ -73,14 +73,18 @@
                                     </div>
 
                                     <div class="product-price">
-                                        {% if product.discountPrice != null %}
-                                            <span class="product-price__item product-price__item--new">{{ (product.discountPrice / 100) |number_format(3, '.', ',') }} {{ currency }}</span>
+                                        {% if product.discountPrice != 0.0 %}
+                                            <span class="product-price__item product-price__item--new">{{ (product.discountPrice / 100) |number_format(3, '.', ',') }} {{ currency }}</span><br>
                                             <span class="product-price__item product-price__item--old">{{ (product.price / 100) |number_format(3, '.', ',') }} {{ currency }}</span>
                                         {% else %}
                                             <span class="product-price__item product-price__item--new">{{ (product.price / 100) |number_format(3, '.', ',') }} {{ currency }}</span>
                                         {% endif %}
                                     </div>
-
+                                    {% if product.category.id == 1 %}
+                                        {% if product.hotDegree != null %}
+                                            <img src="{{ '/media/images/spice'~ product.hotDegree.id ~'.png' }}" />
+                                        {% endif %}
+                                    {% endif %}
 {#                                    <div class="rating">#}
 {#                                        <span class="rating__item rating__item--active"><i class="fontello-star"></i></span>#}
 {#                                        <span class="rating__item rating__item--active"><i class="fontello-star"></i></span>#}
@@ -183,18 +187,22 @@
 
 
                                                 <div class="product-price">
-                                                    {% if product.discountPrice != null %}
-                                                        <span class="product-price__item product-price__item--new">{{ (product.discountPrice / 100) |number_format(2, '.', ',') }} {{ currency }}</span>
+                                                    {% if product.discountPrice != 0.0 %}
+                                                        <span class="product-price__item product-price__item--new">{{ (product.discountPrice / 100) |number_format(2, '.', ',') }} {{ currency }}</span><br>
                                                         <span class="product-price__item product-price__item--old">{{ (product.price / 100) |number_format(2, '.', ',') }} {{ currency }}</span>
                                                     {% else %}
                                                         <span class="product-price__item product-price__item--new">{{ (product.price / 100) |number_format(2, '.', ',') }} {{ currency }}</span>
                                                     {% endif %}
                                                 </div>
-
+                                                {% if product.category.id == 1 %}
+                                                    {% if product.hotDegree != null %}
+                                                        <img src="{{ '/media/images/spice'~ product.hotDegree.id ~'.png' }}" />
+                                                    {% endif %}
+                                                {% endif %}
 
                                             </div>
 
-                                            <span class="product-label product-label--new">New</span>
+{#                                            <span class="product-label product-label--new">New</span>#}
                                         </div>
                                     </div>
                                     <!-- end item -->

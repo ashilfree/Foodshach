@@ -51,15 +51,17 @@ class ListenerForAnyRequest
     public function onKernelRequest(RequestEvent $event)
     {
         if($event->getRequest()->headers->get('referer')){
-            $refererPathInfo = Request::create($event->getRequest()->headers->get('referer'))->getPathInfo();
-            $PathInfo = $event->getRequest()->getPathInfo();
-            if($refererPathInfo == '/en/order' && !str_contains($PathInfo, '/en/order') && !str_contains($PathInfo, '/_wdt')){
-                if($this->session->get('orderId')){
-                    $oldOrder = $this->entityManager->getRepository(Order::class)->find($this->session->get('orderId'));
-                    $this->transaction->applyWorkFlow($oldOrder, 'order_canceled');
-                    $this->cart->increaseStock();
+            $route = $event->getRequest()->attributes->get('_route');
+            if($route !== '_wdt') {
+                $refererPathInfo = Request::create($event->getRequest()->headers->get('referer'))->getPathInfo();
+                if ($refererPathInfo == '/en/order' && $route !== 'order' && $route !== 'my.fatoorah.create.session') {
+                    if ($this->session->get('orderId')) {
+                        $oldOrder = $this->entityManager->getRepository(Order::class)->find($this->session->get('orderId'));
+                        $this->transaction->applyWorkFlow($oldOrder, 'order_canceled');
+                        $this->cart->increaseStock();
+                    }
+                    $this->session->clear();
                 }
-                $this->session->clear();
             }
         }
 

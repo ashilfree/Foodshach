@@ -113,7 +113,11 @@
                                 </li>
 
                                 <li class="li-profile">
-                                    <a href="{{ path('login', { locale: 'en'}) }}"><i class="fontello-profile"></i></a>
+                                    {% if app.user %}
+{#                                        <a href="{{ path('logout') }}"><i class="fontello-user"></i></a>#}
+                                    {% else %}
+                                        <a href="{{ path('login', { locale: 'en'}) }}"><i class="fontello-profile"></i></a>
+                                    {% endif %}
                                 </li>
                                 <li class="li-cart">
                                     <a href="{{ path('cart') }}" class="js-cart-icon"><i

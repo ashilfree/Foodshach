@@ -33,7 +33,7 @@ class Mailer{
 
     public function sendConfirmationEmail(Customer $customer, string $locale)
     {
-        $path = ($locale == "en") ? 'emails/register-confirmation.html.twig' : 'emails/register-confirmationAr.html.twig';
+        $path = ($locale == "en") ? 'emails/register-confirmation.mjml.twig' : 'emails/register-confirmationAr.html.twig';
         $body = $this->twig->render($path,
             [
                 'customer' => $customer,
@@ -50,7 +50,7 @@ class Mailer{
 
     public function sendResetPasswordEmail($customer, $resetToken, $tokenLifetime)
     {
-        $body = $this->twig->render('emails/reset-password.html.twig', [
+        $body = $this->twig->render('emails/reset-password.mjml.twig', [
                 'resetToken' => $resetToken,
                 'tokenLifetime' => $tokenLifetime,
             ]
@@ -65,7 +65,7 @@ class Mailer{
 
     public function sendContactEmail(Contact $contact)
     {
-        $body = $this->twig->render('emails/contact.html.twig', [
+        $body = $this->twig->render('emails/contact-customer.mjml.twig', [
                 'contact' => $contact
             ]
         );
@@ -80,7 +80,7 @@ class Mailer{
 
     public function sendSuccessOrderEmail(Order $order)
     {
-        $body = $this->twig->render('order/success.html.twig',
+        $body = $this->twig->render('emails/order-success.mjml.twig',
             [
                 'order' => $order
             ]
@@ -96,7 +96,7 @@ class Mailer{
 
     public function sendFailureOrderEmail(Order $order)
     {
-        $body = $this->twig->render('order/failure.html.twig',
+        $body = $this->twig->render('emails/order-failure.mjml.twig',
             [
                 'order' => $order
             ]

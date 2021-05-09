@@ -71,9 +71,11 @@ class OrderController extends AbstractController
     /**
      * @Route("/{locale}/order", name="order", defaults={"locale"="en"})
      * @param $locale
+     * @param Request $request
+     * @param Transaction $transaction
      * @return Response
      */
-    public function index($locale): Response
+    public function index($locale, Request $request, Transaction $transaction): Response
     {
 
         if (!empty($this->cart->get())) {
@@ -82,30 +84,7 @@ class OrderController extends AbstractController
             if(empty($this->cart->getCart2Order()))
             return $this->redirectToRoute('cart', ['locale' => $locale]);
         }
-        $order = new Order();
-        $form = $this->createForm(OrderType::class, $order);
-        $path = ($locale == "en") ? 'order/checkout.html.twig' : 'order/checkoutAr.html.twig';
-        return $this->render($path, [
-            'form' => $form->createView(),
-            'cart' => $this->cart->getFull($this->cart->get()),
-            'total' => $this->cart->getTotal(),
-            'wishlist' => $this->wishlist->getFull(),
-            'cart2order' => $this->cart->getFull($this->cart->getCart2Order()),
-            'delivery' => $this->cart->getDelivery(),
-            'delivery2order' => $this->cart->getDelivery2Order(),
-            'page' => 'checkout',
-            'categories' => $this->categoryRepository->findAll()
-        ]);
-    }
 
-    /**
-     * @Route("/{locale}/order/recap/", name="order.recap", defaults={"locale"="en"})
-     * @param $locale
-     * @param Request $request
-     * @param Transaction $transaction
-     */
-    public function add($locale, Request $request, Transaction $transaction): \Symfony\Component\HttpFoundation\RedirectResponse
-    {
         $oldOrder = new Order();
         if($this->session->get('orderId')){
             $oldOrder = $this->entityManager->getRepository(Order::class)->find($this->session->get('orderId'));
@@ -160,9 +139,18 @@ class OrderController extends AbstractController
 
         }
 
-//        $this->session->clear();
-//        return $this->redirectToRoute('cart', ['locale' => $locale]);
-
+        $path = ($locale == "en") ? 'order/checkout.html.twig' : 'order/checkoutAr.html.twig';
+        return $this->render($path, [
+            'form' => $form->createView(),
+            'cart' => $this->cart->getFull($this->cart->get()),
+            'total' => $this->cart->getTotal(),
+            'wishlist' => $this->wishlist->getFull(),
+            'cart2order' => $this->cart->getFull($this->cart->getCart2Order()),
+            'delivery' => $this->cart->getDelivery(),
+            'delivery2order' => $this->cart->getDelivery2Order(),
+            'page' => 'checkout',
+            'categories' => $this->categoryRepository->findAll()
+        ]);
     }
 
     /**
@@ -174,22 +162,6 @@ class OrderController extends AbstractController
     {
         $this->cart->reverseSwitch();
         return $this->redirectToRoute('cart', ['locale' => $locale]);
-    }
-
-    /**
-     * @Route("/order/leaving", name="order.leaving")
-     * @param Transaction $transaction
-     * @return Response
-     */
-    public function leaving(Transaction $transaction): Response
-    {
-        if($this->session->get('orderId')){
-            $oldOrder = $this->entityManager->getRepository(Order::class)->find($this->session->get('orderId'));
-            $transaction->applyWorkFlow($oldOrder, 'order_canceled');
-        }
-        $this->cart->increaseStock();
-        $this->session->clear();
-//        return $this->redirectToRoute('cart', ['locale' => $locale]);
     }
 
 }

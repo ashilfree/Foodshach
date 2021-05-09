@@ -7373,7 +7373,7 @@ img {
 }
 
 .goods--style-1 .product-price {
-    margin-top: 10px;
+    margin-top: 7px;
 }
 
 .goods--style-2 .__inner {
@@ -10824,7 +10824,7 @@ img {
     }
     .mobile-increment {
         position: absolute;
-        left: 0;
+        left: 15px;
         margin-top: 30px;
     }
     .mobile-hide {
@@ -11734,11 +11734,11 @@ body.vegas-container > .vegas-overlay, body.vegas-container > .vegas-slide, body
 }
 
 .__title {
-    margin: 15px 0 0 0 !important;
+    margin: 7px 0 0 0 !important;
 }
 
 .product-price {
-    margin: 15px 20px 15px 0;
+    margin: 7px 20px 8px 0;
 }
 
 .mt-60 {

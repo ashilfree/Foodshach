@@ -25,19 +25,17 @@
 	</header>
 
 	<section style="background-color: #fff;padding-bottom: 140px;padding-top: 23px;">
-		<h1 style="text-align: center; color: #20d8ed;"><strong>Contact</strong></h1>
-		<p style="text-align: center;"><strong>FoodShack <br/>Thank you Mr <span style="color: deepskyblue">{{ contact.name }}</span> for your inscription, we hope you find what you need</strong></p>
+		<h1 style="text-align: center; color: #247705;"><strong>Contact</strong></h1>
 		<p style="text-align: center;">&nbsp;</p>
-		<p style="text-align: center;"> {{ contact.email }}&nbsp;</p>
-		<p style="text-align: center;"></p>
-		<p style="text-align: center;"> {{ contact.message }} </p>
+		<p style="text-align: center;">&nbsp;</p>
+		<p style="text-align: center;"><strong>Dear Mr <span style="color: #247705;">{{ contact.name }}</span>,<br>  we thank you for contacting us,<br> a response will be given as soon as possible</strong></p>
 	</section>
 	<!-- Footer -->
-	<footer id="footer" class="footer--style-1">
+	<footer id="footer" style="font-size: 1.3rem;padding-top: 30px;-webkit-box-flex: 0;-webkit-flex: 0 0 auto;-ms-flex: 0 0 auto;flex: 0 0 auto;background-color: #f2f2f2;position: relative;" class="footer--style-1">
 		<div class="container">
 			<div class="row">
 				<div class="col-12 col-lg-4 text-center">
-					<div class="footer__item">
+					<div class="footer__item" style="width: 100%;margin-bottom: 40px;">
 						<a class="site-logo" href="#">
 							<img class="img-fluid  lazy" src="https://foodshack.genesistech-dz.com/media/images/site_logo.png" alt="demo" />
 						</a>
@@ -47,7 +45,7 @@
 				</div>
 
 				<div class="col-12 col-lg-4 text-center">
-					<div class="footer__item">
+					<div class="footer__item" style="width: 100%;margin-bottom: 40px;">
 						<h5 class="h6">Quick links</h5>
 						<hr class="hr-footer" />
 						<ul>
@@ -61,7 +59,7 @@
 				</div>
 
 				<div class="col-12 col-lg-4 text-center">
-					<div class="footer__item">
+					<div class="footer__item" style="width: 100%;margin-bottom: 40px;">
 						<h5 class="h6">Connect with us</h5>
 						<hr class="hr-footer" />
 						<div class="social-btns">
@@ -94,24 +92,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<style>
-		#footer {
-			-webkit-box-flex: 0;
-			-webkit-flex: 0 0 auto;
-			-ms-flex: 0 0 auto;
-			flex: 0 0 auto;
-			background-color: #f2f2f2;
-		}
-		#footer {
-			position: relative;
-		}
-		.footer--style-1 {
-			padding-top: 30px;
-			font-size: 1.3rem;
-		}
-		#footer .footer__item {
-			width: 100%;
-			margin-bottom: 40px;
-		}
 		.site-logo img {
 			vertical-align: middle;
 			max-width: 100%;
@@ -174,7 +154,66 @@
 		.footer--style-1 .__copy {
 			color: #b4b4b4;
 		}
+		.social-btns {
+			line-height: 0;
+			font-size: 0;
+			letter-spacing: -1px;
+			margin: 0 -5px;
+		}
 
+		#footer .social-btns a {
+			font-size: 2rem;
+		}
+
+		.footer--style-1 .social-btns a {
+			color: #20790c;
+		}
+		.social-btns a {
+			display: inline-block;
+			vertical-align: middle;
+			line-height: 1;
+			color: #fff;
+			text-align: center !important;
+			text-decoration: none !important;
+			letter-spacing: 0;
+			margin: 0 5px;
+			-webkit-transition: background-color .3s ease-in-out, border-color .3s ease-in-out, color .3s ease-in-out;
+			-o-transition: background-color .3s ease-in-out, border-color .3s ease-in-out, color .3s ease-in-out;
+			transition: background-color .3s ease-in-out, border-color .3s ease-in-out, color .3s ease-in-out;
+		}
+		.social-btns a i {
+			display: inline-block;
+			width: 1em;
+		}
+		.fontello-youtube:before {
+			content: '\f167';
+		}
+		.fontello-twitter:before {
+			content: '\f099';
+		}
+		.fontello-facebook:before {
+			content: '\f09a';
+		}
+		.fontello-linkedin-squared:before {
+			content: '\f30c';
+		}
+		[class*=" fontello-"]:before, [class^=fontello-]:before {
+			font-family: fontello;
+			font-style: normal;
+			font-weight: 400;
+			speak: none;
+			display: inline-block;
+			text-decoration: inherit;
+			text-align: center;
+			font-variant: normal;
+			text-transform: none;
+			line-height: 1em;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+			width: auto;
+			margin-left: auto;
+			margin-right: auto;
+		}
 	</style>
 </body>
 </html>

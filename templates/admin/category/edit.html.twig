@@ -68,7 +68,7 @@
                     {{ form_row(edit_form.slug, {'attr': {'class': 'form-control', 'placeholder':'Slug'}}) }}
                 </div>
                 <div class="col">
-                    {{ form_row(edit_form.nameAr, {'attr': {'class': 'form-control', 'placeholder':'الاسم'}}) }}
+                    {{ form_row(edit_form.nameAr, {'attr': {'class': 'form-control text-right', 'placeholder':'الاسم'}}) }}
                 </div>
             </div>
             {{ form_end(edit_form) }}
@@ -192,6 +192,25 @@
         }
         trix-editor{
             color: black;
+        }
+        .btn.btn-link.field-collection-delete-button{
+            background-color: red;
+            color: #fff;
+            font-weight: bolder;
+        }
+        .field-collection-item.field-collection-item-complex{
+            padding: 20px;
+        }
+
+        .custom-file-input{
+            opacity: 1;
+            width: 284px;
+        }
+
+        .field-collection.form-group.processed{
+            padding:10px;
+            margin-top: 10px;
+            background-color:#fff;
         }
     </style>
 

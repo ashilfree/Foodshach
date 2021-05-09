@@ -89,15 +89,17 @@
 
 
                                         <div class="product-price">
-                                            {% if product.discountPrice != null %}
-                                                <span class="product-price__item product-price__item--new">{{ (product.discountPrice / 100) |number_format(3, '.', ',') }} {{ currency }}</span>
+                                            {% if product.discountPrice != 0.0 %}
+                                                <span class="product-price__item product-price__item--new">{{ (product.discountPrice / 100) |number_format(3, '.', ',') }} {{ currency }}</span><br>
                                                 <span class="product-price__item product-price__item--old">{{ (product.price / 100) |number_format(3, '.', ',') }} {{ currency }}</span>
                                             {% else %}
                                                 <span class="product-price__item product-price__item--new">{{ (product.price / 100) |number_format(3, '.', ',') }} {{ currency }}</span>
                                             {% endif %}
                                         </div>
                                         {% if category.id == 1 %}
-                                            <img src="{{ '/media/images/spice'~ product.hotDegree.id ~'.png' }}" />
+                                            {% if product.hotDegree != null %}
+                                                <img src="{{ '/media/images/spice'~ product.hotDegree.id ~'.png' }}" />
+                                            {% endif %}
                                         {% endif %}
                                         {# <a class="custom-btn custom-btn--medium custom-btn--style-1 js-cart-add" href="{{ path('add.cart', { id: product.id, locale: 'en' }) }}"><i class="fontello-shopping-bag"></i>Add to cart</a> #}
                                         <a class="e-button {% if product.quantity != 0 %} js-cart-add {% endif %}" {% if product.quantity == 0 %} href="javascript:void(0)" {% else %} href="{{ path('add.cart', { id: product.id, locale: 'en' }) }}" {% endif %} {% if product.quantity == 0 %} disabled {% endif %}>

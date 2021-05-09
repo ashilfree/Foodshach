@@ -134,7 +134,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Order', 'fa fa-university', Order::class);
         yield MenuItem::linkToCrud('Category', 'fa fa-list', Category::class);
         yield MenuItem::linkToCrud('Slide', 'fa fa-desktop', Slide::class);
-        yield MenuItem::linkToCrud('Product', 'fa fa-tags', Product::class);
+        yield MenuItem::linkToCrud('Product', 'fa fa-tags', Product::class)
+            ->setDefaultSort(['id' => 'ASC']);
         yield MenuItem::linkToCrud('Governorate', 'fa fa-university', Governorate::class);
         yield MenuItem::linkToCrud('About Us', 'fa fa-university', About::class);
 

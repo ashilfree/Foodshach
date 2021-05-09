@@ -133,12 +133,12 @@ class OrderCrudController extends AbstractCrudController
         return [
             IdField::new('id'),
             AssociationField::new('customer'),
-            DateField::new('createdAt'),
-            MoneyField::new('deliveryPrice')->setCurrency('KWD'),
+            DateField::new('createdAt', 'Date'),
             TextField::new('marking'),
             TextField::new('shippingAddress'),
             EmailField::new('shippingEmail'),
             TelephoneField::new('shippingPhone'),
+            MoneyField::new('deliveryPrice')->setCurrency('KWD'),
             MoneyField::new('total')->setCurrency('KWD'),
         ];
     }

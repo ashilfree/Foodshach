@@ -55,88 +55,91 @@
         {{ form_start(new_form) }}
         <div class="row mb-4">
             <div class="col">
-                {{ form_widget(new_form.name, {'attr': {'class': 'form-control', 'placeholder':'Name'}}) }}
+                {{ form_row(new_form.name, {'attr': {'class': 'form-control', 'placeholder':'Name'}}) }}
             </div>
             <div class="col">
-                {{ form_widget(new_form.nameAr, {'attr': {'class': 'form-control', 'placeholder':'اسم'}}) }}
+                {{ form_row(new_form.slug, {'attr': {'class': 'form-control', 'placeholder':'Slug'}}) }}
             </div>
             <div class="col">
-                {{ form_widget(new_form.slug, {'attr': {'class': 'form-control', 'placeholder':'Slug'}}) }}
+                {{ form_row(new_form.nameAr, {'attr': {'class': 'form-control text-right', 'placeholder':'اسم'}}) }}
             </div>
         </div>
     <div class="row mb-4">
         <div class="col">
-            {{ form_widget(new_form.price, {'attr': {'placeholder':'Price'}}) }}
+            {{ form_row(new_form.price, {'attr': {'placeholder':'Price'}}) }}
         </div>
         <div class="col">
-            {{ form_widget(new_form.category, {'attr': {'class': 'basic'}}) }}
+            {{ form_row(new_form.category, {'attr': {'class': 'basic'}}) }}
         </div>
         <div class="col">
-            {{ form_widget(new_form.subCategory, {'attr': {'class': 'basic'}}) }}
+            {{ form_row(new_form.subCategory, {'attr': {'class': 'basic'}}) }}
         </div>
         <div class="col">
-            {{ form_widget(new_form.hotDegree, {'attr': {'class': 'basic'}}) }}
+            {{ form_row(new_form.hotDegree, {'attr': {'class': 'basic'}}) }}
         </div>
     </div>
     <div class="row mb-4">
         <div class="col">
-            {{ form_widget(new_form.discountPrice, {'attr': {'placeholder':'Discount'}}) }}
+            {{ form_row(new_form.discountPrice, {'attr': {'placeholder':'Discount'}}) }}
         </div>
         <div class="col">
-            {{ form_widget(new_form.quantity, {'attr': {'class': 'form-control', 'placeholder':'Quantity'}}) }}
+            {{ form_row(new_form.quantity, {'attr': {'class': 'form-control', 'placeholder':'Quantity'}}) }}
         </div>
     </div>
     <div class="statbox widget box box-shadow m-b-5">
-        <div class="widget-header">
-            <div class="row">
-                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                    <h4> Description </h4>
-                </div>
-            </div>
-        </div>
+{#        <div class="widget-header">#}
+{#            <div class="row">#}
+{#                <div class="col-xl-12 col-md-12 col-sm-12 col-12">#}
+{#                    <h4> Description </h4>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
         <div class="widget-content widget-content-area">
-            {{ form_widget(new_form.description) }}
+            {{ form_row(new_form.description) }}
         </div>
     </div>
     <div class="statbox widget box box-shadow m-b-5">
-        <div class="widget-header">
-            <div class="row">
-                <div class="col-xl-12 col-md-12 col-sm-12 col-12 text-right">
-                    <h4> وصف </h4>
-                </div>
-            </div>
-        </div>
+{#        <div class="widget-header">#}
+{#            <div class="row">#}
+{#                <div class="col-xl-12 col-md-12 col-sm-12 col-12 text-right">#}
+{#                    <h4> وصف </h4>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
         <div class="widget-content widget-content-area">
-            {{ form_widget(new_form.descriptionAr) }}
+            {{ form_row(new_form.descriptionAr, {'attr': {'class': 'text-right'}}) }}
         </div>
     </div>
     <div class="statbox widget box box-shadow">
-        <div class="widget-header">
-            <div class="row">
-                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                    <h4> Long Description </h4>
-                </div>
-            </div>
-        </div>
+{#        <div class="widget-header">#}
+{#            <div class="row">#}
+{#                <div class="col-xl-12 col-md-12 col-sm-12 col-12">#}
+{#                    <h4> Long Description </h4>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
         <div class="widget-content widget-content-area">
-        {{ form_widget(new_form.longDescription) }}
+        {{ form_row(new_form.longDescription) }}
         </div>
     </div>
     <div class="statbox widget box box-shadow">
-        <div class="widget-header">
-            <div class="row">
-                <div class="col-xl-12 col-md-12 col-sm-12 col-12 text-right">
-                    <h4> وصف طويل </h4>
-                </div>
-            </div>
-        </div>
+{#        <div class="widget-header">#}
+{#            <div class="row">#}
+{#                <div class="col-xl-12 col-md-12 col-sm-12 col-12 text-right">#}
+{#                    <h4> وصف طويل </h4>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
         <div class="widget-content widget-content-area">
-            {{ form_widget(new_form.longDescriptionAr) }}
+            {{ form_row(new_form.longDescriptionAr, {'attr': {'class': 'text-right'}}) }}
         </div>
     </div>
     <div class="statbox widget box box-shadow">
 
     {{ form_row(new_form.images) }}
+    </div>
+    <div class="statbox widget box box-shadow">
+        {{ form_row(new_form.catalogs) }}
     </div>
         {{ form_end(new_form) }}
 </div>
@@ -250,6 +253,8 @@
         }
         .btn.btn-link.field-collection-delete-button{
             background-color: red;
+            color: #fff;
+            font-weight: bolder;
         }
         .field-collection-item.field-collection-item-complex{
                 padding: 20px;
@@ -258,6 +263,12 @@
         .custom-file-input{
             opacity: 1;
             width: 284px;
+        }
+
+        .field-collection.form-group.processed{
+            padding:10px;
+            margin-top: 10px;
+            background-color:#fff;
         }
     </style>
 

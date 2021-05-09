@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "be97ebd41b3eac47205e08d3d0bcafde",
+    "content-hash": "17f76025e0bf9ea05a6b55aa3c5b9b53",
     "packages": [
         {
             "name": "beberlei/doctrineextensions",
@@ -135,6 +135,111 @@
                 }
             ],
             "time": "2020-11-11T10:22:58+00:00"
+        },
+        {
+            "name": "cron/cron",
+            "version": "1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Cron/Cron.git",
+                "reference": "4e48d435f320c1f0d1bdbfce29fecfaf06e19c2a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Cron/Cron/zipball/4e48d435f320c1f0d1bdbfce29fecfaf06e19c2a",
+                "reference": "4e48d435f320c1f0d1bdbfce29fecfaf06e19c2a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0",
+                "symfony/process": "^4.0|^5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0 || ^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Cron\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dries De Peuter",
+                    "email": "dries@nousefreak.be"
+                }
+            ],
+            "description": "Cronjobs",
+            "support": {
+                "issues": "https://github.com/Cron/Cron/issues",
+                "source": "https://github.com/Cron/Cron/tree/1.5.0"
+            },
+            "time": "2021-01-12T16:47:03+00:00"
+        },
+        {
+            "name": "cron/cron-bundle",
+            "version": "2.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Cron/Symfony-Bundle.git",
+                "reference": "cd262828ebefe82358827fdbf1773417913a0721"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Cron/Symfony-Bundle/zipball/cd262828ebefe82358827fdbf1773417913a0721",
+                "reference": "cd262828ebefe82358827fdbf1773417913a0721",
+                "shasum": ""
+            },
+            "require": {
+                "cron/cron": "^1.0.1",
+                "doctrine/doctrine-bundle": "~1.4|~2.0",
+                "doctrine/orm": "~2.4,>=2.4.5",
+                "php": ">=7.2",
+                "symfony/framework-bundle": "^3.4|^4.4|^5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0",
+                "symfony/symfony": "^3.0|^4.0|^5.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Cron\\CronBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dries De Peuter",
+                    "email": "dries@nousefreak.be"
+                }
+            ],
+            "description": "Symfony cron",
+            "support": {
+                "issues": "https://github.com/Cron/Symfony-Bundle/issues",
+                "source": "https://github.com/Cron/Symfony-Bundle/tree/2.6.0"
+            },
+            "time": "2021-03-08T14:05:11+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -1610,70 +1715,6 @@
             "time": "2020-07-30T16:57:33+00:00"
         },
         {
-            "name": "dragonmantank/cron-expression",
-            "version": "v2.3.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dragonmantank/cron-expression.git",
-                "reference": "65b2d8ee1f10915efb3b55597da3404f096acba2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/65b2d8ee1f10915efb3b55597da3404f096acba2",
-                "reference": "65b2d8ee1f10915efb3b55597da3404f096acba2",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.0|^8.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^6.4|^7.0|^8.0|^9.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.3-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Cron\\": "src/Cron/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Dowling",
-                    "email": "mtdowling@gmail.com",
-                    "homepage": "https://github.com/mtdowling"
-                },
-                {
-                    "name": "Chris Tankersley",
-                    "email": "chris@ctankersley.com",
-                    "homepage": "https://github.com/dragonmantank"
-                }
-            ],
-            "description": "CRON for PHP: Calculate the next or previous run date and determine if a CRON expression is due",
-            "keywords": [
-                "cron",
-                "schedule"
-            ],
-            "support": {
-                "issues": "https://github.com/dragonmantank/cron-expression/issues",
-                "source": "https://github.com/dragonmantank/cron-expression/tree/v2.3.1"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/dragonmantank",
-                    "type": "github"
-                }
-            ],
-            "time": "2020-10-13T00:52:37+00:00"
-        },
-        {
             "name": "easycorp/easyadmin-bundle",
             "version": "v3.1.6",
             "source": {
@@ -2500,55 +2541,6 @@
             "time": "2020-01-07T13:29:56+00:00"
         },
         {
-            "name": "m-adamski/symfony-schedule-bundle",
-            "version": "2.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/m-adamski/symfony-schedule-bundle.git",
-                "reference": "958c9d723a6373c4905c9e729d0d3e724cebc24f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/m-adamski/symfony-schedule-bundle/zipball/958c9d723a6373c4905c9e729d0d3e724cebc24f",
-                "reference": "958c9d723a6373c4905c9e729d0d3e724cebc24f",
-                "shasum": ""
-            },
-            "require": {
-                "dragonmantank/cron-expression": "^2.3",
-                "php": "^7.2",
-                "symfony/console": "^5.0",
-                "symfony/framework-bundle": "^5.0",
-                "symfony/lock": "^5.0"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Adamski\\Symfony\\ScheduleBundle\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Maciej Adamski",
-                    "email": "m.adamski@ideacode.pl"
-                }
-            ],
-            "description": "Schedule Bundle for Symfony",
-            "support": {
-                "issues": "https://github.com/m-adamski/symfony-schedule-bundle/issues",
-                "source": "https://github.com/m-adamski/symfony-schedule-bundle/tree/2.0.1"
-            },
-            "time": "2020-04-03T12:13:16+00:00"
-        },
-        {
             "name": "monolog/monolog",
             "version": "2.2.0",
             "source": {
@@ -3159,61 +3151,6 @@
                 "source": "https://github.com/php-fig/log/tree/1.1.3"
             },
             "time": "2020-03-23T09:12:05+00:00"
-        },
-        {
-            "name": "rewieer/taskschedulerbundle",
-            "version": "0.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/rewieer/TaskSchedulerBundle.git",
-                "reference": "eb6a27226b6dba8beb1febe88197b68f6830f6ba"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/rewieer/TaskSchedulerBundle/zipball/eb6a27226b6dba8beb1febe88197b68f6830f6ba",
-                "reference": "eb6a27226b6dba8beb1febe88197b68f6830f6ba",
-                "shasum": ""
-            },
-            "require": {
-                "dragonmantank/cron-expression": "^2.3|^3.0",
-                "php": "^7.2|^8.0",
-                "symfony/console": "^3.4|^4.4|^5.1",
-                "symfony/framework-bundle": "^3.4|^4.4|^5.1"
-            },
-            "require-dev": {
-                "monolog/monolog": "^1.25",
-                "phpunit/phpunit": "^8.5",
-                "symfony/phpunit-bridge": "^5.1"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "Rewieer\\TaskSchedulerBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Anthony Cyrille",
-                    "email": "rewieer@gmail.com"
-                }
-            ],
-            "description": "Task Scheduler with CRON for Symfony",
-            "keywords": [
-                "bundle",
-                "cron",
-                "scheduler",
-                "symfony",
-                "task"
-            ],
-            "support": {
-                "issues": "https://github.com/rewieer/TaskSchedulerBundle/issues",
-                "source": "https://github.com/rewieer/TaskSchedulerBundle/tree/0.8.0"
-            },
-            "time": "2020-12-28T11:56:15+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -5388,86 +5325,6 @@
                 }
             ],
             "time": "2021-02-18T22:42:36+00:00"
-        },
-        {
-            "name": "symfony/lock",
-            "version": "v5.2.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/lock.git",
-                "reference": "b7d5a102834472f1f8fd40f09977a97496b8a23e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/lock/zipball/b7d5a102834472f1f8fd40f09977a97496b8a23e",
-                "reference": "b7d5a102834472f1f8fd40f09977a97496b8a23e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2.5",
-                "psr/log": "~1.0",
-                "symfony/deprecation-contracts": "^2.1",
-                "symfony/polyfill-php80": "^1.15"
-            },
-            "conflict": {
-                "doctrine/dbal": "<2.10"
-            },
-            "require-dev": {
-                "doctrine/dbal": "^2.10|^3.0",
-                "mongodb/mongodb": "~1.1",
-                "predis/predis": "~1.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Lock\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jérémy Derussé",
-                    "email": "jeremy@derusse.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Creates and manages locks, a mechanism to provide exclusive access to a shared resource",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "cas",
-                "flock",
-                "locking",
-                "mutex",
-                "redlock",
-                "semaphore"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/lock/tree/v5.2.6"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2021-03-28T09:42:18+00:00"
         },
         {
             "name": "symfony/mailer",

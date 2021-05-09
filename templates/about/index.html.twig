@@ -21,7 +21,7 @@
 
 
         <!-- start section -->
-        <section class="section section--no-pb section--custom-01" style="background-image: url({{ vich_uploader_asset(about, 'imageFile') }});color: #333;">
+        <section class="section section--no-pb section--custom-01">
             <div class="container">
                 <div class="section-heading">
                     <h2 class="__title">We are <span>{{ about.title }}</span></h2>
@@ -235,6 +235,13 @@
 
     </main>
     <!-- end main -->
-
+    <style>
+        @media (min-width: 992px){
+            .section--custom-01{
+                background-image: url({{ vich_uploader_asset(about, 'imageFile') }});
+                color: #333;
+            }
+        }
+    </style>
 {% endblock %}
 

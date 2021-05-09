@@ -91,7 +91,7 @@ class Cart
                     $this->delete($id);
                     continue;
                 }
-                $total += ($cartProduct->getDiscountPrice() ?? $cartProduct->getPrice()) * $quantity;
+                $total += ($cartProduct->getDiscountPrice() == 0.0 )? $cartProduct->getPrice()* $quantity:$cartProduct->getDiscountPrice()* $quantity;
 
             }
         }

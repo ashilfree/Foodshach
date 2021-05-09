@@ -35,7 +35,7 @@ class CategoryCrudController extends AbstractCrudController
         return [
             IdField::new('id')->onlyOnIndex(),
             TextField::new('name'),
-            TextField::new('nameAr', 'الاسم'),
+            TextField::new('nameAr', 'الاسم')->addCssClass('text-right'),
             SlugField::new('slug')->setTargetFieldName('name'),
             CollectionField::new('subCategories')
                 ->setEntryType(SubCategoryType::class)

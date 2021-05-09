@@ -36,12 +36,12 @@
                                 <table>
                                     <thead>
                                     <tr>
-                                        <td width="10%">&nbsp;</td>
+                                        <td width="10%" class="mobile-hide">&nbsp;</td>
                                         <td width="35%">added products</td>
                                         <td width="15%">Price</td>
-                                        <td width="20%">Quantity</td>
-                                        <td width="15%">Total</td>
-                                        <td width="5%">&nbsp;</td>
+                                        <td width="20%" class="mobile-hide">Quantity</td>
+                                        <td width="15%" class="mobile-hide">Total</td>
+                                        <td width="5%" class="mobile-hide">&nbsp;</td>
                                     </tr>
                                     </thead>
 
@@ -51,7 +51,7 @@
                                         {% for cartItem in cart %}
                                             {% set quantity = (cartItem.quantity <  cartItem.product.quantity)? cartItem.quantity : cartItem.product.quantity %}
                                             <tr>
-                                                <td>
+                                                <td class="mobile-hide">
                                                     <figure class="__image">
                                                         <a href="#">
                                                             <img class="lazy"
@@ -68,7 +68,7 @@
 
                                                 <td>
                                                     <span class="__price">
-                                                      {% if cartItem.product.discountPrice != null %}
+                                                      {% if cartItem.product.discountPrice != 0.0 %}
                                                           {{ (cartItem.product.discountPrice / 100) |number_format(3, '.', ',') }} {{ currency }}
                                                       {% else %}
                                                           {{ (cartItem.product.price / 100) |number_format(3, '.', ',') }} {{ currency }}
@@ -77,21 +77,23 @@
                                                 </td>
 
                                                 <td>
-                                                    <div class="quantity-counter js-quantity-counter">
-                                                        <input type="hidden" name="product-{{ loop.index }}"
-                                                               value="{{ cartItem.product.id }}">
-                                                        <span class="__btn __btn--minus js-quantity"></span>
-                                                        <input class="__q-input" type="text"
-                                                               name="quantity-{{ loop.index }}"
-                                                               value="{{ quantity }}"
-                                                        />
-                                                        <span class="__btn __btn--plus js-quantity" data-max="{{ cartItem.product.quantity }}"></span>
+                                                    <div class="mobile-increment">
+                                                        <div class="quantity-counter js-quantity-counter">
+                                                            <input type="hidden" name="product-{{ loop.index }}"
+                                                                   value="{{ cartItem.product.id }}">
+                                                            <span class="__btn __btn--minus js-quantity"></span>
+                                                            <input class="__q-input" type="text"
+                                                                   name="quantity-{{ loop.index }}"
+                                                                   value="{{ quantity }}"
+                                                            />
+                                                            <span class="__btn __btn--plus js-quantity" data-max="{{ cartItem.product.quantity }}"></span>
+                                                        </div>
                                                     </div>
                                                 </td>
 
-                                                <td>
+                                                <td class="mobile-hide">
                                                     <span class="__total">
-                                                        {% if cartItem.product.discountPrice != null %}
+                                                        {% if cartItem.product.discountPrice != 0.0 %}
                                                             <span> {{ (cartItem.product.discountPrice * quantity  / 100) |number_format(3, '.', ',') }}</span> {{ currency }}
                                                         {% else %}
                                                             <span>{{ (cartItem.product.price * quantity  / 100) |number_format(3, '.', ',') }}</span> {{ currency }}
@@ -99,7 +101,7 @@
                                                         </span>
                                                 </td>
 
-                                                <td>
+                                                <td class="mobile-hide">
                                                     <a class="__remove"
                                                        href="{{ path('delete.cart', {locale: 'en' ,id: cartItem.product.id, route:page}) }}"
                                                        aria-label="Remove this item">
@@ -107,7 +109,7 @@
                                                     </a>
                                                 </td>
                                             </tr>
-                                            {% if cartItem.product.discountPrice != null %}
+                                            {% if cartItem.product.discountPrice != 0.0 %}
                                                 {% set total = total + (quantity * cartItem.product.discountPrice)/100 %}
                                             {% else %}
                                                 {% set total = total + (quantity * cartItem.product.price)/100 %}
@@ -156,12 +158,12 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="__note">
-                                    <p class="__ttl">Calculate Shipping</p>
+                                    <p class="__ttl">Calculate Delivery</p>
                                     <div class="row">
                                         <div class="col-12 col-sm-6 col-md-12 col-lg-6">
                                             <div class="input-wrp">
                                                 <select class="js-select" name="delivery" required="required">
-                                                    <option value="">Select a region...</option>
+                                                    <option value="">Select a governorate...</option>
                                                     {% for governorate in governorates %}
                                                         <option {% if delivery is defined and delivery == governorate.price %}  selected {% endif %}
                                                                 value="{{ governorate.price }}">{{ governorate.name }}</option>
@@ -174,7 +176,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Shipping</td>
+                                <td>Delivery</td>
                                 <td>
                                     <span id="total">
                                         {% if delivery is defined %}

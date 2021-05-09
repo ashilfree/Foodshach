@@ -23,14 +23,13 @@
 			</div>
 		</div>
 	</header>
-
 	<section style="background-color: #fff;padding-bottom: 140px;padding-top: 23px;">
-		<h1 style="text-align: center; color: #247705;"><strong>Confirmation Email</strong></h1>
-		<p style="text-align: center;"><strong>Dear Mr <span style="color: #247705;">{{ customer.fullName }}</span>,<br />thank you for registering with us, to confirm the registration</strong></p>
+		<h1 style="text-align: center; color: #247705;"><strong>Unsuccessful Order</strong></h1>
 		<p style="text-align: center;">&nbsp;</p>
-		<p style="text-align: center;"><a style="background: #247705; color: #ffffff; padding: 10px 50px; border-radius: 3px;" href="{{ url('default.confirm.token', {locale: locale,'token': customer.confirmationToken}) }}">click Me</a></p>
-		<p style="text-align: center;">&nbsp;<strong>and to enjoy a unique shopping experience, please visit the site</strong> </p>
-		<p style="text-align: center;color: #247705;"><a href="{{ url('home', {locale: locale}) }}"><-- Go to Website</a></p>
+		<p style="text-align: center;">&nbsp;</p>
+		<p style="text-align: center;"><strong>Dear customer,</strong></p>
+		<p style="text-align: center;">the request has failed, please re-order again</p>
+		<p style="text-align: center;">&nbsp;</p>
 	</section>
 	<!-- Footer -->
 	<footer id="footer" class="footer--style-1">

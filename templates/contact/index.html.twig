@@ -40,7 +40,7 @@
                                     {{ form_start(form, {'attr': {'class': 'contact-form js-contact-form'}}) }}
                                     <div class="form__note">
                                         {% for message in app.flashes('success')  %}
-                                            <div class="alert alert-success">
+                                            <div style="color:#5e8350;font-size: 22px;">
                                                 {{ message }}
                                             </div>
                                         {% endfor %}
@@ -69,7 +69,10 @@
                 <div class="row no-gutters">
                     <div class="col-md-6  map-container map-container--left">
                         <!-- this is demo key "AIzaSyBXQROV5YMCERGIIuwxrmaZbBl_Wm4Dy5U" -->
-                        <div class="g_map" data-api-key="AIzaSyBXQROV5YMCERGIIuwxrmaZbBl_Wm4Dy5U" data-longitude="44.958309" data-latitude="34.109925" data-marker="img/marker.png" style="min-height: 255px"></div>
+{#                        <div class="g_map" data-api-key="AIzaSyBXQROV5YMCERGIIuwxrmaZbBl_Wm4Dy5U" data-longitude="44.958309" data-latitude="34.109925" data-marker="{{ '/media/images/marker.png' }}" style="min-height: 255px"></div>#}
+                        <div class="map-responsive">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11694.217954194917!2d47.99204620230539!3d29.37872667581416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fcf849850d401e9%3A0x767eb1122316959c!2sAl%20Hamra%20Tower%2C%20Al-Shuhada%20St%2C%20Al%20Kuwayt%2C%20Kuwait!5e0!3m2!1sen!2sdz!4v1620149276134!5m2!1sen!2sdz" width="921" height="823" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -131,5 +134,32 @@
 
     </main>
     <!-- end main -->
+    <style>
+        .map-responsive{
+
+            overflow:hidden;
+
+            padding-bottom:56.25%;
+
+            /*position:relative;*/
+
+            height:0;
+
+        }
+
+        .map-responsive iframe{
+
+            left:0;
+
+            top:0;
+
+            height:100%;
+
+            width:100%;
+
+            position:absolute;
+
+        }
+    </style>
 {% endblock %}
 

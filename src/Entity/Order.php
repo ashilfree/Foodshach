@@ -70,15 +70,22 @@ class Order
      */
     private $shippingLastName;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $shippingCompanyName;
+
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $shippingAddress;
+    private $shippingStreetNumber;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $shippingHouseNumber;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $shippingApartment;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -117,7 +124,7 @@ class Order
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max=11)
+     * @Assert\Length(max="11")
      */
     private $shippingPhone;
 
@@ -325,26 +332,38 @@ class Order
         return $this;
     }
 
-    public function getShippingCompanyName(): ?string
+    public function getShippingStreetNumber(): ?string
     {
-        return $this->shippingCompanyName;
+        return $this->shippingStreetNumber;
     }
 
-    public function setShippingCompanyName(string $shippingCompanyName): self
+    public function setShippingStreetNumber(string $shippingStreetNumber): self
     {
-        $this->shippingCompanyName = $shippingCompanyName;
+        $this->shippingStreetNumber = $shippingStreetNumber;
 
         return $this;
     }
 
-    public function getShippingAddress(): ?string
+    public function getShippingHouseNumber(): ?string
     {
-        return $this->shippingAddress;
+        return $this->shippingHouseNumber;
     }
 
-    public function setShippingAddress(string $shippingAddress): self
+    public function setShippingHouseNumber(string $shippingHouseNumber): self
     {
-        $this->shippingAddress = $shippingAddress;
+        $this->shippingHouseNumber = $shippingHouseNumber;
+
+        return $this;
+    }
+
+    public function getShippingApartment(): ?string
+    {
+        return $this->shippingApartment;
+    }
+
+    public function setShippingApartment(string $shippingApartment): self
+    {
+        $this->shippingApartment = $shippingApartment;
 
         return $this;
     }
