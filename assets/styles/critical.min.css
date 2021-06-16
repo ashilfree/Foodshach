@@ -1398,7 +1398,7 @@ a:focus, a:hover {
     font-weight: 500;
     position: relative;
     display: inline-block;
-    line-height: inherit;
+    /*line-height: inherit;*/
     font-size: inherit;
     font-family: inherit;
     -webkit-transition: background-color .3s ease-in-out, border-color .3s ease-in-out, color .3s ease-in-out;

@@ -22,20 +22,21 @@ class MyFatoorahController extends AbstractController
 
     /**
      * @Route("/{locale}/order/create-session/{id}", name="my.fatoorah.create.session", defaults={"locale"="en"})
+     * @param $locale
      * @param $id
      * @param EntityManagerInterface $entityManager
      * @param Transaction $transaction
      * @return Response
      */
-    public function index($id, EntityManagerInterface $entityManager, Transaction $transaction): Response
+    public function index($locale, $id, EntityManagerInterface $entityManager, Transaction $transaction): Response
     {
         $order = $entityManager->getRepository(Order::class)->find($id);
         if (!$order || !$transaction->check($order, 'checkout'))
             return new JsonResponse(["error" => 'order']);
-//        $YOUR_DOMAIN = 'https://foodshack.genesistech-dz.com';
+//        $YOUR_DOMAIN = 'https://test.foodshackkw.com';
         $YOUR_DOMAIN = 'https://127.0.0.1:8000';
         //Fill POST fields array
-        $ipPostFields = ['InvoiceAmount' => ($order->getTotal() + $order->getDeliveryPrice()) / 100, 'CurrencyIso' => 'KWD'];
+        $ipPostFields = ['InvoiceAmount' => (($order->getTotal() + $order->getDeliveryPrice()) / 100), 'CurrencyIso' => 'KWD'];
 
         //Call endpoint
         $paymentMethods = $this->initiatePayment($this->apiURL, $this->apiKey, $ipPostFields);
@@ -65,22 +66,23 @@ class MyFatoorahController extends AbstractController
             $invoiceItems[] = [
                 'ItemName' => $item->getProduct(), //ISBAN, or SKU
                 'Quantity' => $item->getQuantity(), //Item's quantity
-                'UnitPrice' => $item->getPrice() / 100, //Price per item
+                'UnitPrice' => ($item->getPrice() / 100), //Price per item
             ];
         }
         $invoiceItems[] = [
             'ItemName' => 'Delivery', //ISBAN, or SKU
             'Quantity' => 1, //Item's quantity
-            'UnitPrice' => $order->getDeliveryPrice() / 100, //Price per item
+            'UnitPrice' => ($order->getDeliveryPrice() / 100), //Price per item
         ];
         //Fill POST fields array
+
         $postFields = [
             //Fill required data
             'paymentMethodId' => $paymentMethodId,
             'InvoiceValue' => (($order->getTotal() + $order->getDeliveryPrice()) / 100),
-            'CallBackUrl' => $YOUR_DOMAIN . '/order/thank/' . $order->getReference(),
-            'ErrorUrl' => $YOUR_DOMAIN . '/order/error/' . $order->getReference(),
-            'CustomerName' => $order->getShippingFirstName() . ' ' . $order->getShippingLastName(),
+            'CallBackUrl' => $YOUR_DOMAIN . '/'.$locale.'/order/thank/' . $order->getReference(),
+            'ErrorUrl' => $YOUR_DOMAIN . '/'.$locale.'/order/error/' . $order->getReference(),
+            'CustomerName' => $order->getShippingFullName(),
             'DisplayCurrencyIso' => 'KWD',
             'MobileCountryCode' => '+965',
             'CustomerMobile' => $order->getShippingPhone(),

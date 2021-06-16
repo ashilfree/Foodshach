@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Classes\Filter;
 use App\Classes\Search;
+use App\Entity\Category;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -49,6 +50,19 @@ class ProductRepository extends ServiceEntityRepository
             $query,
             1,
             $filter->page*$pages
+        );
+    }
+
+    public function createQuery(int $pages, Category $category): PaginationInterface
+    {
+        $query = $this->createQueryBuilder('p')
+            ->andWhere('p.category = :cat')
+            ->setParameter('cat', $category)
+            ->getQuery();
+        return $this->paginator->paginate(
+            $query,
+            $pages,
+            6
         );
     }
 

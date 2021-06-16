@@ -52,7 +52,7 @@ class ListenerForAnyRequest
     {
         if($event->getRequest()->headers->get('referer')){
             $route = $event->getRequest()->attributes->get('_route');
-            if($route !== '_wdt') {
+            if($route !== '_wdt' && $route !== null) {
                 $refererPathInfo = Request::create($event->getRequest()->headers->get('referer'))->getPathInfo();
                 if ($refererPathInfo == '/en/order' && $route !== 'order' && $route !== 'my.fatoorah.create.session') {
                     if ($this->session->get('orderId')) {

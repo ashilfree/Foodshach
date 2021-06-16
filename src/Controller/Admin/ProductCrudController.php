@@ -45,7 +45,7 @@ class ProductCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->onlyOnIndex(),
+            IdField::new('id')->onlyOnIndex()->setSortable(true),
             TextField::new('name'),
             TextField::new('nameAr', 'الاسم')->addCssClass('text-right'),
             SlugField::new('slug')->setTargetFieldName('name'),

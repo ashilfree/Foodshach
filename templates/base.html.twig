@@ -23,29 +23,31 @@
     <!--===============================================================================================-->
 </head>
 <body {% if page is defined and page != 'home' %} class="woocommerce-page product-page" {% endif %}>
+{#<div class="loader"></div>#}
 <div id="app" class="js-cart">
     <!-- start header -->
     <header id="top-bar"
             class="top-bar {% if page is defined and page == 'home' %} top-bar--style-1 {% else %} top-bar--style-2 {% endif %} ">
         <div class="top-bar__bg"></div>
         {% if showCart is defined and showCart == true %}
-            <a href="{{ path('cart') }}" class="sqs-cart-dropzone" id="yui_3_17_2_1_1619261831622_510" {% if cart|length == 0 %} style="display:none" {% endif %}>
-            <div id="yui_3_17_2_1_1619261831622_514" class="yui3-widget sqs-widget sqs-pill-shopping-cart"
-                 style="visibility: visible; opacity: 1; transform: scale(1); transition: opacity 0.25s ease-out 0s, visibility 0.25s ease-out 0s, transform 0.25s ease-out 0s;">
-                <div id="yui_3_17_2_1_1619261831622_516" class="sqs-pill-shopping-cart-content dark js-cart-icon2"
-                     data-test="continue-to-cart">
-                    <div class="icon"></div>
+            <a href="{{ path('cart') }}" class="sqs-cart-dropzone"
+               id="yui_3_17_2_1_1619261831622_510" {% if cart|length == 0 %} style="display:none" {% endif %}>
+                <div id="yui_3_17_2_1_1619261831622_514" class="yui3-widget sqs-widget sqs-pill-shopping-cart"
+                     style="visibility: visible; opacity: 1; transform: scale(1); transition: opacity 0.25s ease-out 0s, visibility 0.25s ease-out 0s, transform 0.25s ease-out 0s;">
+                    <div id="yui_3_17_2_1_1619261831622_516" class="sqs-pill-shopping-cart-content dark js-cart-icon2"
+                         data-test="continue-to-cart">
+                        <div class="icon"></div>
 
-                    <div class="details">
-                        <span class="total">{{ cart|length }}</span>
-                        <span class="suffix">items</span>
-                    </div>
+                        <div class="details">
+                            <span class="total">{{ cart|length }}</span>
+                            <span class="suffix">items</span>
+                        </div>
 
-                    <span class="subtotal">
+                        <span class="subtotal">
                         <span class="price"><span>{{ total }}</span><span>{{ currency }}</span></span>
                     </span></div>
                 </div>
-        </a>
+            </a>
         {% endif %}
         <div class="container">
             <div class="row align-items-center justify-content-between no-gutters">
@@ -73,7 +75,11 @@
                                 </li>
 
                                 <li>
+                                    {% if categories is not empty %}
                                     <a href="{{ path('category', {slug: categories[0].slug}) }}">The hot stuff</a>
+                                    {% else %}
+                                        <a href="">The hot stuff</a>
+                                    {% endif %}
                                 </li>
 
                                 <li class="has-submenu">
@@ -100,13 +106,16 @@
                                         </a>
                                         <ul class="submenu">
                                             <li><a href="{{ path('account', { locale: 'en' }) }}">My Profile</a></li>
-                                            <li><a href="{{ path('edit.account', { locale: 'en' }) }}">Edit Profile</a></li>
+                                            <li><a href="{{ path('edit.account', { locale: 'en' }) }}">Edit Profile</a>
+                                            </li>
                                             <li><a href="{{ path('my.orders', { locale: 'en' }) }}">My Orders</a></li>
-                                            <li><a href="{{ path('edit.password', { locale: 'en' }) }}">Change Password</a></li>
+                                            <li><a href="{{ path('edit.password', { locale: 'en' }) }}">Change
+                                                    Password</a></li>
                                             <li><a href="{{ path('logout') }}">Logout</a></li>
                                         </ul>
                                     {% else %}
-                                        <a href="{{ path('register', { locale: 'en' }) }}" class="flex-c-m trans-04 p-lr-25">
+                                        <a href="{{ path('register', { locale: 'en' }) }}"
+                                           class="flex-c-m trans-04 p-lr-25">
                                             Register
                                         </a>
                                     {% endif %}
@@ -114,15 +123,16 @@
 
                                 <li class="li-profile">
                                     {% if app.user %}
-{#                                        <a href="{{ path('logout') }}"><i class="fontello-user"></i></a>#}
+                                        {# <a href="{{ path('logout') }}"><i class="fontello-user"></i></a> #}
                                     {% else %}
                                         <a href="{{ path('login', { locale: 'en'}) }}"><i class="fontello-profile"></i></a>
                                     {% endif %}
                                 </li>
                                 <li class="li-cart">
                                     <a href="{{ path('cart') }}" class="js-cart-icon"><i
-                                                class="fontello-shopping-bag"></i><span
-                                                class="total">{{ cart|length }}</span></a>
+                                                class="fontello-shopping-bag"></i>
+                                        <span class="total">{{ cart|length }}</span>
+                                    </a>
                                 </li>
 
                             </ul>
@@ -213,21 +223,23 @@
 <script>
 
 
-        var header = document.getElementById("yui_3_17_2_1_1619261831622_510");
-        if(header){
-            window.onscroll = function() {myFunction()};
-            var sticky = header.offsetTop;
+    var header = document.getElementById("yui_3_17_2_1_1619261831622_510");
+    if (header) {
+        window.onscroll = function () {
+            myFunction()
+        };
+        var sticky = header.offsetTop;
 
-            function myFunction() {
-                if (window.pageYOffset > sticky) {
-                    header.style.position = 'fixed';
-                    header.style.top = '0px';
-                } else {
-                    header.style.position = 'absolute';
-                    header.style.top = '100%';
-                }
+        function myFunction() {
+            if (window.pageYOffset > sticky) {
+                header.style.position = 'fixed';
+                header.style.top = '0px';
+            } else {
+                header.style.position = 'absolute';
+                header.style.top = '100%';
             }
         }
+    }
 
 </script>
 {% block javascripts %}{% endblock %}

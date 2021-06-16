@@ -1,4 +1,7 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+{% endblock %}
 {% block body %}
 
     <!-- start hero -->
@@ -34,18 +37,11 @@
 
                                     </div>
                                     <div class="row">
-                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                                        <div class="col-12">
                                             <div class="input-wrp">
-                                                {{ form_widget(form.shippingFirstName, {'attr': {'class': 'textfield', 'placeholder':'First name *'}}) }}
+                                                {{ form_widget(form.shippingFullName, {'attr': {'class': 'textfield', 'placeholder':'Full name *'}}) }}
                                             </div>
                                         </div>
-
-                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
-                                            <div class="input-wrp">
-                                                {{ form_widget(form.shippingLastName, {'attr': {'class': 'textfield', 'placeholder':'Last name *'}}) }}
-                                            </div>
-                                        </div>
-
 
                                         <div class="col-12 col-sm-6 col-md-12 col-lg-6">
                                             <div class="input-wrp">
@@ -134,6 +130,7 @@
                                         <table>
                                             <tbody>
                                             {% set total = null %}
+                                            {% set isTrue = false %}
                                             {% for productCart in cart2order %}
                                                 <tr>
                                                     <td width="65%">
@@ -167,10 +164,14 @@
                                                     </td>
                                                 </tr>
                                                 {% if productCart.product.discountPrice != 0.0 %}
-                                                    {% set total = total + (productCart.quantity * productCart.product.discountPrice)/100 %}
+                                                    {% set subTotal = (productCart.quantity * productCart.product.discountPrice)/100 %}
                                                 {% else %}
-                                                    {% set total = total + (productCart.quantity * productCart.product.price)/100 %}
+                                                    {% set subTotal = (productCart.quantity * productCart.product.price)/100 %}
                                                 {% endif %}
+                                                {% if subTotal < 0.5 %}
+                                                    {% set isTrue = true %}
+                                                {% endif %}
+                                                {% set total = total + subTotal %}
                                             {% endfor %}
                                             </tbody>
                                         </table>
@@ -203,8 +204,30 @@
                                             <tr>
                                                 <td colspan="2" class="__note">
                                                     <p class="__ttl">Payment Method</p>
-                                                    <div class="row">
-                                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                                                    <div class="payment-type">
+
+                                                        <div class="types flex justify-space-between">
+                                                            <div class="type type1 selected">
+                                                                <div class="logo">
+                                                                    <i class="fas fa-handshake"></i>
+                                                                </div>
+                                                                <div class="text">
+                                                                    <p>Pay on Delivery</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="type type2 {% if isTrue %} disabled {% endif %}">
+                                                                <div class="logo">
+                                                                    <i class="far fa-credit-card"></i>
+                                                                </div>
+                                                                <div class="text">
+                                                                    <p>Pay with Credit Card</p>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="row select-wrapper" style="display: none">
+                                                        <div class="col-10 offset-1">
                                                             <div class="input-wrp">
                                                                 {{ form_widget(form.paymentMethod, {'id': 'paymentMethod', 'attr': {'class': 'textfield wide js-select'}}) }}
                                                             </div>
@@ -266,4 +289,118 @@
         //     });
         // };
     </script>
+    <style>
+        .card-body .payment-type .types {
+            margin: 25px 0;
+        }
+        .flex.justify-space-between {
+            justify-content: space-between;
+        }
+        .flex {
+            display: flex;
+            flex-direction: row wrap;
+            align-items: center;
+        }
+        .payment-type .types .type.selected {
+            border-color: #5e8350;
+            background: rgba(64,179,255,0.1);
+        }
+
+        .payment-type {
+            margin-bottom: 20px;
+        }
+
+        .payment-type .types .type {
+            width: 45%;
+            position: relative;
+            background: #f2f4f7;
+            border: 2px solid #e8ebed;
+            padding: 25px;
+            box-sizing: border-box;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.5s ease;
+
+        }
+        .payment-type .types .type.disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .payment-type .types .type.selected .logo {
+            color: #5e8350;
+        }
+
+        .payment-type .types .type .logo {
+            font-size: 48px;
+            color: #8a959c;
+            justify-content: center;
+        }
+        .payment-type .types .type .logo, .card .card-body .payment-type .types .type p {
+            transition: all 0.5s ease;
+        }
+        .payment-type .types .type.selected p {
+            color: #28333b;
+        }
+        .payment-type .types .type p {
+            margin-bottom: 0;
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #8a959c;
+        }
+        .payment-type .types .type .logo, .card .card-body .payment-type .types .type p {
+            transition: all 0.5s ease;
+        }
+        .payment-type .types .type.selected::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            height: 40px;
+            width: 40px;
+            top: -21px;
+            right: -21px;
+            background: #fff;
+            border: 2px solid #5e8350;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        /*.select-wrapper {*/
+        /*    position: relative;*/
+        /*    width: 100%;*/
+        /*}*/
+        /*.select-wrapper::after {*/
+        /*    color: black;*/
+        /*    content: "▾";*/
+        /*    margin-right: 10px;*/
+        /*    pointer-events: none;*/
+        /*    position: absolute;*/
+        /*    right: 10px;*/
+        /*    top: 7px;*/
+        /*    font-size: 20px;*/
+        /*}*/
+
+        /*.select {*/
+        /*    -moz-appearance: none;*/
+        /*    -webkit-appearance: none;*/
+        /*    background: white;*/
+        /*    border: none;*/
+        /*    border-radius: 0;*/
+        /*    cursor: pointer;*/
+        /*    padding: 12px;*/
+        /*    width: 100%;*/
+        /*    font-size: 18px;*/
+        /*}*/
+        /*.select:focus {*/
+        /*    color: black;*/
+        /*}*/
+        /*.select::-ms-expand {*/
+        /*    display: none;*/
+        /*}*/
+    </style>
 {% endblock %}

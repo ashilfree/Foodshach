@@ -5,20 +5,48 @@
 			<mj-body background-color="#d6dde5">
 				<mj-section background-color="#E4E4E4">
 					<mj-column width="50%">
-						<mj-image href="https://mjml.io" src="https://foodshack.genesistech-dz.com/media/images/site_logo.png" alt="Racoon logo" width="112" align="center" padding="10px"></mj-image>
+						<mj-image href="https://mjml.io" src="https://foodshack.genesistech-dz.com/media/images/site_logo.png" alt="foodshack logo" width="112" align="center" padding="10px"></mj-image>
 					</mj-column>
 				</mj-section>
 				<mj-section background-color="#fff" padding-bottom="50px" padding-top="50px">
 					<mj-column>
 						<mj-text align="center" color="#247705" padding-bottom="0px" padding-top="0" >
-							<p style="font-size: 20px;font-weight: bold;">CONTACT US</p>
+							<p style="font-size: 20px;font-weight: bold;">Successful Order</p>
 						</mj-text>
 						<mj-text align="center" color="#020202" font-size="13px" padding-left="25px" padding-right="25px" padding-bottom="0px" padding-top="0">
 							<p style="font-size: 15px;font-weight: bold;">Dear customer,</p>
-							<p style="font-size: 15px;font-weight: bold;">We thank you for contacting us,</p>
-							<p style="font-size: 15px;font-weight: bold;">a response will be given as soon as possible</p>
+							<p style="font-size: 15px;font-weight: bold;">You have successfully completed your request number:</p>
+							<p style="font-size: 15px;font-weight: bold;">{{ order.reference }}</p>
 						</mj-text>
-
+						<mj-text align="center" color="#247705" padding-bottom="0px" padding-top="0" >
+							<p style="font-size: 20px;font-weight: bold;">Your products</p>
+						</mj-text>
+						<mj-table>
+							{% for orderDetail in order.orderDetails.values() %}
+								<tr style="border-bottom:1px solid #ecedee;text-align:left;padding:15px 0;">
+									<th style="padding: 0 15px 0 0;">{{ orderDetail.product|upper }}</th>
+									<th style="padding: 0 15px;">x{{ orderDetail.quantity }}</th>
+									<th style="padding: 0 0 0 15px;">{{ (orderDetail.total  / 100) |number_format(3, '.', ',') }} {{ currency }}</th>
+								</tr>
+							{% endfor %}
+						</mj-table>
+						<mj-text align="center" color="#247705" padding-bottom="0px" padding-top="0" >
+							<p style="font-size: 20px;font-weight: bold;">YOUR ORDER</p>
+						</mj-text>
+						<mj-table>
+							<tr style="border-bottom:1px solid #ecedee;text-align:left;padding:15px 0;">
+								<th style="padding: 0 15px 0 0;">Subtotal:</th>
+								<th style="padding: 0 15px;">{{ (order.total  / 100) |number_format(3, '.', ',') }} {{ currency }}</th>
+							</tr>
+							<tr style="border-bottom:1px solid #ecedee;text-align:left;padding:15px 0;">
+								<th style="padding: 0 15px 0 0;">Delivery:</th>
+								<th style="padding: 0 15px;">{{ (order.deliveryPrice  / 100) |number_format(3, '.', ',') }} {{ currency }}</th>
+							</tr>
+							<tr style="border-bottom:1px solid #ecedee;text-align:left;padding:15px 0;">
+								<th style="padding: 0 15px 0 0;">Total:</th>
+								<th style="padding: 0 15px;">{{ ((order.total+order.deliveryPrice)  / 100) |number_format(3, '.', ',') }} {{ currency }}</th>
+							</tr>
+						</mj-table>
 					</mj-column>
 				</mj-section>
 				<mj-section background-color="#E4E4E4" padding-bottom="20px" padding-top="20px">

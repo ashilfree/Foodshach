@@ -87,12 +87,12 @@ class Product
     private $subCategory;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="product", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="product", cascade={"persist"}, orphanRemoval=true)
      */
     private $images;
 
     /**
-     * @ORM\OneToMany(targetEntity=Catalog::class, mappedBy="product", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Catalog::class, mappedBy="product", cascade={"persist"}, orphanRemoval=true)
      */
     private $catalogs;
 

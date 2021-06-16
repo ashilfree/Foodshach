@@ -59,7 +59,7 @@ class OrderValidateController extends AbstractController
     }
 
     /**
-     * @Route("/order/thank/{reference}", name="order.validate.thank")
+     * @Route("/{locale}/order/thank/{reference}", name="order.validate.thank")
      * @param $reference
      * @return Response
      */
@@ -90,7 +90,7 @@ class OrderValidateController extends AbstractController
     }
 
     /**
-     * @Route("/order/error/{reference}", name="order.validate.error")
+     * @Route("/{locale}/order/error/{reference}", name="order.validate.error")
      * @param $reference
      * @return Response
      */
@@ -101,8 +101,8 @@ class OrderValidateController extends AbstractController
 		if(!$order || $order->getCustomer() != $this->getUser()){
 			return $this->redirectToRoute('home');
 		}
-		if ($this->transaction->check($order, 'checkout_canceled'))
-			$this->transaction->applyWorkFlow($order, 'checkout_canceled');
+		if ($this->transaction->check($order, 'order_canceled'))
+			$this->transaction->applyWorkFlow($order, 'order_canceled');
         $this->cart->increaseStock();
         $this->session->clear();
         $order->setCancelledAt(new \DateTime());

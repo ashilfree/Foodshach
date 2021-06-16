@@ -21,10 +21,7 @@ class OrderType extends AbstractType
     {
         $builder
             ->add('id', hiddenType::class)
-            ->add('shippingFirstName', TextType::class, [
-                'label'=>false
-            ])
-            ->add('shippingLastName', TextType::class, [
+            ->add('shippingFullName', TextType::class, [
                 'label'=>false
             ])
             ->add('shippingStreetNumber', TextType::class, [
@@ -69,6 +66,7 @@ class OrderType extends AbstractType
             ->add('paymentMethod', EntityType::class, [
                 'class'  => PaymentMethods::class,
                 'placeholder' => 'Choose an option *',
+                'required' => false
             ])
         ;
     }

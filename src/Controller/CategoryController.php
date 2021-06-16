@@ -49,15 +49,17 @@ class CategoryController extends AbstractController
      * @Route("/{locale}/category/{slug}", name="category", defaults={"locale"="en"})
      * @param $locale
      * @param $slug
+     * @param Request $request
      * @return Response
      */
-    public function show($locale, $slug): Response
+    public function show($locale, $slug, Request $request): Response
     {
         $category = $this->categoryRepository->findOneBy(['slug'=>$slug]);
+        $pages = $request->get('page',1);
         if(!$category)
             return $this->redirectToRoute('home', ['locale' => $locale]);
-        $products = $this->productRepository->findBy(['category'=>$category]);
-        $path = ($locale == "en") ? 'page/index.html.twig' : 'page/index.html.twig';
+        $products = $this->productRepository->createQuery($pages, $category);
+        $path = ($locale == "en") ? 'page/index.html.twig' : 'page/indexAr.html.twig';
         return $this->render($path, [
             'page' => 'category',
             'category' => $category,

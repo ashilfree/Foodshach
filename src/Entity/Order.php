@@ -63,14 +63,7 @@ class Order
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $shippingFirstName;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $shippingLastName;
-
-
+    private $shippingFullName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -265,11 +258,7 @@ class Order
 
     public function getTotal()
     {
-        $total = null;
-        foreach ($this->orderDetails->getValues() as $product) {
-            $total += $product->getPrice() * $product->getQuantity();
-        }
-        return $total;
+        return $this->total;
     }
 
     public function getInvoiceId(): ?string
@@ -308,26 +297,14 @@ class Order
         return $this;
     }
 
-    public function getShippingFirstName(): ?string
+    public function getShippingFullName(): ?string
     {
-        return $this->shippingFirstName;
+        return $this->shippingFullName;
     }
 
-    public function setShippingFirstName(string $shippingFirstName): self
+    public function setShippingFullName(string $shippingFullName): self
     {
-        $this->shippingFirstName = $shippingFirstName;
-
-        return $this;
-    }
-
-    public function getShippingLastName(): ?string
-    {
-        return $this->shippingLastName;
-    }
-
-    public function setShippingLastName(string $shippingLastName): self
-    {
-        $this->shippingLastName = $shippingLastName;
+        $this->shippingFullName = $shippingFullName;
 
         return $this;
     }

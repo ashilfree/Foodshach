@@ -184,7 +184,7 @@ class ResetPasswordController extends AbstractController
 
         // Do not reveal whether a user account was found or not.
         if (!$customer) {
-            return $this->redirectToRoute('app_check_email', ['locale' => $locale]);
+            return $this->redirectToRoute('app_forgot_password_request', ['locale' => $locale]);
         }
 
         try {
@@ -199,7 +199,7 @@ class ResetPasswordController extends AbstractController
             //     $e->getReason()
             // ));
 
-            return $this->redirectToRoute('app_check_email', ['locale' => $locale]);
+            return $this->redirectToRoute('app_forgot_password_request', ['locale' => $locale]);
         }
 
         $mailer->sendResetPasswordEmail($customer,$resetToken,$this->resetPasswordHelper->getTokenLifetime());

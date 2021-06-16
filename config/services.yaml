@@ -50,3 +50,6 @@ services:
 #            - { name: 'kernel.event_listener', event: 'security.interactive_login' }
     App\Listener\LocaleSubscriber:
         arguments: [ '%kernel.default_locale%' ]
+    App\Listener\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }

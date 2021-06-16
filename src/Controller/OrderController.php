@@ -100,6 +100,16 @@ class OrderController extends AbstractController
             }
         }
 
+        /**
+         * @var Customer $user
+         */
+        $user = $this->security->getUser();
+        if ($user) {
+            $order->setShippingEmail($user->getEmail());
+            $order->setShippingFullName($user->getFullName());
+            $order->setShippingPhone($user->getPhone()??'');
+        }
+
         $form = $this->createForm(OrderType::class, $order);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -116,13 +126,13 @@ class OrderController extends AbstractController
                 $this->entityManager->persist($order);
                 $total = 0.0;
                 foreach ($this->cart->getFull($this->cart->getCart2Order()) as $product) {
-                    $subTotal = $product['quantity'] * $product['product']->getPrice();
                     $orderDetail = new OrderDetails();
                     $orderDetail->setMyOrder($order);
                     $orderDetail->setProduct($product['product']->getName());
                     $orderDetail->setQuantity($product['quantity']);
                     $discount = $product['product']->getDiscountPrice();
                     $price = ($discount != null || $discount != 0) ? $discount : $product['product']->getPrice();
+                    $subTotal = $product['quantity'] * $price;
                     $orderDetail->setPrice($price);
                     $orderDetail->setTotal($subTotal);
                     $this->entityManager->persist($orderDetail);

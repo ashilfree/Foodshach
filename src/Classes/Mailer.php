@@ -40,9 +40,10 @@ class Mailer{
                 'locale' => $locale
             ]
         );
-        $message = (new \Swift_Message('Please confirm your account'))
-            ->setFrom('noreply@agence.fr')
+        $message = (new \Swift_Message('Confirmation Email'))
+            ->setFrom('foodshack@genesistech-dz.com')
             ->setTo($customer->getEmail())
+            ->setReplyTo($customer->getEmail())
             ->setBody($body, 'text/html');
 
         $this->mailer->send($message);
@@ -55,9 +56,10 @@ class Mailer{
                 'tokenLifetime' => $tokenLifetime,
             ]
         );
-        $message = (new \Swift_Message('Your password reset request'))
-            ->setFrom('noreply@agence.fr')
+        $message = (new \Swift_Message('Reset Password Email'))
+            ->setFrom('foodshack@genesistech-dz.com')
             ->setTo($customer->getEmail())
+            ->setReplyTo($customer->getEmail())
             ->setBody($body, 'text/html');
 
         $this->mailer->send($message);
@@ -69,8 +71,8 @@ class Mailer{
                 'contact' => $contact
             ]
         );
-        $message = (new \Swift_Message('FoodShack : '))
-            ->setFrom('noreply@agence.fr')
+        $message = (new \Swift_Message('Contact Us : '))
+            ->setFrom('foodshack@genesistech-dz.com')
             ->setTo($contact->getEmail())
             ->setReplyTo($contact->getEmail())
             ->setBody($body, 'text/html');
@@ -85,8 +87,8 @@ class Mailer{
                 'order' => $order
             ]
         );
-        $message = (new \Swift_Message('Please confirm your account'))
-            ->setFrom('noreply@agence.fr')
+        $message = (new \Swift_Message('Successful Order'))
+            ->setFrom('foodshack@genesistech-dz.com')
             ->setTo($order->getShippingEmail())
             ->setReplyTo($order->getShippingEmail())
             ->setBody($body, 'text/html');
@@ -101,9 +103,10 @@ class Mailer{
                 'order' => $order
             ]
         );
-        $message = (new \Swift_Message('Please confirm your account'))
-            ->setFrom('noreply@agence.fr')
+        $message = (new \Swift_Message('Unsuccessful Order'))
+            ->setFrom('foodshack@genesistech-dz.com')
             ->setTo($order->getShippingEmail())
+            ->setReplyTo($order->getShippingEmail())
             ->setBody($body, 'text/html');
 
         $this->mailer->send($message);

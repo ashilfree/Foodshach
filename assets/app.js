@@ -23,6 +23,35 @@ import Cart from './modules/Cart';
 new Global(document.querySelector('.js-cart'));
 new Cart(document.querySelector('.js-cart-form'));
 // new Checkout(document.querySelector('.js-checkout-form'));
+
+let checkout = document.querySelector('.checkout');
+if(checkout){
+    let type1 = document.querySelector('.type1');
+    let type2 = document.querySelector('.type2');
+    document.querySelector('#paymentMethod').firstChild.textContent = 'Choose a payment method';
+    type1.addEventListener('click', function(){
+        this.classList.add('selected');
+        this.nextElementSibling.classList.remove('selected');
+        $('#paymentMethod').val('');
+        $('#paymentMethod').niceSelect('update');
+        document.querySelector('.select-wrapper').style.display = 'none';
+        document.querySelector('#paymentMethod').required = false;
+
+    })
+    type2.addEventListener('click', function(){
+
+            this.classList.add('selected');
+            this.previousElementSibling.classList.remove('selected');
+            document.querySelector('.select-wrapper').style.display = 'block';
+            document.querySelector('#paymentMethod').required = true;
+
+    })
+}
+
+$('#paymentMethod').on('change', function(){
+    console.log($('#paymentMethod').val());
+})
+
 var _html = document.documentElement,
     isTouch = (('ontouchstart' in _html) || (navigator.msMaxTouchPoints > 0) || (navigator.maxTouchPoints));
 
@@ -74,5 +103,9 @@ $(isotopeButton).each(function(){
 
         $(this).addClass('how-active1');
     });
+});
+
+$(window).load(function(){
+    $('.loader').fadeOut();
 });
 
