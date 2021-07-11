@@ -60,12 +60,12 @@ class OrderValidateController extends AbstractController
 
     /**
      * @Route("/{locale}/order/thank/{reference}", name="order.validate.thank")
+     * @param $locale
      * @param $reference
      * @return Response
      */
-    public function success($reference): Response
+    public function success($locale, $reference): Response
     {
-        $locale = $this->session->get("locale");
 	    $order = $this->entityManager->getRepository(Order::class)->findOneBy(['reference' => $reference]);
 		if(!$order || $order->getCustomer() != $this->getUser()){
 			return $this->redirectToRoute('home');

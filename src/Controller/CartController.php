@@ -65,6 +65,7 @@ class CartController extends AbstractController
                 'wishlist' => $this->wishlist->getFull(),
                 'page' => 'cart',
                 'delivery' => $this->cart->getDelivery(),
+                'deliveryIndex' => $this->cart->getDeliveryIndex(),
                 'governorates' => $this->governorateRepository->findAll(),
                 'categories' => $this->categoryRepository->findAll()
             ]);

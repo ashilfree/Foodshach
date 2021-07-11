@@ -139,6 +139,11 @@ class Order
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
+    private $ordered_at;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
     private $inDelivering_at;
 
     /**
@@ -152,9 +157,13 @@ class Order
     private $cancelled_at;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $paymentMethod;
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isPaid;
 
     public function __construct()
     {
@@ -259,6 +268,11 @@ class Order
     public function getTotal()
     {
         return $this->total;
+    }
+
+    public function getTotalOrder(): ?float
+    {
+        return ($this->getTotal() + $this->getDeliveryPrice());
     }
 
     public function getInvoiceId(): ?string
@@ -482,6 +496,44 @@ class Order
         return $status;
     }
 
+    public function canChange(): ?string
+    {
+        $status = '';
+        switch ($this->marking) {
+            case 'waiting':
+            case 'in_payment':
+            case 'checkout_canceled':
+            case 'canceled':
+            case 'delivered':
+                $status = '';
+                break;
+            case 'paid':
+            case 'pay_en_delivery':
+                $status = 'In Delivering';
+                break;
+            case 'in_delivering':
+                $status = 'Delivered';
+                break;
+        }
+        return $status;
+    }
+
+    public function canCancelled(): string
+    {
+        $status = '';
+        if($this->marking == 'pay_en_delivery')
+            $status = 'Canceled';
+        return $status;
+    }
+
+    public function canPrint(): string
+    {
+        $status = '';
+        if($this->marking == 'in_delivering' || $this->marking == 'delivered')
+            $status = 'Delivery Invoice';
+        return $status;
+    }
+
     public function getBadge(): ?string
     {
         $badge = '';
@@ -518,6 +570,18 @@ class Order
     public function setPaidAt(?\DateTimeInterface $paid_at): self
     {
         $this->paid_at = $paid_at;
+
+        return $this;
+    }
+
+    public function getOrderedAt(): ?\DateTimeInterface
+    {
+        return $this->ordered_at;
+    }
+
+    public function setOrderedAt(?\DateTimeInterface $ordered_at): self
+    {
+        $this->ordered_at = $ordered_at;
 
         return $this;
     }
@@ -572,5 +636,17 @@ class Order
     public function setPaymentMethod($paymentMethod): void
     {
         $this->paymentMethod = $paymentMethod;
+    }
+
+    public function getIsPaid(): bool
+    {
+        return $this->isPaid;
+    }
+
+    public function setIsPaid(bool $isPaid): self
+    {
+        $this->isPaid = $isPaid;
+
+        return $this;
     }
 }

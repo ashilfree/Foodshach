@@ -162,14 +162,14 @@
                                     <div class="row">
                                         <div class="col-12 col-sm-6 col-md-12 col-lg-6">
                                             <div class="input-wrp">
-                                                <select class="js-select" name="delivery" required="required">
+                                                <select class="js-select" name="delivery-index" required="required">
                                                     <option value="">Select a governorate...</option>
                                                     {% for governorate in governorates %}
-                                                        <option {% if delivery is defined and delivery == governorate.price %}  selected {% endif %}
-                                                                value="{{ governorate.price }}">{{ governorate.name }}</option>
+                                                        <option {% if deliveryIndex is defined and deliveryIndex == loop.index %}  selected {% endif %}
+                                                                value="{{ loop.index }}" data-price="{{ governorate.price }}">{{ governorate.name }}</option>
                                                     {% endfor %}
                                                 </select>
-
+                                                <input type="hidden" name="delivery">
                                             </div>
                                         </div>
                                     </div>

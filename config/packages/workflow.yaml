@@ -11,7 +11,9 @@ framework:
                 - created
                 - waiting
                 - in_payment
+                - pay_en_delivery
                 - paid
+                - checkout_canceled
                 - in_delivering
                 - delivered
                 - canceled
@@ -19,18 +21,36 @@ framework:
                 create_order:
                     from: created
                     to: waiting
+                proceed_checkout:
+                    from: waiting
+                    to: in_payment
+                pay_en_delivery:
+                    from: waiting
+                    to: pay_en_delivery
                 checkout:
-                    from: waiting
+                    from: in_payment
                     to: paid
-                order_canceled:
+                checkout_canceled:
                     from: waiting
-                    to: canceled
+                    to: checkout_canceled
+                checkout_canceled2:
+                    from: in_payment
+                    to: checkout_canceled
                 in_delivering:
                     from: paid
+                    to: in_delivering
+                in_delivering2:
+                    from: pay_en_delivery
                     to: in_delivering
                 delivery_done:
                     from: in_delivering
                     to: delivered
-
-
-
+                order_canceled:
+                    from: waiting
+                    to: canceled
+                order_canceled2:
+                    from: in_payment
+                    to: canceled
+                order_canceled3:
+                    from: pay_en_delivery
+                    to: canceled

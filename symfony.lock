@@ -663,6 +663,9 @@
             "config/packages/reset_password.yaml"
         ]
     },
+    "tecnickcom/tcpdf": {
+        "version": "6.4.1"
+    },
     "twig/extra-bundle": {
         "version": "v3.3.0"
     },

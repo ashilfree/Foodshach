@@ -55,6 +55,11 @@ class Cart
         return $this->session->get('delivery');
     }
 
+    public function getDeliveryIndex()
+    {
+        return $this->session->get('delivery-index');
+    }
+
     public function getDelivery2Order()
     {
         return $this->session->get('delivery2order');
@@ -134,6 +139,8 @@ class Cart
         }
         $this->session->set('cart', $cart);
         $this->session->set('delivery', $all['delivery']);
+        $this->session->set('delivery-index', $all['delivery-index']);
+
     }
 
     public function switch()

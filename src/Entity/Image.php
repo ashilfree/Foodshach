@@ -21,7 +21,7 @@ class Image
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $filename;
 
@@ -33,7 +33,7 @@ class Image
 
     /**
      * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="images")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $product;
 
@@ -47,7 +47,7 @@ class Image
         return $this->filename;
     }
 
-    public function setFilename(string $filename): self
+    public function setFilename(?string $filename): self
     {
         $this->filename = $filename;
 

@@ -88,7 +88,10 @@ class OrderController extends AbstractController
         $oldOrder = new Order();
         if($this->session->get('orderId')){
             $oldOrder = $this->entityManager->getRepository(Order::class)->find($this->session->get('orderId'));
-            $transaction->applyWorkFlow($oldOrder, 'order_canceled');
+            if($transaction->check($oldOrder, 'order_canceled2'))
+                $transaction->applyWorkFlow($oldOrder, 'order_canceled2');
+            if($transaction->check($oldOrder, 'order_canceled'))
+                $transaction->applyWorkFlow($oldOrder, 'order_canceled');
         }
 
         $order = new Order();
@@ -139,6 +142,7 @@ class OrderController extends AbstractController
                     $total += $subTotal;
                 }
                 $order->setTotal($total);
+                $order->setIsPaid(false);
             }
             $this->entityManager->flush();
             $this->session->set('orderId', $order->getId());

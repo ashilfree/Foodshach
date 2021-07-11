@@ -44,7 +44,10 @@ class OrderCleanup{
 
 
         foreach ($orders as $order){
-            $this->transaction->applyWorkFlow($order, 'order_canceled');
+            if($this->transaction->check($order, 'order_canceled2'))
+                $this->transaction->applyWorkFlow($order, 'order_canceled2');
+            if($this->transaction->check($order, 'order_canceled'))
+                $this->transaction->applyWorkFlow($order, 'order_canceled');
             foreach ($order->getOrderDetails() as $orderDetail){
                 $product = $this->productRepository->findOneBy(['name'=> $orderDetail->getProduct()]);
                 $newQuantity = $product->getQuantity() + $orderDetail->getQuantity();

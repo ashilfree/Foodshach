@@ -76,8 +76,8 @@
                         <div class="panel-body panel-order p-b-20">
                             <div class="col-md-12">
 
-                                <p>{{ order.shippingFirstName ~' '~ order.shippingLastName }},<br>
-                                    {{ order.shippingAddress}}.,<br>
+                                <p>{{ order.shippingFullName }},<br>
+                                    {{ order.shippingHouseNumber ~ '-' ~ order.shippingStreetNumber }}.,<br>
                                     {{ order.shippingCity}},<br>
                                     {{ order.shippingProvince}}<br>
                                     {{ order.shippingPhone}}</p>

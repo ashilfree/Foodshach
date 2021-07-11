@@ -1,5 +1,6 @@
 /**
  * @property {HTMLFormElement} form
+ * @property {HTMLFormElement} hiddenInput
  * @property {HTMLElement} table
  * @property {HTMLElement} updateCart
  * @property {HTMLElement} ApplyCoupon
@@ -22,6 +23,7 @@ export default class Cart {
             return
         }
         this.form =document.querySelector('.js-cart-form');
+        this.hiddenInput =  document.querySelector('input[name="delivery"]');
         this.table = document.querySelector('table');
         this.updateCart = document.querySelector('.js-update-cart');
         this.subtotal = document.querySelector('#subtotal');
@@ -41,6 +43,8 @@ export default class Cart {
             })
         })
         $('.js-select').on('change', (e) => {
+            console.log($('.js-select').find(":selected").data('price'));
+            this.hiddenInput.value = $('.js-select').find(":selected").data('price');
             this.loadForm();
         });
         this.table.querySelectorAll('.js-quantity').forEach( span => {

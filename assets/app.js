@@ -39,12 +39,12 @@ if(checkout){
 
     })
     type2.addEventListener('click', function(){
-
-            this.classList.add('selected');
-            this.previousElementSibling.classList.remove('selected');
-            document.querySelector('.select-wrapper').style.display = 'block';
-            document.querySelector('#paymentMethod').required = true;
-
+            if(!this.classList.contains('disabled')) {
+                this.classList.add('selected');
+                this.previousElementSibling.classList.remove('selected');
+                document.querySelector('.select-wrapper').style.display = 'block';
+                document.querySelector('#paymentMethod').required = true;
+            }
     })
 }
 
@@ -105,7 +105,26 @@ $(isotopeButton).each(function(){
     });
 });
 
-$(window).load(function(){
+$(window).on('load', function(){
     $('.loader').fadeOut();
 });
 
+function onReady(callback) {
+    var intervalID = window.setInterval(checkReady, 1000);
+
+    function checkReady() {
+        if (document.getElementsByTagName('body')[0] !== undefined) {
+            window.clearInterval(intervalID);
+            callback.call(this);
+        }
+    }
+}
+
+function show(id, value) {
+    document.getElementById(id).style.display = value ? 'block' : 'none';
+}
+
+onReady(function () {
+    show('app', true);
+    show('loading', false);
+});
