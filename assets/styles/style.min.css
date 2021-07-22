@@ -12196,3 +12196,12 @@ table.table-striped tr td {
 .mobile-increment-pos {
     position: relative;
 }
+
+@media (max-width:756px){
+
+    .__item figure.__image .loaded{width:140px !important;}
+    .e-button .btn{width:140px !important; }
+    .products-list .__item{min-height:400px !important;}
+    .e-button .btn span{font-size:16px !important;}
+
+}

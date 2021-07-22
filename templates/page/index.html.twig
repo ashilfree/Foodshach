@@ -42,12 +42,12 @@
             </div>
             {% endif %}
             <section class="products-list py-5">
-                <div class="container goods--style-1">
+                <div class="goods--style-1">
 
                     <div class="row {% if category.subCategories.getValues() is not empty %} isotope-grid {% endif %}">
                         {% for product in products %}
                         <!-- start item -->
-                        <div class="col-12 col-sm-6 col-lg-4 {% if product.subCategory is not null %} isotope-item {{ product.subCategory.name }} {% endif %}">
+                        <div class="col-6 col-sm-6 col-lg-4 {% if product.subCategory is not null %} isotope-item {{ product.subCategory.name }} {% endif %}">
                             <div class="__item">
                                 <figure class="__image">
                                     <img class="lazy loaded" width="180" src="{{ vich_uploader_asset(product.images.first, 'imageFile') }}" alt="demo" data-was-processed="true">
@@ -71,7 +71,7 @@
                                             <img src="{{ '/media/images/spice'~ product.hotDegree.id ~'.png' }}" />
                                         {% endif %}
                                     {% endif %}
-                                    <a class="e-button js-cart-add" href="{{ path('add.cart', { id: product.id, locale: 'en' }) }}">
+                                    <a class="e-button {% if product.quantity != 0 %} js-cart-add {% endif %}" {% if product.quantity == 0 %} href="javascript:void(0)" {% else %} href="{{ path('add.cart', { id: product.id, locale: 'en' }) }}" {% endif %} {% if product.quantity == 0 %} disabled {% endif %}>
                                         <button class="btn">
                                                 <span class="text">
                                                   Add to cart
@@ -82,7 +82,7 @@
                                         </button>
                                     </a>
                                 </div>
-
+                                {% if product.quantity == 0 %}  <span class="product-label product-label--sale">Sold out</span> {% endif %}
 
                             </div>
                         </div>

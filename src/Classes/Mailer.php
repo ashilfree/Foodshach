@@ -41,7 +41,7 @@ class Mailer{
             ]
         );
         $message = (new \Swift_Message('Confirmation Email'))
-            ->setFrom('foodshack@genesistech-dz.com')
+            ->setFrom('support@foodshackkw.com')
             ->setTo($customer->getEmail())
             ->setReplyTo($customer->getEmail())
             ->setBody($body, 'text/html');
@@ -57,7 +57,7 @@ class Mailer{
             ]
         );
         $message = (new \Swift_Message('Reset Password Email'))
-            ->setFrom('foodshack@genesistech-dz.com')
+            ->setFrom('support@foodshackkw.com')
             ->setTo($customer->getEmail())
             ->setReplyTo($customer->getEmail())
             ->setBody($body, 'text/html');
@@ -72,7 +72,7 @@ class Mailer{
             ]
         );
         $message = (new \Swift_Message('Contact Us : '))
-            ->setFrom('foodshack@genesistech-dz.com')
+            ->setFrom('support@foodshackkw.com')
             ->setTo($contact->getEmail())
             ->setReplyTo($contact->getEmail())
             ->setBody($body, 'text/html');
@@ -88,7 +88,7 @@ class Mailer{
             ]
         );
         $message = (new \Swift_Message('Successful Order'))
-            ->setFrom('foodshack@genesistech-dz.com')
+            ->setFrom('support@foodshackkw.com')
             ->setTo($order->getShippingEmail())
             ->setReplyTo($order->getShippingEmail())
             ->setBody($body, 'text/html');
@@ -104,9 +104,25 @@ class Mailer{
             ]
         );
         $message = (new \Swift_Message('Unsuccessful Order'))
-            ->setFrom('foodshack@genesistech-dz.com')
+            ->setFrom('support@foodshackkw.com')
             ->setTo($order->getShippingEmail())
             ->setReplyTo($order->getShippingEmail())
+            ->setBody($body, 'text/html');
+
+        $this->mailer->send($message);
+    }
+
+    public function sendReceivedOrderEmail(Order $order)
+    {
+        $body = $this->twig->render('emails/order-received.mjml.twig',
+            [
+                'order' => $order
+            ]
+        );
+        $message = (new \Swift_Message('Received New Order'))
+            ->setFrom('support@foodshackkw.com')
+            ->setTo('info@foodshackkw.com')
+            ->setReplyTo('info@foodshackkw.com')
             ->setBody($body, 'text/html');
 
         $this->mailer->send($message);

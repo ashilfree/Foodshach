@@ -29,6 +29,7 @@
                         <h2>BILLING <span>DETAILS</span></h2>
 
                         <div class="spacer py-3"></div>
+                        {% include 'product/_overlay.html.twig' %}
                         {{ form_start(form, {'attr': {'class': 'checkout__form js-checkout-form', 'onsubmit': 'setFormSubmitting()'}}) }}
                             <div class="row justify-content-xl-between">
                                 <div class="col-12 col-md-5 col-lg-6">
@@ -130,7 +131,6 @@
                                         <table>
                                             <tbody>
                                             {% set total = null %}
-                                            {% set isTrue = false %}
                                             {% for productCart in cart2order %}
                                                 <tr>
                                                     <td width="65%">
@@ -168,9 +168,6 @@
                                                 {% else %}
                                                     {% set subTotal = (productCart.quantity * productCart.product.price)/100 %}
                                                 {% endif %}
-                                                {% if subTotal < 0.5 %}
-                                                    {% set isTrue = true %}
-                                                {% endif %}
                                                 {% set total = total + subTotal %}
                                             {% endfor %}
                                             </tbody>
@@ -178,6 +175,7 @@
                                     </div>
 
                                     <div class="checkout__total">
+
                                         <table>
                                             <thead>
                                             <tr>
@@ -215,7 +213,7 @@
                                                                     <p>Pay on Delivery</p>
                                                                 </div>
                                                             </div>
-                                                            <div class="type type2 {% if isTrue %} disabled {% endif %}">
+                                                            <div class="type type2">
                                                                 <div class="logo">
                                                                     <i class="far fa-credit-card"></i>
                                                                 </div>
@@ -271,10 +269,21 @@
 
         window.onbeforeunload = function(){
             if (formSubmitting) {
+                console.log("Clickkkkkk");
+                this.overlay = document.querySelector('.checkout');
+                this.overlay.classList.add('is-loading');
+                const loader = this.overlay.querySelector('.js-loader');
+                if (loader === null) {
+                    return
+                }
+                loader.setAttribute('aria-hidden', 'false');
+                loader.style.display = null;
                 return undefined;
             }
             return 'Are you sure you want to leave this page?';
         };
+
+
         // window.onload = function() {
         //    window.addEventListener("beforeunload", function (e) {
         //         if (formSubmitting) {

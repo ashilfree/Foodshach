@@ -21,9 +21,9 @@ class MyFatoorahController extends AbstractController
     private $apiURL = 'https://apitest.myfatoorah.com';
     private $apiKey = 'rLtt6JWvbUHDDhsZnfpAhpYk4dxYDQkbcPTyGaKp2TYqQgG7FGZ5Th_WD53Oq8Ebz6A53njUoo1w3pjU1D4vs_ZMqFiz_j0urb_BH9Oq9VZoKFoJEDAbRZepGcQanImyYrry7Kt6MnMdgfG5jn4HngWoRdKduNNyP4kzcp3mRv7x00ahkm9LAK7ZRieg7k1PDAnBIOG3EyVSJ5kK4WLMvYr7sCwHbHcu4A5WwelxYK0GMJy37bNAarSJDFQsJ2ZvJjvMDmfWwDVFEVe_5tOomfVNt6bOg9mexbGjMrnHBnKnZR1vQbBtQieDlQepzTZMuQrSuKn-t5XZM7V6fCW7oP-uXGX-sMOajeX65JOf6XVpk29DP6ro8WTAflCDANC193yof8-f5_EYY-3hXhJj7RBXmizDpneEQDSaSz5sFk0sV5qPcARJ9zGG73vuGFyenjPPmtDtXtpx35A-BVcOSBYVIWe9kndG3nclfefjKEuZ3m4jL9Gg1h2JBvmXSMYiZtp9MR5I6pvbvylU_PP5xJFSjVTIz7IQSjcVGO41npnwIxRXNRxFOdIUHn0tjQ-7LwvEcTXyPsHXcMD8WtgBh-wxR8aKX7WPSsT1O8d8reb2aR7K3rkV3K82K_0OgawImEpwSvp9MNKynEAJQS6ZHe_J_l77652xwPNxMRTMASk1ZsJL';
 
-    //Live
-    //private $apiURL = 'https://api.myfatoorah.com';
-    //private $apiKey = 'MFMNumJQBRZWKW8yo2DiLjioWjjnZDl_MZtDHFkuz9lcgwudSxeg0ewqqWyHywH6LZsXCiHJt3blj5F9M2S59jB11BkELxNEZsKC_wCqV9J3zJbGAOJc0JDYV_EHmZkkR2LFgTd9MXRsfkiLYfC84O-bpHUV2EltRNHlRtMKY0MaCKzJ6IReoMgK-X8OLKRf4GH4n9jCyMWwZ0DUtML9CrFwhDCS5hmawLnriiiddWcPXI06AJu3nrJLYNnt0vCyhcWuW62LTYvxf0V6N9JVTV-fnBs1Xzh0JFVaMXKcVQhZA6PzEeOiDj8albMszPccX0VW-mehEtLUKIHhj2qhsYWvTx1_GIz2oZR1JwqXPeCUJWCX5Kfi3hpNt9aXOSioGrDI0KWP9MC9qaDEEttfno3FFe_3YdSZTu_tH642h0W7WmC3-WZnzpue5L-RZFmksw9lQTmrL7TwaJfuwOkTJQbuDSZ2qs-ZT2xv3MVBlj7L7P7WQP9Q7pmXWZG7QXZUvW6-5oudLeCMokxmQzuYPF8ByExdFd5AHHSAaONgd2vrJhAXLqMOwKtLU0Km-9Q8ov8sJ2ZL0pMt77s4vQvPeeD6M3Z_QCwRZ88FLa7bATeGUTMzSHsWRryi95WecvrmQZHEop3mft_3ED64Ijx1XBWiyaLYS-skxOcuZz9kGDOLNILu9kx8ZIkw1ijwNY1MCisteg'; //Live token value to be placed here: https://myfatoorah.readme.io/docs/live-token
+//    //Live
+//    private $apiURL = 'https://api.myfatoorah.com';
+//    private $apiKey = 'MFMNumJQBRZWKW8yo2DiLjioWjjnZDl_MZtDHFkuz9lcgwudSxeg0ewqqWyHywH6LZsXCiHJt3blj5F9M2S59jB11BkELxNEZsKC_wCqV9J3zJbGAOJc0JDYV_EHmZkkR2LFgTd9MXRsfkiLYfC84O-bpHUV2EltRNHlRtMKY0MaCKzJ6IReoMgK-X8OLKRf4GH4n9jCyMWwZ0DUtML9CrFwhDCS5hmawLnriiiddWcPXI06AJu3nrJLYNnt0vCyhcWuW62LTYvxf0V6N9JVTV-fnBs1Xzh0JFVaMXKcVQhZA6PzEeOiDj8albMszPccX0VW-mehEtLUKIHhj2qhsYWvTx1_GIz2oZR1JwqXPeCUJWCX5Kfi3hpNt9aXOSioGrDI0KWP9MC9qaDEEttfno3FFe_3YdSZTu_tH642h0W7WmC3-WZnzpue5L-RZFmksw9lQTmrL7TwaJfuwOkTJQbuDSZ2qs-ZT2xv3MVBlj7L7P7WQP9Q7pmXWZG7QXZUvW6-5oudLeCMokxmQzuYPF8ByExdFd5AHHSAaONgd2vrJhAXLqMOwKtLU0Km-9Q8ov8sJ2ZL0pMt77s4vQvPeeD6M3Z_QCwRZ88FLa7bATeGUTMzSHsWRryi95WecvrmQZHEop3mft_3ED64Ijx1XBWiyaLYS-skxOcuZz9kGDOLNILu9kx8ZIkw1ijwNY1MCisteg'; //Live token value to be placed here: https://myfatoorah.readme.io/docs/live-token
 
     /**
      * @var EntityManagerInterface
@@ -72,8 +72,8 @@ class MyFatoorahController extends AbstractController
             if (!$order || !$transaction->check($order, 'proceed_checkout'))
                 return new JsonResponse(["error" => 'order']);
             $this->transaction->applyWorkFlow($order, 'proceed_checkout');
-            $YOUR_DOMAIN = 'https://foodshackkw.com';
-//            $YOUR_DOMAIN = 'https://127.0.0.1:8000';
+//            $YOUR_DOMAIN = 'https://foodshackkw.com';
+            $YOUR_DOMAIN = 'https://127.0.0.1:8000';
             //Fill POST fields array
             $ipPostFields = ['InvoiceAmount' => (($order->getTotal() + $order->getDeliveryPrice()) / 100), 'CurrencyIso' => 'KWD'];
 
@@ -135,7 +135,7 @@ class MyFatoorahController extends AbstractController
                 'ExpiryDate' => '', //The Invoice expires after 3 days by default. Use 'Y-m-d\TH:i:s' format in the 'Asia/Kuwait' time zone.
                 'SourceInfo' => 'Pure PHP', //For example: (Laravel/Yii API Ver2.0 integration)
                 'CustomerAddress' => $customerAddress,
-                'InvoiceItems' => $invoiceItems,
+//                'InvoiceItems' => $invoiceItems,
             ];
 
             //Call endpoint
@@ -156,6 +156,7 @@ class MyFatoorahController extends AbstractController
             $order->setOrderedAt(new \DateTime());
             $order->setPaymentMethod("PAY EN DELIVERY");
             $this->mailer->sendSuccessOrderEmail($order);
+            $this->mailer->sendReceivedOrderEmail($order);
             $this->entityManager->flush();
             return $this->redirectToRoute('order.validate.thank', ['locale' => $locale, 'reference'=> $order->getReference()]);
         }

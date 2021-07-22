@@ -1,3 +1,2 @@
 #!/bin/sh
-rsync -av ./ genesjz7@genesistech-dz.com:~/public_html/foodshack --include=public/build --include=public/.htaccess --exclude-from=.gitignore --exclude=".*"  --exclude=.env
-#ssh genesjz7@genesistech-dz.com 'cd ~/public_html/foodshack && php bin/console cache:clear'
+ssh -i id_rsa mbbggnmy@70.40.220.120 'cd ~/public_html/test && php bin/console cache:clear'

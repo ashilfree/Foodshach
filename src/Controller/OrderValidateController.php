@@ -77,6 +77,7 @@ class OrderValidateController extends AbstractController
             $order->setPaidAt(new \DateTime());
 			$this->entityManager->flush();
             $this->mailer->sendSuccessOrderEmail($order);
+            $this->mailer->sendReceivedOrderEmail($order);
 		}
         $path = ($locale == "en") ? 'order/order-complete.html.twig' : 'order/order-completeAr.html.twig';
         return $this->render($path, [
