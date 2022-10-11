@@ -1,2 +1,0 @@
-#!/bin/sh
-ssh -i id_rsa mbbggnmy@70.40.220.120 'cd ~/public_html/test && php bin/console cache:clear'
