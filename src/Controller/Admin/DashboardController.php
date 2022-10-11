@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\About;
 use App\Entity\Category;
+use App\Entity\Coupon;
 use App\Entity\Customer;
 use App\Entity\Governorate;
 use App\Entity\Order;
@@ -130,14 +131,16 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
 //        yield MenuItem::linkToCrud('User', 'fa fa-user', User::class);
-        yield MenuItem::linkToCrud('Customer', 'fa fa-user', Customer::class);
-        yield MenuItem::linkToCrud('Order', 'fa fa-university', Order::class);
-        yield MenuItem::linkToCrud('Category', 'fa fa-list', Category::class);
-        yield MenuItem::linkToCrud('Slide', 'fa fa-desktop', Slide::class);
         yield MenuItem::linkToCrud('Product', 'fa fa-tags', Product::class)
             ->setDefaultSort(['id' => 'ASC']);
+        yield MenuItem::linkToCrud('Order', 'fa fa-university', Order::class);
+        yield MenuItem::linkToCrud('Coupon', 'fa fa-university', Coupon::class);
+        yield MenuItem::linkToCrud('Customer', 'fa fa-user', Customer::class);
+        yield MenuItem::linkToCrud('Category', 'fa fa-list', Category::class);
+        yield MenuItem::linkToCrud('Slide', 'fa fa-desktop', Slide::class);
         yield MenuItem::linkToCrud('Governorate', 'fa fa-university', Governorate::class);
         yield MenuItem::linkToCrud('About Us', 'fa fa-university', About::class);
+
 
     }
 }

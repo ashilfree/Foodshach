@@ -17,7 +17,7 @@
         </div>
     </div>
     <!-- end hero -->
-
+    {% set discount = coupon ? coupon.discount : 0 %}
     <!-- start main -->
     <main role="main">
         <div class="container mt-60 py-30 mb-60">
@@ -46,7 +46,7 @@
 
                                         <div class="col-12 col-sm-6 col-md-12 col-lg-6">
                                             <div class="input-wrp">
-                                                {{ form_widget(form.shippingPhone, {'attr': {'class': 'textfield', 'placeholder':'Phone *'}}) }}
+                                                {{ form_widget(form.shippingPhone, {'attr': {'class': 'textfield', 'placeholder':'Phone *', 'maxLength': 8}}) }}
                                             </div>
                                             <small style="color:red;">{{ form_errors(form.shippingPhone) }}</small>
                                         </div>
@@ -187,7 +187,16 @@
                                                 <td>Subtotal:</td>
                                                 <td>{{ total|number_format(3, '.', ',') }} {{ currency }}</td>
                                             </tr>
-
+                                            {% if coupon %}
+                                            <tr class="bord">
+                                                <td>Discount({{ coupon.name }}):</td>
+                                                <td>-{{ discount|number_format(3, '.', ',') }} {{ currency }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>New Subtotal:</td>
+                                                <td>{{ (total-discount)|number_format(3, '.', ',') }} {{ currency }}</td>
+                                            </tr>
+                                            {% endif %}
                                             <tr>
                                                 <td>Shipping</td>
                                                 <td>{{ (delivery2order/100)|number_format(3, '.', ',') }} {{ currency }}</td>
@@ -195,10 +204,13 @@
 
                                             <tr>
                                                 <td>Total</td>
-                                                <td>{{ (total+ delivery2order/100)|number_format(3, '.', ',') }} {{ currency }}</td>
+                                                <td>{{ ((total-discount) + delivery2order/100)|number_format(3, '.', ',') }} {{ currency }}</td>
                                             </tr>
                                             </tbody>
                                             <tfoot>
+                                            <tr>
+
+                                            </tr>
                                             <tr>
                                                 <td colspan="2" class="__note">
                                                     <p class="__ttl">Payment Method</p>
@@ -411,5 +423,6 @@
         /*.select::-ms-expand {*/
         /*    display: none;*/
         /*}*/
+
     </style>
 {% endblock %}

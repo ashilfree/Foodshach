@@ -24,16 +24,17 @@
         {% if(delivery == '') %}
             {% set delivery = 0 %}
         {% endif %}
-
+        {% set discount = coupon ? coupon.discount : 0 %}
         <div class="container mt-60 py-30 mb-60">
+
             <form class="row js-cart-form" action="{{ path('update.cart', { locale: 'en' }) }}">
-                <div class="col-12 col-md-6 col-lg-8">
+                <div class="col-12 col-md-7 col-lg-8">
 
                     <!-- start cart -->
                     <div class="cart">
                         <div class="cart__form" >
                             <div class="cart__table">
-                                <table>
+                                <table id="cart_table">
                                     <thead>
                                     <tr>
                                         <td width="10%" class="mobile-hide">&nbsp;</td>
@@ -123,15 +124,16 @@
 
                         </div>
                     </div>
+
                 </div>
 
-                <div class="col-12 col-md-6 col-lg-4 col-xl-4 js-overlay">
+                <div class="col-12 col-md-5 col-lg-4 col-xl-4 js-overlay">
 
                     {% include 'product/_overlay.html.twig' %}
                     <div class="spacer py-5 d-md-none"></div>
 
                     <div class="cart__total mb-30">
-                        <table>
+                        <table id="total_cart_table">
                             <thead>
                             <tr>
                                 <td colspan="2"><h3>CART <span>TOTALS</span></h3></td>
@@ -156,6 +158,16 @@
                                 <td>Subtotal:</td>
                                 <td>{{ total|number_format(3, '.', ',') }} {{ currency }}</td>
                             </tr>
+                            {% if coupon %}
+                            <tr class="bord">
+                                <td>Discount({{ coupon.name }}): <a href="{{ path('coupon.destroy', { locale: 'en' }) }}" style="font-size: 12px;">Remove</a><br>(Win: {{ (coupon.type == 'fixed')? coupon.discountValue ~ currency : coupon.discountValue ~ '%' }})</td>
+                                <td>-{{ discount|number_format(3, '.', ',') }} {{ currency }}</td>
+                            </tr>
+                            <tr>
+                                <td>New Subtotal:</td>
+                                <td>{{ (total-discount)|number_format(3, '.', ',') }} {{ currency }}</td>
+                            </tr>
+                            {% endif %}
                             <tr>
                                 <td colspan="2" class="__note">
                                     <p class="__ttl">Calculate Delivery</p>
@@ -190,7 +202,7 @@
 
                             <tr>
                                 <td>Total</td>
-                                <td>{{ (total+ delivery/100)|number_format(3, '.', ',') }} {{ currency }}</td>
+                                <td>{{ ((total-discount)+ delivery/100)|number_format(3, '.', ',') }} {{ currency }}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -211,10 +223,72 @@
                 <!-- start cart -->
 
             </form>
+            <div class="form__note">
+                {% for message in app.flashes('error')  %}
+                    <div style="color:#5e8350;font-size: 22px;">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+            {% if not coupon %}
+            <div class="cart-btn">
+                    {{ form_start(form, {action: path('coupon.store', { locale: 'en' }), 'attr': {'class': 'row'}}) }}
+                        <div class="col-lg-6 mb-5">
+                            <div class="coupon-input">
+                                {{ form_widget(form.code, {'attr': {'placeholder':'Enter cupone code'}}) }}
+                            </div>
+                        </div>
+                        <div class="col-lg-6 text-left text-lg-right">
+                            <button class="site-btn clear-btn" type="submit">Apply</button>
+                        </div>
+                    {{ form_end(form) }}
+            </div>
+            {% endif %}
         </div>
 
 
     </main>
     <!-- end main -->
-
+    <style>
+        .cart-btn {
+            background: #F9FBFB;
+            padding: 50px 0;
+        }
+        .cart-btn .coupon-input {
+            padding-left: 35px;
+            padding-right: 35px;
+        }
+        .cart-btn .coupon-input input {
+            height: 57px;
+            width: 100%;
+            padding-left: 15px;
+            border: none;
+            border-bottom: 2px solid #D0D7DB;
+            background: transparent;
+            color: #1e1e1e;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .cart-btn .site-btn.clear-btn {
+            color: #4a4a4a;
+            border-color: #D0D7DB;
+            margin-left: 35px;
+            margin-right: 35px;
+            margin-top: 0px;
+        }
+        .site-btn {
+            color: #1e1e1e;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 16px 40px;
+            border: 2px solid #1e1e1e;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        .cart-btn .site-btn.update-btn {
+            margin-right: 35px;
+        }
+    </style>
 {% endblock %}

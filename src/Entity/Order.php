@@ -165,6 +165,16 @@ class Order
      */
     private $isPaid;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $discountCode;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $discountValue;
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
@@ -272,7 +282,7 @@ class Order
 
     public function getTotalOrder(): ?float
     {
-        return ($this->getTotal() + $this->getDeliveryPrice());
+        return ($this->getTotal() + $this->getDeliveryPrice() - ($this->discountValue*100));
     }
 
     public function getInvoiceId(): ?string
@@ -529,7 +539,7 @@ class Order
     public function canPrint(): string
     {
         $status = '';
-        if($this->marking == 'in_delivering' || $this->marking == 'delivered')
+        if($this->marking == 'in_delivering' || $this->marking == 'delivered' || $this->marking == 'paid' || $this->marking == 'pay_en_delivery')
             $status = 'Delivery Invoice';
         return $status;
     }
@@ -646,6 +656,30 @@ class Order
     public function setIsPaid(bool $isPaid): self
     {
         $this->isPaid = $isPaid;
+
+        return $this;
+    }
+
+    public function getDiscountCode(): ?string
+    {
+        return $this->discountCode;
+    }
+
+    public function setDiscountCode(?string $discountCode): self
+    {
+        $this->discountCode = $discountCode;
+
+        return $this;
+    }
+
+    public function getDiscountValue(): ?float
+    {
+        return $this->discountValue;
+    }
+
+    public function setDiscountValue(?float $discountValue): self
+    {
+        $this->discountValue = $discountValue;
 
         return $this;
     }

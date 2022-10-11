@@ -43,7 +43,7 @@
 
                                 <label for="mobile" class="m-t-15"> Mobile <span class="red"><sup>*</sup></span>
                                 </label>
-                                {{ form_row(form.phone, {'attr': {'class': 'form-control', 'placeholder':'Phone'}}) }}
+                                {{ form_row(form.phone, {'attr': {'class': 'form-control', 'placeholder':'Phone', 'maxLength': 8}}) }}
 
                                 <label for="email" class="m-t-15"> Email <span class="red"><sup>*</sup></span> </label>
                                 {{ form_row(form.email, {'attr': {'class': 'form-control', 'placeholder':'Email'}}) }}

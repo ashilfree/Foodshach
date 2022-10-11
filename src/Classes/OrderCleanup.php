@@ -2,6 +2,7 @@
 
 namespace App\Classes;
 
+use App\Entity\Coupon;
 use App\Repository\OrderRepository;
 use App\Repository\ProductRepository;
 use DateTimeZone;
@@ -44,14 +45,28 @@ class OrderCleanup{
 
 
         foreach ($orders as $order){
-            if($this->transaction->check($order, 'order_canceled2'))
+            if($this->transaction->check($order, 'order_canceled2')){
                 $this->transaction->applyWorkFlow($order, 'order_canceled2');
-            if($this->transaction->check($order, 'order_canceled'))
+                $order->setCancelledAt(new \DateTime());
+            }
+            if($this->transaction->check($order, 'order_canceled')){
                 $this->transaction->applyWorkFlow($order, 'order_canceled');
+                $order->setCancelledAt(new \DateTime());
+            }
             foreach ($order->getOrderDetails() as $orderDetail){
-                $product = $this->productRepository->findOneBy(['name'=> $orderDetail->getProduct()]);
-                $newQuantity = $product->getQuantity() + $orderDetail->getQuantity();
-                $product->setQuantity($newQuantity);
+                $product = $this->productRepository->findByName($orderDetail->getProduct());
+                if($product) {
+                    $newQuantity = $product->getQuantity() + $orderDetail->getQuantity();
+                    $product->setQuantity($newQuantity);
+                }
+            }
+            if($order->getDiscountValue() != 0){
+                /**
+                 * @var Coupon $coupon
+                 */
+                $coupon = $this->entityManager->getRepository(Coupon::class)->findByCode($order->getDiscountCode());
+                $quantity = $coupon->getUsersNumber();
+                $coupon->setUsersNumber($quantity+1);
             }
             $this->entityManager->flush();
         }

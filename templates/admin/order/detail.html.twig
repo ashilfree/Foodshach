@@ -152,6 +152,14 @@
                                                     <div class="col-sm-4 col-5">
                                                         <p class="">{{ (order.total)/100 |number_format(2, '.', ',')~ currency }}</p>
                                                     </div>
+                                                    {% if order.discountValue %}
+                                                    <div class="col-sm-8 col-7">
+                                                        <p class="">Discount: </p>
+                                                    </div>
+                                                    <div class="col-sm-4 col-5">
+                                                        <p class="">-{{ order.discountValue|number_format(2, '.', ',')~ currency }}</p>
+                                                    </div>
+                                                    {% endif %}
                                                     <div class="col-sm-8 col-7">
                                                         <p class="">Delivery: </p>
                                                     </div>
@@ -162,7 +170,7 @@
                                                         <h4 class="">Grand Total : </h4>
                                                     </div>
                                                     <div class="col-sm-4 col-5 grand-total-amount">
-                                                        <h4 class="">{{ (order.total + order.deliveryPrice)/100 |number_format(2, '.', ',')~ currency }}</h4>
+                                                        <h4 class="">{{ (order.totalOrder)/100 |number_format(2, '.', ',')~ currency }}</h4>
                                                     </div>
                                                 </div>
                                             </div>

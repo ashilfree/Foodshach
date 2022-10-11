@@ -13,7 +13,7 @@
     <meta name="Food Shack Company" content="Food Shack Company, Kuwait"/>
     <meta name="Food Shack Company" content="Food Shack Company, Sauces, Kuwait"/>
     <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="{{ '/media/images/icons/favicon.png' }}"/>
+    <link rel="icon" type="image/png" href="{{ '/media/images/site_logo1.png' }}"/>
 
     {{ encore_entry_link_tags('app') }}
 
@@ -132,6 +132,11 @@
                                     <a href="{{ path('cart') }}" class="js-cart-icon"><i
                                                 class="fontello-shopping-bag"></i>
                                         <span class="total">{{ cart|length }}</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('home', { locale: 'ar'}) }}" class="icon-lang">
+                                        AR
                                     </a>
                                 </li>
 

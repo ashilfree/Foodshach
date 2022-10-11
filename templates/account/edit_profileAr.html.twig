@@ -1,0 +1,72 @@
+{% extends 'baseAr.html.twig' %}
+
+{% block body %}
+
+    <!-- start hero -->
+    <div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 100%" style="background-image: url({{ '/media/images/intro_img/11.jpg' }});color: #333;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <h2 class="__title"><span>شركة فود شاك</span>حسابي</h2>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end hero -->
+
+    <!-- start main -->
+    <main role="main">
+        <!-- Common styles
+        ================================================== -->
+
+        <section class="container-top container">
+
+            <div class="row m-b-30">
+                {% include 'account/side_barAr.html.twig' %}
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
+                    <div class="edit_prof_bg1 py-2">
+                        <div class="row">
+                            <div class="col-md-12"><h4> تعديل الملف الشخصي</h4></div>
+                        </div>
+
+                    </div>
+                    <div class="box">
+
+                        <div class="row table-min">
+                            <div class="col-md-11 m-r-auto m-l-auto col-sm-11 col-11 bg6 profile-wrapper">
+                                {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+
+                                <label for="name"> الاسم بالكامل <span class="red"><sup>*</sup></span> </label>
+                                {{ form_row(form.fullName, {'attr': {'class': 'form-control', 'placeholder':'الاسم بالكامل'}}) }}
+
+                                <label for="mobile" class="m-t-15"> رقم الهاتف <span class="red"><sup>*</sup></span>
+                                </label>
+                                {{ form_row(form.phone, {'attr': {'class': 'form-control', 'placeholder':'رقم الهاتف', 'maxLength': 8}}) }}
+
+                                <label for="email" class="m-t-15"> بريد الالكتروني <span class="red"><sup>*</sup></span> </label>
+                                {{ form_row(form.email, {'attr': {'class': 'form-control', 'placeholder':'بريد الالكتروني'}}) }}
+                                {{ form_row(form.submit, {'attr': {'class': 'custom-btn custom-btn--medium custom-btn--style-1'}}) }}
+                                {{ form_end(form) }}
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+    </main>
+    <!-- end main -->
+
+
+{% endblock %}
+

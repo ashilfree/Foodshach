@@ -36,13 +36,13 @@
 </table>
 
 <div></div>
-<div style="border-bottom:1px solid #000;">
-    <table style="line-height: 2;font-size:15px">
+<div>
+    <table style="line-height: 2;font-size:14px">
         <tr style="font-weight: bold;border:1px solid #cccccc;background-color:#f2f2f2;">
-            <td style="border:1px solid #cccccc;width:180px;">Product</td>
-            <td style = "text-align:right;border:1px solid #cccccc;width:80px">Price</td>
-            <td style = "text-align:right;border:1px solid #cccccc;width:80px;">Quantity</td>
-            <td style = "text-align:right;border:1px solid #cccccc;">Subtotal</td>
+            <td style="border:1px solid #cccccc;width:302px;">Product</td>
+            <td style = "text-align:right;border:1px solid #cccccc;width:70px">Price</td>
+            <td style = "text-align:right;border:1px solid #cccccc;width:30px;">U</td>
+            <td style = "text-align:right;border:1px solid #cccccc;width:70px">Subtotal</td>
         </tr>
         {% for orderDetail in order.orderDetails %}
         <tr> <td style="border:1px solid #cccccc;">{{ orderDetail.product|upper }}</td>
@@ -51,22 +51,30 @@
             <td style = "text-align:right; border:1px solid #cccccc;">{{ orderDetail.total/100 |number_format(2, '.', ',')~ currency }}</td>
         </tr>
         {% endfor %}
+    </table>
+    <table style="line-height: 2;font-size:15px">
         <tr style = "font-weight: bold;">
             <td></td><td></td>
-            <td style = "text-align:right;">Delivery </td>
-            <td style = "text-align:right;">{{ order.deliveryPrice/100 |number_format(2, '.', ',')~ currency }}</td>
+            <td style = "text-align:right;border:1px solid #cccccc;">SubTotal </td>
+            <td style = "text-align:right;border:1px solid #cccccc;">{{ (order.total)/100 |number_format(2, '.', ',')~ currency }}</td>
         </tr>
+    {% if order.discountValue %}
         <tr style = "font-weight: bold;">
             <td></td><td></td>
-            <td style = "text-align:right;">Total </td>
-            <td style = "text-align:right;">{{ (order.total + order.deliveryPrice)/100 |number_format(2, '.', ',')~ currency }}</td>
+            <td style = "text-align:right;border:1px solid #cccccc;">Discount </td>
+            <td style = "text-align:right;border:1px solid #cccccc;">-{{ order.discountValue |number_format(2, '.', ',')~ currency }}</td>
         </tr>
-    </table></div>
-<p><u>Contact Us</u>:<br/>
-    Address: Al-nassar tower,floor 10.<br/>
-             kuwait city - kuwait<br/>
-    Email: info@foodshack.com<br/>
-    Tel: 23141434<br/>
-</p>
+    {% endif %}
+    <tr style = "font-weight: bold;">
+        <td></td><td></td>
+        <td style = "text-align:right;border:1px solid #cccccc;">Delivery </td>
+        <td style = "text-align:right;border:1px solid #cccccc;">{{ order.deliveryPrice/100 |number_format(2, '.', ',')~ currency }}</td>
+    </tr>
+    <tr style = "font-weight: bold;">
+        <td></td><td></td>
+        <td style = "text-align:right;border:1px solid #cccccc;">Total </td>
+        <td style = "text-align:right;border:1px solid #cccccc;">{{ (order.totalOrder)/100 |number_format(2, '.', ',')~ currency }}</td>
+    </tr>
+</table></div>
 </body>
 </html>

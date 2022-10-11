@@ -121,8 +121,25 @@ class Mailer{
         );
         $message = (new \Swift_Message('Received New Order'))
             ->setFrom('support@foodshackkw.com')
-            ->setTo('info@foodshackkw.com')
-            ->setReplyTo('info@foodshackkw.com')
+            ->setTo('order@foodshackkw.com')
+            ->setReplyTo('order@foodshackkw.com')
+            ->setBody($body, 'text/html');
+
+        $this->mailer->send($message);
+    }
+
+    public function sendCodeCouponEmail(string $to, string $subject, string $code)
+    {
+        $body = $this->twig->render('emails/code-coupon.mjml.twig',
+            [
+                'subject' => $subject,
+                'code' => $code,
+            ]
+        );
+        $message = (new \Swift_Message($subject))
+            ->setFrom('support@foodshackkw.com')
+            ->setTo($to)
+            ->setReplyTo($to)
             ->setBody($body, 'text/html');
 
         $this->mailer->send($message);

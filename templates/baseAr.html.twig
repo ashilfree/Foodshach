@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" dir="rtl">
+<head>
+
+    <title>Food Shack Company</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <meta name="viewport"
+          content="user-scalable=no, width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, minimal-ui"/>
+
+    <meta name="Food Shack Company" content="Food Shack Company"/>
+    <meta name="Food Shack Company" content="Food Shack Company, Kuwait"/>
+    <meta name="Food Shack Company" content="Food Shack Company, Sauces, Kuwait"/>
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="{{ '/media/images/site_logo1.png' }}"/>
+
+    {{ encore_entry_link_tags('app-ar') }}
+
+    {% block stylesheets %}{% endblock %}
+    {% block javascript %}
+    {% endblock %}
+    <!--===============================================================================================-->
+</head>
+<body {% if page is defined and page != 'home' %} class="woocommerce-page product-page" {% endif %}>
+{#<div class="loader"></div>#}
+<div id="app" class="js-cart">
+    <!-- start header -->
+    <header id="top-bar"
+            class="top-bar {% if page is defined and page == 'home' %} top-bar--style-1 {% else %} top-bar--style-2 {% endif %} ">
+        <div class="top-bar__bg"></div>
+        {% if showCart is defined and showCart == true %}
+            <a href="{{ path('cart', {locale: 'ar'}) }}" class="sqs-cart-dropzone"
+               id="yui_3_17_2_1_1619261831622_510" {% if cart|length == 0 %} style="display:none" {% endif %}>
+                <div id="yui_3_17_2_1_1619261831622_514" class="yui3-widget sqs-widget sqs-pill-shopping-cart"
+                     style="visibility: visible; opacity: 1; transform: scale(1); transition: opacity 0.25s ease-out 0s, visibility 0.25s ease-out 0s, transform 0.25s ease-out 0s;">
+                    <div id="yui_3_17_2_1_1619261831622_516" class="sqs-pill-shopping-cart-content dark js-cart-icon2"
+                         data-test="continue-to-cart">
+                        <div class="icon"></div>
+
+                        <div class="details">
+                            <span class="total">{{ cart|length }}</span>
+                            <span class="suffix">أغراض</span>
+                        </div>
+
+                        <span class="subtotal">
+                        <span class="price"><span>{{ total }}</span><span>{{ currency_ar }}</span></span>
+                    </span></div>
+                </div>
+            </a>
+        {% endif %}
+        <div class="container">
+            <div class="row align-items-center justify-content-between no-gutters">
+
+                <a class="{% if page is defined and page == 'home' %} top-bar__logo1 {% else %} top-bar__logo {% endif %}site-logo"
+                   href="{{ path('home', {locale: 'ar'}) }}">
+                    <img class="img-fluid" src="{{ '/media/images/site_logo.png' }}" alt="Food Shack Company"
+                         title="Food Shack Company"/>
+                </a>
+
+                <a id="top-bar__navigation-toggler"
+                   class="top-bar__navigation-toggler {% if page is defined and page == 'home' %} top-bar__navigation-toggler--light {% else %} top-bar__navigation-toggler--dark {% endif %}"
+                   href="javascript:void(0);"><span></span></a>
+
+                <div id="top-bar__inner" class="top-bar__inner">
+                    <div>
+                        <nav id="top-bar__navigation" class="top-bar__navigation navigation" role="navigation">
+                            <ul class="text-right">
+                                <li {% if page is defined and page == 'home' %} class="active" {% endif %}>
+                                    <a href="{{ path('home', {locale: 'ar'}) }}">الرئيسية</a>
+                                </li>
+
+                                <li {% if page is defined and page == 'about.us' %} class="active" {% endif %}>
+                                    <a href="{{ path('about.us', {locale: 'ar'}) }}">معلومات عنا</a>
+                                </li>
+
+                                <li>
+                                    {% if categories is not empty %}
+                                    <a href="{{ path('category', {slug: categories[0].slug, locale: 'ar'}) }}">صلصات ميكس تشيلي</a>
+                                    {% else %}
+                                        <a href="">صلصات ميكس تشيلي</a>
+                                    {% endif %}
+                                </li>
+
+                                <li class="has-submenu">
+                                    <a href="javascript:void(0);">قائمه المنتجات</a>
+
+                                    <ul class="submenu text-right">
+                                        {% for category in categories %}
+                                            <li>
+                                                <a href="{{ path('category', {locale: 'ar',slug: category.slug}) }}">{{ category.nameAr }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+
+
+                                <li {% if page is defined and page == 'contact.us' %} class="active" {% endif %}>
+                                    <a href="{{ path('contact.us', {locale: 'ar'}) }}">تواصل معنا</a>
+                                </li>
+
+                                <li>
+                                    {% if app.user %}
+                                        <a>
+                                            حسابي
+                                        </a>
+                                        <ul class="submenu">
+                                            <li><a href="{{ path('account', { locale: 'ar' }) }}">ملفي الشخصي</a></li>
+                                            <li><a href="{{ path('edit.account', { locale: 'ar' }) }}">تعديل الملف الشخصي</a>
+                                            </li>
+                                            <li><a href="{{ path('my.orders', { locale: 'ar' }) }}">طلباتي</a></li>
+                                            <li><a href="{{ path('edit.password', { locale: 'ar' }) }}">تغيير كلمة السر</a></li>
+                                            <li><a href="{{ path('logout', { locale: 'ar' }) }}">تسجيل خروج</a></li>
+                                        </ul>
+                                    {% else %}
+                                        <a href="{{ path('register', { locale: 'ar' }) }}"
+                                           class="flex-c-m trans-04 p-lr-25">
+                                            تسجيل
+                                        </a>
+                                    {% endif %}
+                                </li>
+
+                                <li class="li-profile">
+                                    {% if app.user %}
+                                        {# <a href="{{ path('logout') }}"><i class="fontello-user"></i></a> #}
+                                    {% else %}
+                                        <a href="{{ path('login', { locale: 'ar'}) }}"><i class="fontello-profile"></i></a>
+                                    {% endif %}
+                                </li>
+                                <li class="li-cart">
+                                    <a href="{{ path('cart', { locale: 'ar' }) }}" class="js-cart-icon"><i
+                                                class="fontello-shopping-bag"></i>
+                                        <span class="total">{{ cart|length }}</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('home', { locale: 'en'}) }}" class="icon-lang">
+                                        EN
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+    <!-- end header -->
+
+    {% block body %}{% endblock %}
+
+    <!-- start footer -->
+    <footer id="footer" class="footer--style-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-4 text-center-mobile">
+                    <div class="footer__item">
+                        <a class="site-logo" href="{{ path('home', {locale: 'ar'}) }}">
+                            <img class="img-fluid  lazy" src="{{ '/media/images/blank.gif' }}"
+                                 data-src="{{ '/media/images/site_logo.png' }}" alt="demo"/>
+                        </a>
+                    </div>
+
+
+                </div>
+
+                <div class="col-12 col-lg-4 text-center-mobile">
+                    <div class="footer__item">
+                        <h5 class="h6">روابط سريعة</h5>
+                        <hr class="hr-footer"/>
+                        <ul>
+                            {% for category in categories %}
+                                <li>
+                                    <a href="{{ path('category', {slug: category.slug}) }}">{{ category.nameAr }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4 text-center-mobile">
+                    <div class="footer__item">
+                        <h5 class="h6">اتصل بنا</h5>
+                        <hr class="hr-footer"/>
+                        <div class="social-btns">
+                            <a href="https://www.instagram.com/foodshackkw/"><i class="fontello-instagram"></i></a>
+{#                            <a href="#"><i class="fontello-twitter"></i></a>#}
+{#                            <a href="#"><i class="fontello-facebook"></i></a>#}
+{#                            <a href="#"><i class="fontello-linkedin-squared"></i></a>#}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+
+
+                <div class="col-12 col-lg-12 text-center reserverd-footer">
+                    <div class="footer__item">
+                        <span class="__copy">© شركة فود شاك 2021. كل الحقوق محفوظة.</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    <!-- end footer -->
+</div>
+{#<div id="loading"></div>#}
+<!-- Begin Loading Area -->
+<div id="loading">
+    <div class="text-center middle">
+        <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+<!-- Loading Area End Here -->
+<div id="btn-to-top-wrap">
+    <a id="btn-to-top" class="circled" href="javascript:void(0);" data-visible-offset="800"></a>
+</div>
+
+<!--===============================================================================================-->
+<script
+        src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+        crossorigin="anonymous"></script>
+{{ encore_entry_script_tags('app-ar') }}
+
+
+<script>
+
+
+    var header = document.getElementById("yui_3_17_2_1_1619261831622_510");
+    if (header) {
+        window.onscroll = function () {
+            myFunction()
+        };
+        var sticky = header.offsetTop;
+
+        function myFunction() {
+            if (window.pageYOffset > sticky) {
+                header.style.position = 'fixed';
+                header.style.top = '0px';
+            } else {
+                header.style.position = 'absolute';
+                header.style.top = '100%';
+            }
+        }
+    }
+
+</script>
+{% block javascripts %}{% endblock %}
+<!--===============================================================================================-->
+
+</body>
+</html>
+

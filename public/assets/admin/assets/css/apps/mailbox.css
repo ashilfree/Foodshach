@@ -735,7 +735,7 @@ body.minimal .mail-box-container {
     margin-left: 10px;
     border-radius: 6px;
     border: 1px solid #d3d3d3; }
-  .compose-box .compose-content form .mail-to svg, .compose-box .compose-content form .mail-cc svg, .compose-box .compose-content form .mail-subject svg {
+  .compose-box .compose-content .mail-to svg, .compose-box .compose-content form .mail-cc svg, .compose-box .compose-content .mail-subject svg {
     align-self: center;
     font-size: 19px;
     margin-right: 14px;

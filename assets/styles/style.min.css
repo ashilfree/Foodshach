@@ -7829,6 +7829,10 @@ img {
     border-bottom: 1px solid #ebebeb;
 }
 
+.cart__total tbody tr.bord {
+    border-bottom: 1px solid #ebebeb;
+}
+
 .cart__total tbody td {
     vertical-align: top;
     padding-top: 20px;
@@ -12203,5 +12207,23 @@ table.table-striped tr td {
     .e-button .btn{width:140px !important; }
     .products-list .__item{min-height:400px !important;}
     .e-button .btn span{font-size:16px !important;}
+
+}
+
+@media (max-width: 767.98px){
+
+    .cart__table tbody td {
+        text-align:center;
+    }
+
+}
+
+
+@media (max-width:1023px)
+{
+    .mobile-hide{display:none !important;}
+
+    .cart__table table{min-width:390px !important;}
+    .cart_table td:first-child, .cart_table td:nth-child(5){display:none;}
 
 }

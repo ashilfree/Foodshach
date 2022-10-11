@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Classes\Cart;
 use App\Classes\Transaction;
 use App\Classes\WishList;
+use App\Entity\Coupon;
 use App\Entity\Customer;
 use App\Entity\Order;
 use App\Entity\OrderDetails;
@@ -112,12 +113,15 @@ class OrderController extends AbstractController
             $order->setShippingFullName($user->getFullName());
             $order->setShippingPhone($user->getPhone()??'');
         }
-
+        $coupon = $this->cart->getCoupon();
         $form = $this->createForm(OrderType::class, $order);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             if ($order->getId() == null) {
                 $date = new \DateTime();
+                $discountCode = $coupon ? $coupon['name'] : 0;
+                $discountValue = $coupon ? $coupon['discount'] : 0;
                 /** @var Customer $user */
                 $user = $this->getUser();
                 $reference = $date->format('Ymd') . '-' . uniqid();
@@ -125,6 +129,8 @@ class OrderController extends AbstractController
                 $order->setCustomer($user);
                 $order->setCreatedAt($date);
                 $order->setDeliveryPrice($this->cart->getDelivery2Order());
+                $order->setDiscountCode($discountCode);
+                $order->setDiscountValue($discountValue);
                 $transaction->applyWorkFlow($order, 'create_order');
                 $this->entityManager->persist($order);
                 $total = 0.0;
@@ -143,6 +149,14 @@ class OrderController extends AbstractController
                 }
                 $order->setTotal($total);
                 $order->setIsPaid(false);
+                if($discountValue != 0){
+                    /**
+                     * @var Coupon $coupon
+                     */
+                    $coupon = $this->entityManager->getRepository(Coupon::class)->findByCode($discountCode);
+                    $quantity = $coupon->getUsersNumber();
+                    $coupon->setUsersNumber($quantity-1);
+                }
             }
             $this->entityManager->flush();
             $this->session->set('orderId', $order->getId());
@@ -163,7 +177,8 @@ class OrderController extends AbstractController
             'delivery' => $this->cart->getDelivery(),
             'delivery2order' => $this->cart->getDelivery2Order(),
             'page' => 'checkout',
-            'categories' => $this->categoryRepository->findAll()
+            'categories' => $this->categoryRepository->findAll(),
+            'coupon' => $coupon,
         ]);
     }
 

@@ -12,10 +12,10 @@ $(document).ready(function() {
 
 	// Applying Scroll Bar
 
-	const ps = new PerfectScrollbar('.message-box-scroll');
-	const mailScroll = new PerfectScrollbar('.mail-sidebar-scroll', {
-		suppressScrollX : true
-	});
+	// const ps = new PerfectScrollbar('.message-box-scroll');
+	// const mailScroll = new PerfectScrollbar('.mail-sidebar-scroll', {
+	// 	suppressScrollX : true
+	// });
 
 	function mailInboxScroll() {
 		$('.mailbox-inbox .collapse').each(function(){ const mailContainerScroll = new PerfectScrollbar($(this)[0], {
@@ -65,7 +65,9 @@ $(document).ready(function() {
 	dynamicBadgeNotification('draftmail');
 
 	// Open Modal on Compose Button Click
-	$('#btn-compose-mail').on('click', function(event) {
+	$('.btn-compose-mail').on('click', function(event) {
+		console.log(this.dataset.code);
+		$('#m-coupon').val(this.dataset.code);
 		$('#btn-send').show();
 		$('#btn-reply').hide();
 		$('#btn-fwd').hide();
@@ -77,45 +79,45 @@ $(document).ready(function() {
 		$('#btn-fwd-save').hide();
 	})
 
-	/*
-		Init. fn. checkAll ==> Checkbox check all
-	*/
-	document.getElementById('inboxAll').addEventListener('click', function() {
-		var getActiveList = document.querySelectorAll('.tab-title .list-actions.active');
-		var getActiveListID = '.'+getActiveList[0].id;
-
-		var getItemsCheckboxes = '';
-
-		if (getActiveList[0].id === 'personal' || getActiveList[0].id === 'work' || getActiveList[0].id === 'social' || getActiveList[0].id === 'private') {
-
-			getItemsGroupCheckboxes = document.querySelectorAll(getActiveListID);
-			for (var i = 0; i < getItemsGroupCheckboxes.length; i++) {
-				getItemsGroupCheckboxes[i].parentNode.parentNode.parentNode;
-
-				getItemsCheckboxes = document.querySelectorAll('.'+getItemsGroupCheckboxes[i].parentNode.parentNode.parentNode.className.split(' ')[0] + ' ' + getActiveListID + ' .inbox-chkbox');
-				
-				if (getItemsCheckboxes[i].checked) {
-					getItemsCheckboxes[i].checked = false;
-				} else {
-					if (this.checked) {
-						getItemsCheckboxes[i].checked = true;
-					}
-				}
-			}
-
-		} else {
-			getItemsCheckboxes = document.querySelectorAll('.mail-item'+getActiveListID + ' .inbox-chkbox');
-			for (var i = 0; i < getItemsCheckboxes.length; i++ ) {
-				if (getItemsCheckboxes[i].checked) {
-					getItemsCheckboxes[i].checked = false;
-				} else {
-					if (this.checked) {
-						getItemsCheckboxes[i].checked = true;
-					}
-				}
-			}
-		}
-	})
+	// /*
+	// 	Init. fn. checkAll ==> Checkbox check all
+	// */
+	// document.getElementById('inboxAll').addEventListener('click', function() {
+	// 	var getActiveList = document.querySelectorAll('.tab-title .list-actions.active');
+	// 	var getActiveListID = '.'+getActiveList[0].id;
+	//
+	// 	var getItemsCheckboxes = '';
+	//
+	// 	if (getActiveList[0].id === 'personal' || getActiveList[0].id === 'work' || getActiveList[0].id === 'social' || getActiveList[0].id === 'private') {
+	//
+	// 		getItemsGroupCheckboxes = document.querySelectorAll(getActiveListID);
+	// 		for (var i = 0; i < getItemsGroupCheckboxes.length; i++) {
+	// 			getItemsGroupCheckboxes[i].parentNode.parentNode.parentNode;
+	//
+	// 			getItemsCheckboxes = document.querySelectorAll('.'+getItemsGroupCheckboxes[i].parentNode.parentNode.parentNode.className.split(' ')[0] + ' ' + getActiveListID + ' .inbox-chkbox');
+	//
+	// 			if (getItemsCheckboxes[i].checked) {
+	// 				getItemsCheckboxes[i].checked = false;
+	// 			} else {
+	// 				if (this.checked) {
+	// 					getItemsCheckboxes[i].checked = true;
+	// 				}
+	// 			}
+	// 		}
+	//
+	// 	} else {
+	// 		getItemsCheckboxes = document.querySelectorAll('.mail-item'+getActiveListID + ' .inbox-chkbox');
+	// 		for (var i = 0; i < getItemsCheckboxes.length; i++ ) {
+	// 			if (getItemsCheckboxes[i].checked) {
+	// 				getItemsCheckboxes[i].checked = false;
+	// 			} else {
+	// 				if (this.checked) {
+	// 					getItemsCheckboxes[i].checked = true;
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// })
 
 	/*
 		fn. randomString ==> Generate Random Numbers
@@ -466,40 +468,40 @@ $(document).ready(function() {
 
 	})
 
-	// Delete a mail
-	$(".action-delete").on("click", function() {
-		var inboxCheckboxParents = $(".inbox-chkbox:checked").parents('.mail-item');
-		var inboxMailItemClass = inboxCheckboxParents.attr('class');
-        var getFirstClass = inboxMailItemClass.split(' ')[1];
-        var getSecondClass = inboxMailItemClass.split(' ')[2];
-        var getThirdClass = inboxMailItemClass.split(' ')[3];
-        var getFourthClass = inboxMailItemClass.split(' ')[4];
-        var getFifthClass = inboxMailItemClass.split(' ')[5];
-
-        var notificationText = '';
-		var getCheckedItemlength = $(".inbox-chkbox:checked").length;
-
-		var notificationText = getCheckedItemlength < 2 ? getCheckedItemlength + ' Mail Deleted' : getCheckedItemlength + ' Mails Deleted';
-
-        if (getFirstClass === 'mailInbox' || getFirstClass === 'sentmail' || getFirstClass === 'draft' || getFirstClass === 'spam') {
-          inboxCheckboxParents.removeClass(getFirstClass);
-        }
-        if (getSecondClass === 'mailInbox' || getSecondClass === 'important') {
-          inboxCheckboxParents.removeClass(getSecondClass);
-        }
-	  	inboxCheckboxParents.addClass('trashed');
- 		$(".inbox-chkbox:checked").prop('checked',false);
- 		$("#inboxAll:checked").prop('checked',false);
- 		$(".list-actions#trashed").trigger('click');
-
- 		Snackbar.show({
-	        text: notificationText,
-	        width: 'auto',
-	        pos: 'top-center',
-	        actionTextColor: '#bfc9d4',
-	        backgroundColor: '#515365'
-	    });
-	});
+	// // Delete a mail
+	// $(".action-delete").on("click", function() {
+	// 	var inboxCheckboxParents = $(".inbox-chkbox:checked").parents('.mail-item');
+	// 	var inboxMailItemClass = inboxCheckboxParents.attr('class');
+    //     var getFirstClass = inboxMailItemClass.split(' ')[1];
+    //     var getSecondClass = inboxMailItemClass.split(' ')[2];
+    //     var getThirdClass = inboxMailItemClass.split(' ')[3];
+    //     var getFourthClass = inboxMailItemClass.split(' ')[4];
+    //     var getFifthClass = inboxMailItemClass.split(' ')[5];
+	//
+    //     var notificationText = '';
+	// 	var getCheckedItemlength = $(".inbox-chkbox:checked").length;
+	//
+	// 	var notificationText = getCheckedItemlength < 2 ? getCheckedItemlength + ' Mail Deleted' : getCheckedItemlength + ' Mails Deleted';
+	//
+    //     if (getFirstClass === 'mailInbox' || getFirstClass === 'sentmail' || getFirstClass === 'draft' || getFirstClass === 'spam') {
+    //       inboxCheckboxParents.removeClass(getFirstClass);
+    //     }
+    //     if (getSecondClass === 'mailInbox' || getSecondClass === 'important') {
+    //       inboxCheckboxParents.removeClass(getSecondClass);
+    //     }
+	//   	inboxCheckboxParents.addClass('trashed');
+ 	// 	$(".inbox-chkbox:checked").prop('checked',false);
+ 	// 	$("#inboxAll:checked").prop('checked',false);
+ 	// 	$(".list-actions#trashed").trigger('click');
+	//
+ 	// 	Snackbar.show({
+	//         text: notificationText,
+	//         width: 'auto',
+	//         pos: 'top-center',
+	//         actionTextColor: '#bfc9d4',
+	//         backgroundColor: '#515365'
+	//     });
+	// });
 
 	// Revive Mail from Tash
 	$(".revive-mail").on("click", function() {
@@ -590,7 +592,7 @@ $(document).ready(function() {
 		  	var $_mailFrom = document.getElementById('m-form').value;
 		  	var $_mailTo = document.getElementById('m-to').value;
 
-		  	var $_mailCC = document.getElementById('m-cc').value;
+		  	// var $_mailCC = document.getElementById('m-cc').value;
 		  	var $_mailAttachment = document.getElementById('mail_File_attachment');
 		  	var $_mailSubject = document.getElementById('m-subject').value;
 		  	var $_mailDescriptionText = quill.getText();

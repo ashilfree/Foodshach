@@ -7,7 +7,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-12">
-                    <h2 class="__title"><span>Food Shack Company</span>Sign UP</h2>
+                    <h2 class="__title"><span>Food Shack Company</span>My Orders</h2>
 
 
                 </div>
@@ -24,71 +24,76 @@
         <section class="container-top container">
 
             <div class="row m-b-20">
-
-
+                {% include 'account/side_bar.html.twig' %}
                 <div class="col-md-8 col-sm-12 col-12">
                     <!--SHIPPING METHOD-->
-                    <div class="panel panel-default">
-                        <div class="panel-heading text-left"><h4 class="cl2">Order #{{ order.reference }}</h4></div>
-                        <div class="panel-body">
-                            <table class="table bg10 o-history-de table-responsive-n">
-                                <thead>
-                                <tr class="order-details_top">
-                                    <td class="text-center"><strong># Product:</strong></td>
-                                    <td class="text-center">Units</td>
-                                    <td class="text-center">Total</td>
+                    <div class="row">
+                        <div class="col-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading text-left"><h4 class="cl2">Order #{{ order.reference }}</h4></div>
+                            <div class="panel-body">
+                                <table class="table bg10 o-history-de table-responsive-n">
+                                    <thead>
+                                    <tr class="order-details_top">
+                                        <td class="text-center"><strong># Product:</strong></td>
+                                        <td class="text-center">Units</td>
+                                        <td class="text-center">Total</td>
 
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <!-- foreach ($order->lineItems as $line) or some such thing here -->
-                                {% for orderDetail in orderDetails %}
-                                    <tr>
-                                    <td class="text-center">{{ orderDetail.product|upper }}</td>
-                                    <td class="text-center">{{ orderDetail.quantity }}</td>
-                                    <td class="text-right">{{ (orderDetail.total/100)|number_format(2, '.', ',') }} {{ currency }}</td>
-                                </tr>
-                                {% endfor %}
-                                <tr class="noBorder">
-                                    <td></td>
-                                    <td>Delivery:</td>
-                                    <td class="text-right">{{ (order.deliveryPrice/100)|number_format(2, '.', ',') }} {{ currency }}</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                                    {% for orderDetail in orderDetails %}
+                                        <tr>
+                                            <td class="text-center">{{ orderDetail.product|upper }}</td>
+                                            <td class="text-center">{{ orderDetail.quantity }}</td>
+                                            <td class="text-right">{{ (orderDetail.total/100)|number_format(2, '.', ',') }} {{ currency }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    <tr class="noBorder">
+                                        <td></td>
+                                        <td>Delivery:</td>
+                                        <td class="text-right">{{ (order.deliveryPrice/100)|number_format(2, '.', ',') }} {{ currency }}</td>
 
-                                </tr>
-                                <tr class="noBorder">
-                                    <td></td>
-                                    <td><strong>Grand total:</strong></td>
-                                    <td class="text-right"><strong>{{ ((order.total+order.deliveryPrice)/100)|number_format(2, '.', ',') }} {{ currency }}</strong></td>
+                                    </tr>
+                                    <tr class="noBorder">
+                                        <td></td>
+                                        <td><strong>Grand total:</strong></td>
+                                        <td class="text-right"><strong>{{ ((order.total+order.deliveryPrice)/100)|number_format(2, '.', ',') }} {{ currency }}</strong></td>
 
-                                </tr>
-                                </tbody>
-                            </table>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                         </div>
                     </div>
-                    <!--SHIPPING METHOD END-->
-                </div>
-                <div class="col-md-4 col-sm-12 col-12 m-t-25">
-                    <!--REVIEW ORDER-->
-                    <div class="panel bg10 panel-default">
-                        <div class="panel-heading p-t-12 p-b-12 p-l-20 order-details_top m-b-20">
-                            <h5>Shipping address</h5>
-                        </div>
-                        <div class="panel-body panel-order p-b-20">
-                            <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-12">
+                        <!--REVIEW ORDER-->
+                        <div class="panel bg10 panel-default">
+                            <div class="panel-heading p-t-12 p-b-12 p-l-20 order-details_top m-b-20">
+                                <h5>Delivery address</h5>
+                            </div>
+                            <div class="panel-body panel-order p-b-20">
+                                <div class="col-md-12">
 
-                                <p>{{ order.shippingFullName }},<br>
-                                    {{ order.shippingHouseNumber ~ '-' ~ order.shippingStreetNumber }}.,<br>
-                                    {{ order.shippingCity}},<br>
-                                    {{ order.shippingProvince}}<br>
-                                    {{ order.shippingPhone}}</p>
+                                    <p>Mr. {{ order.shippingFullName }}.<br>
+                                        Address: {{ order.shippingHouseNumber ~ '-' ~ order.shippingStreetNumber }},<br>
+                                        {{ order.shippingCity ~ '-' ~ order.shippingProvince}}.<br>
+                                        Phone: {{ order.shippingPhone}}</p>
+                                </div>
+
+
+
                             </div>
 
-
-
                         </div>
-
+                        <!--REVIEW ORDER END-->
                     </div>
-                    <!--REVIEW ORDER END-->
+                    </div>
+
+                    <!--SHIPPING METHOD END-->
                 </div>
             </div>
 

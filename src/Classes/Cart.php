@@ -50,6 +50,21 @@ class Cart
         return $this->session->get('cart2order');
     }
 
+    public function setCoupon(array $coup)
+    {
+        $this->session->set('coupon', $coup);
+    }
+
+    public function getCoupon()
+    {
+        return $this->session->get('coupon');
+    }
+
+    public function removeCoupon()
+    {
+        $this->session->remove('coupon');
+    }
+
     public function getDelivery()
     {
         return $this->session->get('delivery');

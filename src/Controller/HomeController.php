@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Classes\Cart;
+use App\Classes\OrderCleanup;
 use App\Classes\WishList;
 use App\Repository\CategoryRepository;
 use App\Repository\SlideRepository;
@@ -40,8 +41,12 @@ class HomeController extends AbstractController
      * @var EntityManagerInterface
      */
     private $entityManager;
+    /**
+     * @var OrderCleanup
+     */
+    private $orderCleanup;
 
-    public function __construct( EntityManagerInterface $entityManager,CategoryRepository $categoryRepository, VisitStatsRepository $visitStatsRepository,SlideRepository $slideRepository, Cart $cart, WishList $wishlist)
+    public function __construct( EntityManagerInterface $entityManager,CategoryRepository $categoryRepository, VisitStatsRepository $visitStatsRepository,SlideRepository $slideRepository, Cart $cart, WishList $wishlist, OrderCleanup $orderCleanup)
     {
 
         $this->slideRepository = $slideRepository;
@@ -50,6 +55,7 @@ class HomeController extends AbstractController
         $this->wishlist = $wishlist;
         $this->visitStatsRepository = $visitStatsRepository;
         $this->entityManager = $entityManager;
+        $this->orderCleanup = $orderCleanup;
     }
 
     /**
@@ -59,7 +65,7 @@ class HomeController extends AbstractController
      */
     public function index($locale): Response
     {
-        $path = ($locale == "ar") ? 'home/indexAr.html.twig' : 'home/index.html.twig';
+       $path = ($locale == "ar") ? 'home/indexAr.html.twig' : 'home/index.html.twig';
             return $this->render($path, [
                 'page' => 'home',
                 'categories' => $this->categoryRepository->findAll(),

@@ -1,0 +1,118 @@
+{% extends 'baseAr.html.twig' %}
+
+{% block body %}
+
+    <!-- start hero -->
+    <div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 100%" style="background-image: url({{ vich_uploader_asset(category, 'imageFile2') }});color: #333;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <h2 class="__title"><span>شركة فود شاك</span>{{ category.nameAr }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end hero -->
+
+    <!-- start main -->
+    <main role="main">
+        <!-- Common styles
+        ================================================== -->
+
+
+
+        <div class="container py-5">
+
+            {% if category.subCategories.getValues() is not empty %}
+                <div class="row">
+
+                <div class="col-md-12">
+                    <div class="sub-category">
+
+                        <ul class="filter-tope-group">
+                            <li><button data-filter="*">جميع المنتجات</button></li>
+                            {% for category in category.subCategories %}
+                            <li><button  data-filter=".{{ category.name }}">{{ category.nameAr }}</button></li>
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+            {% endif %}
+            <section class="products-list py-5">
+                <div class="goods--style-1">
+
+                    <div class="row {% if category.subCategories.getValues() is not empty %} isotope-grid {% endif %}">
+                        {% for product in products %}
+                        <!-- start item -->
+                        <div class="col-6 col-sm-6 col-lg-4 {% if product.subCategory is not null %} isotope-item {{ product.subCategory.name }} {% endif %}">
+                            <div class="__item">
+                                <figure class="__image">
+                                    <img class="lazy loaded" width="180" src="{{ vich_uploader_asset(product.images.first, 'imageFile') }}" alt="demo" data-was-processed="true">
+                                </figure>
+
+                                <div class="__content">
+                                    <h4 class="h6 __title"><a href="{{ path('product', {locale: 'ar', 'slug': product.slug }) }}">{{ product.nameAr }}</a></h4>
+
+
+
+                                    <div class="product-price">
+                                        {% if product.discountPrice != 0.0 %}
+                                            <span class="product-price__item product-price__item--new">{{ (product.discountPrice / 100) |number_format(3, '.', ',') }} {{ currency_ar }}</span><br>
+                                            <span class="product-price__item product-price__item--old">{{ (product.price / 100) |number_format(3, '.', ',') }} {{ currency_ar }}</span>
+                                        {% else %}
+                                            <span class="product-price__item product-price__item--new">{{ (product.price / 100) |number_format(3, '.', ',') }} {{ currency_ar }}</span>
+                                        {% endif %}
+                                    </div>
+                                    {% if category.id == 1 %}
+                                        {% if product.hotDegree != null %}
+                                            <img src="{{ '/media/images/spice'~ product.hotDegree.id ~'.png' }}" />
+                                        {% endif %}
+                                    {% endif %}
+                                    <a class="e-button {% if product.quantity != 0 %} js-cart-add {% endif %}" {% if product.quantity == 0 %} href="javascript:void(0)" {% else %} href="{{ path('add.cart', { id: product.id, locale: 'ar' }) }}" {% endif %} {% if product.quantity == 0 %} disabled {% endif %}>
+                                        <button class="btn">
+                                                <span class="text">
+                                                  أضف إلى السلة
+                                                </span>
+                                            <span class="success-text">
+                                                    تمت إضافة المنتج!
+                                                </span>
+                                        </button>
+                                    </a>
+                                </div>
+                                {% if product.quantity == 0 %}  <span class="product-label product-label--sale">نفذ</span> {% endif %}
+
+                            </div>
+                        </div>
+                        <!-- end item -->
+                        {% endfor %}
+                    </div>
+
+
+
+                </div>
+
+                <div class="navigation">
+                    {{ knp_pagination_render(products) }}
+                </div>
+
+            </section>
+
+{#            <div class="container">#}
+{#                <div class="row">#}
+{#                    <div class="col-lg-12">#}
+{#                        <div class="load-more">#}
+{#                            <a class="custom-btn1 custom-btn--medium custom-btn--style-1" href="#">Load More..</a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+        </div>
+
+    </main>
+    <!-- end main -->
+
+{% endblock %}
+

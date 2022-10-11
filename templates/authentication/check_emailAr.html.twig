@@ -1,0 +1,65 @@
+{% extends 'baseAr.html.twig' %}
+{% block title %}Password Reset Email Sent{% endblock %}
+{% block body %}
+
+    <!--================Categories Banner Area =================-->
+    <!-- start hero -->
+    <div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 100%" style="background-image: url({{ '/media/images/intro_img/11.jpg' }});color: #333;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <h2 class="__title"><span>شركة فود شاك</span>التسجيل</h2>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end hero -->
+
+    <!-- start main -->
+    <main role="main">
+        <!-- Common styles
+        ================================================== -->
+
+
+
+        <div class="container py-5">
+            <section class="products-list py-5">
+                <div class="container goods--style-1">
+
+
+                    <div class="row">
+
+                        <div class="col-lg-8 offset-lg-2 text-center">
+
+                            <div class="placeorder-container site-logo">
+
+                                <img src="{{ '/media/images/site_logo.png' }}" />
+
+                                <h3 class="green-success"> تم إرسال بريد إلكتروني يحتوي على ارتباط يمكنك النقر فوقه لإعادة تعيين كلمة المرور الخاصة بك. ستنتهي صلاحية هذا الرابط في {{ tokenLifetime|date('g') }} ساعات).</h3><br />
+                                <h3 class="green-success"> إذا لم تستلم بريدًا إلكترونيًا ، فيرجى التحقق من مجلد البريد العشوائي أو.</h3><br />
+
+
+                                <a class="custom-btn custom-btn--medium" href="{{ path('app_forgot_password_request', { locale: 'ar' }) }}">حاول مجددا</a>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+    <!-- end main -->
+{% endblock %}

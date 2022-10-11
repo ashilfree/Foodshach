@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Classes\Cart;
 use App\Classes\WishList;
+use App\Form\CouponType;
+use App\Form\ResetPasswordRequestFormType;
 use App\Repository\CategoryRepository;
 use App\Repository\GovernorateRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -48,6 +50,7 @@ class CartController extends AbstractController
     public function index($locale): Response
     {
         $cart = $this->cart->getFull($this->cart->get());
+        $form = $this->createForm(CouponType::class);
         if (empty($cart)) {
             $path = ($locale == "en") ? 'cart/empty-cart.html.twig' : 'cart/empty-cartAr.html.twig';
             return $this->render($path, [
@@ -67,7 +70,9 @@ class CartController extends AbstractController
                 'delivery' => $this->cart->getDelivery(),
                 'deliveryIndex' => $this->cart->getDeliveryIndex(),
                 'governorates' => $this->governorateRepository->findAll(),
-                'categories' => $this->categoryRepository->findAll()
+                'categories' => $this->categoryRepository->findAll(),
+                'form' => $form->createView(),
+                'coupon' => $this->cart->getCoupon(),
             ]);
         }
     }

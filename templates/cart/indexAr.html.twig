@@ -1,0 +1,293 @@
+{% extends 'baseAr.html.twig' %}
+
+{% block body %}
+
+    <!-- start hero -->
+    <div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 100%"
+         style="background-image: url({{ '/media/images/intro_img/13.jpg' }});color: #333;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <h2 class="__title"><span>شركة فود شاك</span>إجماليات سلة التسوق</h2>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end hero -->
+
+    <!-- start main -->
+    <main role="main">
+        <!-- Common styles
+        ================================================== -->
+        {% if(delivery == '') %}
+            {% set delivery = 0 %}
+        {% endif %}
+        {% set discount = coupon ? coupon.discount : 0 %}
+        <div class="container mt-60 py-30 mb-60">
+            <form class="row js-cart-form" action="{{ path('update.cart', { locale: 'ar' }) }}">
+                <div class="col-12 col-md-7 col-lg-8">
+
+                    <!-- start cart -->
+                    <div class="cart">
+                        <div class="cart__form" >
+                            <div class="cart__table">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <td width="10%" class="mobile-hide">&nbsp;</td>
+                                        <td width="35%">المنتج</td>
+                                        <td width="15%">سعر</td>
+                                        <td width="20%" class="mobile-hide">كمية</td>
+                                        <td width="15%" class="mobile-hide">مجموع</td>
+                                        <td width="5%" class="mobile-hide">&nbsp;</td>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    {% set total = null %}
+                                    {% if cart %}
+                                        {% for cartItem in cart %}
+                                            {% set quantity = (cartItem.quantity <  cartItem.product.quantity)? cartItem.quantity : cartItem.product.quantity %}
+                                            <tr>
+                                                <td class="mobile-hide">
+                                                    <figure class="__image">
+                                                        <a href="#">
+                                                            <img class="lazy"
+                                                                 src="{{ vich_uploader_asset(cartItem.product.images.first, 'imageFile') | imagine_filter('small') }}"
+                                                                 data-src="{{ vich_uploader_asset(cartItem.product.images.first, 'imageFile') | imagine_filter('small') }}"
+                                                                 alt="demo"/>
+                                                        </a>
+                                                    </figure>
+                                                </td>
+
+                                                <td>
+                                                    <a href="{{ path('product', {locale: 'ar', 'slug': cartItem.product.slug }) }}" class="__name">{{ cartItem.product.nameAr }}</a>
+                                                </td>
+
+                                                <td>
+                                                    <span class="__price">
+                                                      {% if cartItem.product.discountPrice != 0.0 %}
+                                                          {{ (cartItem.product.discountPrice / 100) |number_format(3, '.', ',') }} {{ currency_ar }}
+                                                      {% else %}
+                                                          {{ (cartItem.product.price / 100) |number_format(3, '.', ',') }} {{ currency_ar }}
+                                                      {% endif %}
+                                                    </span>
+                                                </td>
+
+                                                <td>
+                                                    <div class="mobile-increment">
+                                                        <div class="quantity-counter js-quantity-counter">
+                                                            <input type="hidden" name="product-{{ loop.index }}"
+                                                                   value="{{ cartItem.product.id }}">
+                                                            <span class="__btn __btn--minus js-quantity"></span>
+                                                            <input class="__q-input" type="text"
+                                                                   name="quantity-{{ loop.index }}"
+                                                                   value="{{ quantity }}"
+                                                            />
+                                                            <span class="__btn __btn--plus js-quantity" data-max="{{ cartItem.product.quantity }}"></span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td class="mobile-hide">
+                                                    <span class="__total">
+                                                        {% if cartItem.product.discountPrice != 0.0 %}
+                                                            <span> {{ (cartItem.product.discountPrice * quantity  / 100) |number_format(3, '.', ',') }}</span> {{ currency_ar }}
+                                                        {% else %}
+                                                            <span>{{ (cartItem.product.price * quantity  / 100) |number_format(3, '.', ',') }}</span> {{ currency_ar }}
+                                                        {% endif %}
+                                                        </span>
+                                                </td>
+
+                                                <td>
+                                                    <a class="__remove"
+                                                       href="{{ path('delete.cart', {locale: 'ar' ,id: cartItem.product.id, route:page}) }}"
+                                                       aria-label="Remove this item">
+                                                        <i class="fontello-cancel"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            {% if cartItem.product.discountPrice != 0.0 %}
+                                                {% set total = total + (quantity * cartItem.product.discountPrice)/100 %}
+                                            {% else %}
+                                                {% set total = total + (quantity * cartItem.product.price)/100 %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-12 col-md-5 col-lg-4 col-xl-4 js-overlay">
+
+                    {% include 'product/_overlay.html.twig' %}
+                    <div class="spacer py-5 d-md-none"></div>
+
+                    <div class="cart__total mb-30">
+                        <table>
+                            <thead>
+                            <tr>
+                                <td colspan="2"><h3>إجماليات سلة التسوق</h3></td>
+                            </tr>
+                            </thead>
+
+                            <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-center">
+                                    <a class="custom-btn custom-btn--medium custom-btn--style-1"
+                                        {% if delivery is null or delivery == 0 %} href="javascript:void(0)"
+                                        {% else %} href="{{ path('order', { locale: 'ar' }) }}" {% endif %}
+                                        {% if delivery is null or delivery == 0 %} disabled data-toggle="tooltip" data-placement="top" title="Calculate Shipping" {% endif %}>
+                                        انتقل إلى خيارات الدفع
+                                    </a>
+                                </td>
+                            </tr>
+                            </tfoot>
+
+                            <tbody>
+                            <tr>
+                                <td>المجموع:</td>
+                                <td>{{ total|number_format(3, '.', ',') }} {{ currency_ar }}</td>
+                            </tr>
+                            {% if coupon %}
+                            <tr class="bord">
+                                <td>تخفيض({{ coupon.name }}): <a href="{{ path('coupon.destroy', { locale: 'ar' }) }}" style="font-size: 12px;">حذف</a><br>(استفد: {{ (coupon.type == 'fixed')? coupon.discountValue ~ currency_ar : coupon.discountValue ~ '%' }})</td>
+                                <td>-{{ discount|number_format(3, '.', ',') }} {{ currency_ar }}</td>
+                            </tr>
+                            <tr>
+                                <td>المجموع الجديد:</td>
+                                <td>{{ (total-discount)|number_format(3, '.', ',') }} {{ currency_ar }}</td>
+                            </tr>
+                            {% endif %}
+                            <tr>
+                                <td colspan="2" class="__note">
+                                    <p class="__ttl text-right">احسب التسليم</p>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                                            <div class="input-wrp">
+                                                <select class="js-select" name="delivery-index" required="required">
+                                                    <option value="">اختر محافظة...</option>
+                                                    {% for governorate in governorates %}
+                                                        <option {% if deliveryIndex is defined and deliveryIndex == loop.index %}  selected {% endif %}
+                                                                value="{{ loop.index }}" data-price="{{ governorate.price }}" class="text-right">{{ governorate.nameAr }} </option>
+                                                    {% endfor %}
+                                                </select>
+                                                <input type="hidden" name="delivery">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>توصيل</td>
+                                <td>
+                                    <span id="total">
+                                        {% if delivery is defined %}
+                                            {{ (delivery/100)|number_format(3, '.', ',') }}
+                                        {% else %}
+                                            0.00
+                                        {% endif %}
+                                    </span>
+                                    {{ currency_ar }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>إجمالي الطلب</td>
+                                <td>{{ ((total-discount)+ delivery/100)|number_format(3, '.', ',') }} {{ currency_ar }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+{#                    <div class="cart__coupon form--horizontal">#}
+{#                        <div class="input-wrp">#}
+{#                            <form>#}
+{#                                <input class="textfield" type="text" placeholder="Coupon code"/>#}
+{#                            </form>#}
+{#                        </div>#}
+
+{#                        <button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">#}
+{#                            Apply Coupon#}
+{#                        </button>#}
+{#                    </div>#}
+                </div>
+                <!-- start cart -->
+
+            </form>
+            <div class="form__note">
+                {% for message in app.flashes('error')  %}
+                    <div style="color:#5e8350;font-size: 22px;">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+            {% if not coupon %}
+            <div class="cart-btn">
+                    {{ form_start(form, {action: path('coupon.store', { locale: 'ar' }), 'attr': {'class': 'row'}}) }}
+                        <div class="col-lg-6 mb-5">
+                            <div class="coupon-input">
+                                {{ form_widget(form.code, {'attr': {'placeholder':'أدخل رمز القسيمة'}}) }}
+                            </div>
+                        </div>
+                        <div class="col-lg-6 text-right text-lg-left">
+                            <button class="site-btn clear-btn" type="submit">تطبيق</button>
+                        </div>
+                    {{ form_end(form) }}
+            </div>
+            {% endif %}
+        </div>
+
+
+    </main>
+    <!-- end main -->
+    <style>
+        .cart-btn {
+            background: #F9FBFB;
+            padding: 50px 0;
+        }
+        .cart-btn .coupon-input {
+            padding-right: 35px;
+            padding-left: 35px;
+        }
+        .cart-btn .coupon-input input {
+            height: 57px;
+            width: 100%;
+            padding-right: 15px;
+            border: none;
+            border-bottom: 2px solid #D0D7DB;
+            background: transparent;
+            color: #1e1e1e;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .cart-btn .site-btn.clear-btn {
+            color: #4a4a4a;
+            border-color: #D0D7DB;
+            margin-right: 35px;
+            margin-left: 35px;
+            margin-top: 0px;
+        }
+        .site-btn {
+            color: #1e1e1e;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 16px 40px;
+            border: 2px solid #1e1e1e;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        .cart-btn .site-btn.update-btn {
+            margin-right: 35px;
+        }
+    </style>
+{% endblock %}

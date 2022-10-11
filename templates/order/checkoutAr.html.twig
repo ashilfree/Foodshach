@@ -1,0 +1,428 @@
+{% extends 'baseAr.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+{% endblock %}
+{% block body %}
+
+    <!-- start hero -->
+    <div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 100%" style="background-image: url({{ '/media/images/intro_img/13.jpg' }});color: #333;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <h2 class="__title"><span>شركة فود شاك</span>تفاصيل الفاتورة</h2>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end hero -->
+    {% set discount = coupon ? coupon.discount : 0 %}
+    <!-- start main -->
+    <main role="main">
+        <div class="container mt-60 py-30 mb-60">
+            <div class="row">
+                <div class="col-12">
+
+                    <!-- start checkout -->
+                    <div class="checkout">
+                        <h2>تفاصيل الفاتورة</h2>
+
+                        <div class="spacer py-3"></div>
+                        {% include 'product/_overlay.html.twig' %}
+                        {{ form_start(form, {'attr': {'class': 'checkout__form js-checkout-form', 'onsubmit': 'setFormSubmitting()'}}) }}
+                            <div class="row justify-content-xl-between">
+                                <div class="col-12 col-md-5 col-lg-6">
+                                    <div><h6>معلومات شخصية</h6></div>
+                                    <div class="my-custom-class-for-errors">
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.shippingFullName, {'attr': {'class': 'textfield', 'placeholder':'اسم بالكامل'}}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.shippingPhone, {'attr': {'class': 'textfield', 'placeholder':'هاتفك', 'maxLength': 8}}) }}
+                                            </div>
+                                            <small style="color:red;">{{ form_errors(form.shippingPhone) }}</small>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.shippingEmail, {'attr': {'class': 'textfield', 'placeholder':'بريدك الالكتروني'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="spacer py-6"></div>
+
+                                    <div><h6>عنوان</h6></div>
+
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.shippingCountry, {'id': 'country', 'attr': {'class': 'textfield wide js-select'}}) }}
+{#                                                <select class="textfield wide js-select">#}
+{#                                                    <option>Country * 1</option>#}
+{#                                                    <option>Country * 2</option>#}
+{#                                                    <option>Country * 3</option>#}
+{#                                                    <option>Country * 4</option>#}
+{#                                                    <option>Country * 5</option>#}
+{#                                                </select>#}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.shippingCity, {'id': 'city', 'attr': {'class': 'textfield', 'placeholder':'المحافظة'}}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.shippingProvince, {'id': 'province', 'attr': {'class': 'textfield', 'placeholder':'منطقة'}}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.shippingPostalCode, {'id': 'postalCode', 'attr': {'class': 'textfield', 'placeholder':'رقم المجمع السكني'}}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.shippingStreetNumber, {'id': 'province', 'attr': {'class': 'textfield', 'placeholder':'رقم الشارع'}}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.shippingHouseNumber, {'id': 'postalCode', 'attr': {'class': 'textfield', 'placeholder':'رقم المنزل'}}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.shippingApartment, {'id': 'address', 'attr': {'class': 'textfield text-left', 'placeholder':'شقة'}}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="input-wrp">
+                                                {{ form_widget(form.notes, {'id': 'notes', 'attr': {'class': 'textfield', 'placeholder':'ملاحظات الطلب (اختياري)'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <a href="{{ path('back.to.cart', { locale: 'ar' }) }}" class="custom-btn custom-btn--medium custom-btn--style-1" style="margin-top: 55px" role="button" id="back">العودة إلى عربة التسوق</a>
+
+                                    <div class="spacer py-6 d-md-none"></div>
+                                </div>
+
+                                <div class="col-12 col-md-7 col-lg-6 col-xl-5">
+                                    <div><h6>منتجاتك</h6></div>
+
+                                    <div class="checkout__table">
+                                        <table>
+                                            <tbody>
+                                            {% set total = null %}
+                                            {% for productCart in cart2order %}
+                                                <tr>
+                                                    <td width="65%">
+                                                        <div class="d-table">
+                                                            <div class="d-table-cell align-middle">
+                                                                <figure class="__image">
+                                                                    <a href="#">
+                                                                        <img class="lazy" src="{{ vich_uploader_asset(productCart.product.images.first, 'imageFile') | imagine_filter('small') }}" data-src="{{ vich_uploader_asset(productCart.product.images.first, 'imageFile') | imagine_filter('small') }}" alt="demo" />
+                                                                    </a>
+                                                                </figure>
+                                                            </div>
+
+                                                            <div class="d-table-cell align-middle">
+                                                                <a href="#" class="__name">{{ productCart.product.nameAr }}</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                    <td>
+                                                        <span class="__amount">x{{ productCart.quantity }}</span>
+                                                    </td>
+
+                                                    <td width="1%">
+                                                        <span class="__total">
+                                                            {% if productCart.product.discountPrice != 0.0 %}
+                                                                <span> {{ (productCart.product.discountPrice * productCart.quantity  / 100) |number_format(3, '.', ',') }}</span> {{ currency_ar }}
+                                                            {% else %}
+                                                                <span>{{ (productCart.product.price * productCart.quantity  / 100) |number_format(3, '.', ',') }}</span> {{ currency_ar }}
+                                                            {% endif %}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                {% if productCart.product.discountPrice != 0.0 %}
+                                                    {% set subTotal = (productCart.quantity * productCart.product.discountPrice)/100 %}
+                                                {% else %}
+                                                    {% set subTotal = (productCart.quantity * productCart.product.price)/100 %}
+                                                {% endif %}
+                                                {% set total = total + subTotal %}
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="checkout__total">
+
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <td colspan="2"><h3>طلبك</h3></td>
+                                            </tr>
+                                            </thead>
+                                            <tbody >
+                                            <tr>
+                                                <td class="text-right">مجموع:</td>
+                                                <td>{{ total|number_format(3, '.', ',') }} {{ currency_ar }}</td>
+                                            </tr>
+                                            {% if coupon %}
+                                            <tr class="bord">
+                                                <td class="text-right">تخفيض({{ coupon.name }}):</td>
+                                                <td>-{{ discount|number_format(3, '.', ',') }} {{ currency_ar }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right">المجموع الجديد:</td>
+                                                <td>{{ (total-discount)|number_format(3, '.', ',') }} {{ currency_ar }}</td>
+                                            </tr>
+                                            {% endif %}
+                                            <tr>
+                                                <td class="text-right">توصيل</td>
+                                                <td>{{ (delivery2order/100)|number_format(3, '.', ',') }} {{ currency_ar }}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="text-right">إجمالي الطلب</td>
+                                                <td>{{ ((total-discount) + delivery2order/100)|number_format(3, '.', ',') }} {{ currency_ar }}</td>
+                                            </tr>
+                                            </tbody>
+                                            <tfoot>
+                                            <tr>
+
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" class="__note">
+                                                    <p class="__ttl">طريقة الدفع</p>
+                                                    <div class="payment-type">
+
+                                                        <div class="types flex justify-space-between">
+                                                            <div class="type type1 selected">
+                                                                <div class="logo">
+                                                                    <i class="fas fa-handshake"></i>
+                                                                </div>
+                                                                <div class="text">
+                                                                    <p>الدفع عند الاستلام</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="type type2">
+                                                                <div class="logo">
+                                                                    <i class="far fa-credit-card"></i>
+                                                                </div>
+                                                                <div class="text">
+                                                                    <p>دفع مع بطاقة الائتمان</p>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="row select-wrapper" style="display: none">
+                                                        <div class="col-10 offset-1">
+                                                            <div class="input-wrp">
+                                                                {{ form_widget(form.paymentMethod, {'id': 'paymentMethod', 'attr': {'class': 'textfield wide js-select text-right'}}) }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td colspan="2">
+{#                                                    <p>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.</p>#}
+
+                                                    <button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">تقديم الطلب</button>
+                                                </td>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                    </div>
+                    <!-- end checkout -->
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </main>
+    <!-- end main -->
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var formSubmitting = false;
+        var setFormSubmitting = function() { formSubmitting = true; };
+
+        window.onbeforeunload = function(){
+            if (formSubmitting) {
+                console.log("Clickkkkkk");
+                this.overlay = document.querySelector('.checkout');
+                this.overlay.classList.add('is-loading');
+                const loader = this.overlay.querySelector('.js-loader');
+                if (loader === null) {
+                    return
+                }
+                loader.setAttribute('aria-hidden', 'false');
+                loader.style.display = null;
+                return undefined;
+            }
+            return 'هل أنت متأكد أنك تريد مغادرة هذه الصفحة؟';
+        };
+
+
+        // window.onload = function() {
+        //    window.addEventListener("beforeunload", function (e) {
+        //         if (formSubmitting) {
+        //             return undefined;
+        //         }
+        //
+        //         var confirmationMessage = 'It looks like you have been editing something. '
+        //             + 'If you leave before saving, your changes will be lost.';
+        //
+        //         (e || window.event).returnValue = confirmationMessage;
+        //         return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+        //     });
+        // };
+    </script>
+    <style>
+        .card-body .payment-type .types {
+            margin: 25px 0;
+        }
+        .flex.justify-space-between {
+            justify-content: space-between;
+        }
+        .flex {
+            display: flex;
+            flex-direction: row wrap;
+            align-items: center;
+        }
+        .payment-type .types .type.selected {
+            border-color: #5e8350;
+            background: rgba(64,179,255,0.1);
+        }
+
+        .payment-type {
+            margin-bottom: 20px;
+        }
+
+        .payment-type .types .type {
+            width: 45%;
+            position: relative;
+            background: #f2f4f7;
+            border: 2px solid #e8ebed;
+            padding: 25px;
+            box-sizing: border-box;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.5s ease;
+
+        }
+        .payment-type .types .type.disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .payment-type .types .type.selected .logo {
+            color: #5e8350;
+        }
+
+        .payment-type .types .type .logo {
+            font-size: 48px;
+            color: #8a959c;
+            justify-content: center;
+        }
+        .payment-type .types .type .logo, .card .card-body .payment-type .types .type p {
+            transition: all 0.5s ease;
+        }
+        .payment-type .types .type.selected p {
+            color: #28333b;
+        }
+        .payment-type .types .type p {
+            margin-bottom: 0;
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #8a959c;
+        }
+        .payment-type .types .type .logo, .card .card-body .payment-type .types .type p {
+            transition: all 0.5s ease;
+        }
+        .payment-type .types .type.selected::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            height: 40px;
+            width: 40px;
+            top: -21px;
+            right: -21px;
+            background: #fff;
+            border: 2px solid #5e8350;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        /*.select-wrapper {*/
+        /*    position: relative;*/
+        /*    width: 100%;*/
+        /*}*/
+        /*.select-wrapper::after {*/
+        /*    color: black;*/
+        /*    content: "▾";*/
+        /*    margin-right: 10px;*/
+        /*    pointer-events: none;*/
+        /*    position: absolute;*/
+        /*    right: 10px;*/
+        /*    top: 7px;*/
+        /*    font-size: 20px;*/
+        /*}*/
+
+        /*.select {*/
+        /*    -moz-appearance: none;*/
+        /*    -webkit-appearance: none;*/
+        /*    background: white;*/
+        /*    border: none;*/
+        /*    border-radius: 0;*/
+        /*    cursor: pointer;*/
+        /*    padding: 12px;*/
+        /*    width: 100%;*/
+        /*    font-size: 18px;*/
+        /*}*/
+        /*.select:focus {*/
+        /*    color: black;*/
+        /*}*/
+        /*.select::-ms-expand {*/
+        /*    display: none;*/
+        /*}*/
+
+    </style>
+{% endblock %}

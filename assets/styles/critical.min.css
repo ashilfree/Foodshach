@@ -136,8 +136,8 @@ summary {
     content: '\e800'}
 .fontello-location:before {
     content: '\e801'}
-.fontello-down-1:before {
-    content: '\e802'}
+.fontello-globe-1:before {
+    content: '\e97b'}
 .fontello-left-1:before {
     content: '\e803'}
 .fontello-right-1:before {
@@ -4118,4 +4118,7 @@ a[disabled] {
 }
 a[disabled] button {
     cursor: not-allowed;
+}
+.top-bar__navigation li .icon-lang {
+    font-size: 16px!important;
 }
